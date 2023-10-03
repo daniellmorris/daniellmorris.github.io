@@ -14,6 +14,10 @@ td:first-child {
 tr {
 	border-bottom: 1px solid #ddd;
 }
+
+table {
+	width: 100%;
+}
 /* END: Styles Added By Me */
 
 /* EVERYTHING AFTER THIS WAS FROM THE hayflow THEME */
