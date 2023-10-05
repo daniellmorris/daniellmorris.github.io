@@ -4,7 +4,7 @@ title = "About"
 
 Hi, I'm Dan Morris, a **Freelance Software Engineer** with a passion for crafting elegant solutions to complex problems. Welcome to my world of coding and creativity.
 
-I have a wide range of software development skills. I have expertise multiple areas including, backend, frontent, dev-ops, system architecture, and database design. See the [skills](#skills) sections for more details.
+I have a wide range of software development skills. I have expertise multiple areas including, backend, frontent, dev-ops, system architecture, and database design. See the [skills](/#skills) sections for more details.
 
 With over **10 years of professional experience**, I've had the privilege of working with a range of businesses, helping them bring their digital visions to life. From developing scalable media platforms to optimizing database performance, to working on embedded systems I've tackled a wide range of challenges.
 
