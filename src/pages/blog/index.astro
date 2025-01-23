@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const posts = await Astro.glob('./*.md');
+
+// Sort posts by date
+const sortedPosts = posts.sort((a, b) => {
+  return new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime();
+});
+---
+
+<Layout title="Blog - Dan Morris">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-center">Technical Blog</h1>
+    
+    <div class="grid gap-6">
+      {sortedPosts.map(post => (
+        <article class="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700">
+          <h2 class="text-2xl font-semibold mb-2">
+            <a href={post.url} class="text-blue-400 hover:text-blue-300 transition-colors">
+              {post.frontmatter.title}
+            </a>
+          </h2>
+          <div class="flex items-center text-gray-400 mb-4">
+            <span class="text-sm">{new Date(post.frontmatter.date).toLocaleDateString()}</span>
+            {post.frontmatter.tags && (
+              <div class="ml-4 flex gap-2">
+                {post.frontmatter.tags.map(tag => (
+                  <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded-full text-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+          {post.frontmatter.excerpt && (
+            <p class="text-gray-300">{post.frontmatter.excerpt}</p>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>

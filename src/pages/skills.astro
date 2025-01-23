@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const skills = {
+  highLevel: ['Micro-Service Systems', 'System Architecture', 'API Design', 'Database Design', 'Cloud Architecture'],
+  languages: ['Node.js', 'React.js', 'Vue.js', 'Embedded C', 'Java', 'Angular.js', 'Python', 'TypeScript'],
+  databases: ['MongoDB', 'PostgreSQL', 'Prisma ORM', 'Redis', 'ElasticSearch'],
+  cloud: ['AWS', 'Kubernetes', 'Docker', 'Terraform', 'EC2', 'Lambda', 'S3', 'CloudFront'],
+  devops: ['Linux', 'CircleCI', 'GitHub Actions', 'Azure Pipelines', 'Jenkins'],
+  other: ['Okta', 'Clerk', 'Message Bus (RabbitMQ)', 'Web Scraping', 'CRM Development', 'Rules Engine']
+};
+---
+
+<Layout title="Skills - Dan Morris">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-center">Technical Skills</h1>
+    
+    <div class="grid gap-8">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-4 text-blue-600">High-Level Expertise</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {skills.highLevel.map(skill => (
+            <div class="bg-blue-50 p-3 rounded-lg text-center">
+              <span class="text-blue-800">{skill}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-4 text-green-600">Languages & Frameworks</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {skills.languages.map(skill => (
+            <div class="bg-green-50 p-3 rounded-lg text-center">
+              <span class="text-green-800">{skill}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-4 text-purple-600">Databases & Storage</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {skills.databases.map(skill => (
+            <div class="bg-purple-50 p-3 rounded-lg text-center">
+              <span class="text-purple-800">{skill}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-4 text-orange-600">Cloud & Infrastructure</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {skills.cloud.map(skill => (
+            <div class="bg-orange-50 p-3 rounded-lg text-center">
+              <span class="text-orange-800">{skill}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-4 text-red-600">DevOps & CI/CD</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {skills.devops.map(skill => (
+            <div class="bg-red-50 p-3 rounded-lg text-center">
+              <span class="text-red-800">{skill}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

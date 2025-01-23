@@ -1,0 +1,168 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+const navLinks = [
+  { href: '/about', text: 'About' },
+  { href: '/skills', text: 'Skills' },
+  { href: '/industries', text: 'Industries' },
+  { href: '/projects', text: 'Projects' },
+  { href: '/blog', text: 'Blog' }
+];
+
+const socialLinks = [
+  { href: 'https://github.com/daniellmorris', text: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/daniellmorris/', text: 'LinkedIn' }
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title.replace('MORRIS', 'Morris')}</title>
+    <style is:global>
+      /* Keep your existing styles */
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100">
+    <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <a href="/" class="flex items-center">
+              <span class="text-xl font-bold text-white hover:text-blue-400 transition-colors">Dan Morris</span>
+            </a>
+            <div class="hidden md:flex md:items-center md:ml-10 space-x-8">
+              {navLinks.map(link => (
+                <a 
+                  href={link.href}
+                  class="text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  {link.text}
+                </a>
+              ))}
+            </div>
+          </div>
+          
+          <!-- Mobile menu button -->
+          <div class="flex items-center md:hidden">
+            <button 
+              type="button" 
+              id="mobile-menu-button"
+              class="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white p-2"
+              aria-controls="mobile-menu"
+              aria-expanded="false"
+            >
+              <span class="sr-only">Open main menu</span>
+              <svg 
+                id="menu-icon"
+                class="h-6 w-6" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  stroke-width="2" 
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+              <svg 
+                id="close-icon"
+                class="hidden h-6 w-6" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  stroke-width="2" 
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+          <div class="px-2 pt-2 pb-3 space-y-1">
+            {navLinks.map(link => (
+              <a
+                href={link.href}
+                class="text-gray-300 hover:text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+              >
+                {link.text}
+              </a>
+            ))}
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <slot />
+    </main>
+
+    <footer class="bg-gray-800 border-t border-gray-700 mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="text-center">
+          <p class="text-gray-300">© 2023 Dan Morris. All rights reserved.</p>
+          <div class="mt-4 space-x-4">
+            {socialLinks.map(link => (
+              <a 
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-400 hover:text-white transition-colors"
+              >
+                {link.text}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu functionality
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+
+      if (mobileMenuButton && mobileMenu && menuIcon && closeIcon) {
+        mobileMenuButton.addEventListener('click', () => {
+          const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+          
+          // Toggle menu visibility
+          mobileMenu.classList.toggle('hidden');
+          
+          // Toggle icons
+          menuIcon.classList.toggle('hidden');
+          closeIcon.classList.toggle('hidden');
+          
+          // Update aria-expanded
+          mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        // Close menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

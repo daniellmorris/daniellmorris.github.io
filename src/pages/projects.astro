@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const openSourceProjects = [
+  {
+    name: 'Rule Harvester',
+    description: 'A general purpose rules engine that processes rule definitions against input, transforming data through defined rules.',
+    role: 'Original Author + Maintainer',
+    tags: ['Node.js', 'Rules Engine', 'Data Processing'],
+    github: '#'
+  },
+  {
+    name: 'AMQP Cacoon',
+    description: 'An abstraction around node-amqp-connection-manager providing simple interface with flow control, retries, and reconnects.',
+    role: 'Original Author + Maintainer',
+    tags: ['Node.js', 'AMQP', 'Message Queue'],
+    github: '#'
+  },
+  {
+    name: 'Shillkill',
+    description: 'Chrome extension for Twitter to block shills and improve user experience.',
+    role: 'Original Author',
+    tags: ['JavaScript', 'Chrome Extension', 'Social Media'],
+    github: '#'
+  }
+];
+
+const clientProjects = [
+  {
+    name: 'Rewards Engine',
+    description: 'Highly configurable rewards engine for theme parks, enabling quest-based player engagement and rewards distribution.',
+    technologies: ['Node.js', 'MongoDB', 'Redis', 'AWS'],
+    impact: 'Implemented across multiple theme parks, significantly increasing guest engagement.'
+  },
+  {
+    name: 'Analytics Platform',
+    description: 'Comprehensive analytics pipeline tracking and analyzing theme park activities and guest behavior.',
+    technologies: ['Python', 'AWS', 'ElasticSearch', 'Kibana'],
+    impact: 'Processed millions of daily events, providing valuable insights for business decisions.'
+  },
+  {
+    name: 'Microservice Platform',
+    description: 'Scalable event streaming platform handling 50k concurrent users during peak events.',
+    technologies: ['Node.js', 'Kubernetes', 'RabbitMQ', 'Redis'],
+    impact: 'Successfully handled 50k active users for time-sensitive events.'
+  },
+  {
+    name: 'OTT Media Pipeline',
+    description: 'Media processing platform for streaming with Dolby Technology integration.',
+    technologies: ['Node.js', 'FFmpeg', 'AWS', 'Docker'],
+    impact: 'Streamlined media processing workflow for high-quality content delivery.'
+  }
+];
+---
+
+<Layout title="Projects - Dan Morris">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-center">Projects Portfolio</h1>
+    
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6">Open Source Contributions</h2>
+      <div class="grid gap-6">
+        {openSourceProjects.map(project => (
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700">
+            <div class="flex justify-between items-start">
+              <h3 class="text-2xl font-semibold text-blue-400">{project.name}</h3>
+              <a href={project.github} class="text-gray-400 hover:text-white transition-colors">
+                <span class="text-sm">GitHub ↗</span>
+              </a>
+            </div>
+            <p class="text-gray-300 mt-2">{project.description}</p>
+            <p class="text-sm text-gray-400 mt-2">Role: {project.role}</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              {project.tags.map(tag => (
+                <span class="bg-gray-700 text-blue-300 px-3 py-1 rounded-full text-sm">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-3xl font-bold mb-6">Client Projects</h2>
+      <div class="grid gap-6">
+        {clientProjects.map(project => (
+          <div class="bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700">
+            <h3 class="text-2xl font-semibold text-purple-400">{project.name}</h3>
+            <p class="text-gray-300 mt-2">{project.description}</p>
+            <div class="mt-4">
+              <h4 class="font-semibold text-gray-200">Technologies Used:</h4>
+              <div class="flex flex-wrap gap-2 mt-2">
+                {project.technologies.map(tech => (
+                  <span class="bg-gray-700 text-purple-300 px-3 py-1 rounded-full text-sm">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <p class="text-gray-300 mt-4">
+              <span class="font-semibold text-gray-200">Impact:</span> {project.impact}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
