@@ -5,4 +5,8 @@ export default defineConfig({
   integrations: [tailwind()],
   site: 'https://daniellmorris.github.io',
   base: '/',
+  output: 'static',
+  build: {
+    format: 'directory'
+  }
 });
