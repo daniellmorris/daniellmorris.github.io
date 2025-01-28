@@ -1,7 +1,8 @@
 ---
 import Layout from './Layout.astro';
+import { Markdown } from '@astrojs/markdown-remark';
 
-const { frontmatter } = Astro.props;
+const { frontmatter, content } = Astro.props;
 ---
 
 <Layout title={frontmatter.title}>
@@ -22,7 +23,7 @@ const { frontmatter } = Astro.props;
       </div>
     </div>
     <div class="prose prose-invert max-w-none markdown-content bg-gray-800 p-8 rounded-lg shadow-md border border-gray-700">
-      <slot />
+      {content ? <Markdown content={content} /> : <p>No content available</p>}
     </div>
   </article>
 </Layout>
