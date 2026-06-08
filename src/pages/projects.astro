@@ -1,165 +1,176 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const openSourceProjects = [
+const featuredProjects = [
   {
     name: 'Qodi',
-    description: 'A backend service for encrypted, time-limited QR codes. Clients encrypt with a public key while private-key decryption and expiration enforcement remain server-side.',
-    role: 'Creator + Maintainer',
+    eyebrow: 'Secure platform service',
+    description: 'Encrypted, time-limited QR workflows with public-key encryption, server-side decryption, expiration enforcement, and an OpenAPI contract.',
     tags: ['TypeScript', 'Cryptography', 'OpenAPI', 'Docker'],
-    github: 'https://github.com/GiganticPlayground/qodi'
+    github: 'https://github.com/GiganticPlayground/qodi',
+    accent: 'indigo',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />`
   },
   {
     name: 'Examen',
-    description: 'A declarative HTTP and CLI test runner for release validation, with YAML suites, assertions, retries, chained tests, parallel checks, and setup and teardown support.',
-    role: 'Creator + Maintainer',
+    eyebrow: 'Release validation',
+    description: 'Declarative HTTP and CLI testing with YAML suites, assertions, retries, chained execution, parallel checks, and lifecycle hooks.',
     tags: ['TypeScript', 'Testing', 'CLI', 'YAML'],
-    github: 'https://github.com/GiganticPlayground/examen'
+    github: 'https://github.com/GiganticPlayground/examen',
+    accent: 'purple',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />`
   },
   {
     name: 'Token Weaver',
-    description: 'A stateless, strategy-driven authentication gateway that translates credentials or upstream authentication responses into signed JWTs.',
-    role: 'Creator + Maintainer',
+    eyebrow: 'Authentication infrastructure',
+    description: 'A stateless, strategy-driven gateway that translates direct credentials or upstream authentication responses into signed JWTs.',
     tags: ['TypeScript', 'JWT', 'Authentication', 'Security'],
-    github: 'https://github.com/GiganticPlayground/token-weaver'
+    github: 'https://github.com/GiganticPlayground/token-weaver',
+    accent: 'blue',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H3v-4l6.257-6.257A6 6 0 1121 9z" />`
   },
   {
     name: 'Airlock Registry',
-    description: 'A container registry template that separates image publishing and retrieval through object storage for network-isolated deployment environments.',
-    role: 'Creator + Maintainer',
+    eyebrow: 'Isolated deployment',
+    description: 'A container distribution template that separates publishing and retrieval through object storage for network-isolated environments.',
     tags: ['Containers', 'S3', 'Shell', 'Infrastructure'],
-    github: 'https://github.com/GiganticPlayground/airlock-registry'
-  },
-  {
-    name: 'Logra',
-    description: 'Async context-aware logging for Node.js applications, designed to keep structured logs readable while preserving request-level context.',
-    role: 'Creator + Maintainer',
-    tags: ['Node.js', 'Logging', 'Async Context', 'Observability'],
-    github: 'https://github.com/GiganticPlayground/logra'
-  },
-  {
-    name: 'Rule Harvester',
-    description: 'A general-purpose JavaScript rules engine that evaluates declarative rule definitions against application data.',
-    role: 'Original Author + Maintainer',
-    tags: ['Node.js', 'Rules Engine', 'Data Processing'],
-    github: 'https://github.com/GiganticPlayground/rule-harvester'
-  },
-  {
-    name: 'AMQP Cacoon',
-    description: 'An abstraction around node-amqp-connection-manager providing a simple interface with flow control, retries, and automatic reconnects.',
-    role: 'Original Author + Maintainer',
-    tags: ['Node.js', 'AMQP', 'Message Queue'],
-    github: 'https://github.com/GiganticPlayground/amqp-cacoon'
-  },
-  {
-    name: 'PayloadStash',
-    description: 'A YAML-driven HTTP fetch-and-stash tool for defining REST call sequences, validation, captured values, concurrency, and run reporting.',
-    role: 'Contributor',
-    tags: ['Python', 'YAML', 'HTTP Testing', 'Automation'],
-    github: 'https://github.com/ericwastaken/PayloadStash'
-  },
-  {
-    name: 'Kusto Docker Log Aggregator',
-    description: 'A development utility that forwards Docker logs into a local Kusto emulator for ADX-style log exploration.',
-    role: 'Creator + Maintainer',
-    tags: ['Docker', 'Kusto', 'Logging', 'Developer Tools'],
-    github: 'https://github.com/daniellmorris/kusto-docker-log-aggregator'
-  },
-  {
-    name: 'Shillkill',
-    description: 'Chrome extension for Twitter/X that filters cryptocurrency shill and spam patterns from the timeline.',
-    role: 'Creator',
-    tags: ['JavaScript', 'Chrome Extension', 'Social Media'],
-    github: 'https://github.com/daniellmorris/shillkill'
+    github: 'https://github.com/GiganticPlayground/airlock-registry',
+    accent: 'emerald',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7m-8 0c0 2.21 3.582 4 8 4s8-1.79 8-4m-8 0c0-2.21 3.582-4 8-4s8 1.79 8 4" />`
   }
 ];
 
-const clientProjects = [
+const projectGroups = [
+  {
+    title: 'Created',
+    projects: [
+      { name: 'Logra', description: 'Async context-aware structured logging for Node.js.', tags: ['Node.js', 'Observability'], github: 'https://github.com/GiganticPlayground/logra' },
+      { name: 'Kusto Docker Log Aggregator', description: 'Docker log forwarding for local Kusto exploration.', tags: ['Docker', 'Kusto'], github: 'https://github.com/daniellmorris/kusto-docker-log-aggregator' },
+      { name: 'Shillkill', description: 'Browser filtering for cryptocurrency spam patterns.', tags: ['JavaScript', 'Chrome'], github: 'https://github.com/daniellmorris/shillkill' }
+    ]
+  },
+  {
+    title: 'Created & Maintained',
+    projects: [
+      { name: 'Rule Harvester', description: 'Declarative JavaScript rules evaluation and data transformation.', tags: ['Node.js', 'Rules'], github: 'https://github.com/GiganticPlayground/rule-harvester' },
+      { name: 'AMQP Cacoon', description: 'Reliable AMQP connection management, retries, and flow control.', tags: ['Node.js', 'AMQP'], github: 'https://github.com/GiganticPlayground/amqp-cacoon' }
+    ]
+  },
+  {
+    title: 'Contributed',
+    projects: [
+      { name: 'PayloadStash', description: 'YAML-driven HTTP sequences, validation, capture, and reporting.', tags: ['Python', 'Testing'], github: 'https://github.com/ericwastaken/PayloadStash' }
+    ]
+  }
+];
+
+const caseStudies = [
   {
     name: 'Fan Engagement Platforms',
-    client: 'Themed Entertainment & Media',
-    description: 'Technical leadership for distributed platforms supporting interactive experiences, player progression, rewards, profiles, and real-time engagement.',
+    context: 'Themed Entertainment & Media',
+    challenge: 'Support interactive experiences, progression, rewards, and real-time engagement across distributed systems.',
+    approach: 'Led backend architecture, event-driven service design, caching, partner integration, and production delivery.',
+    outcome: 'Created a repeatable platform foundation that moved from prototype through launch and ongoing operations.',
     technologies: ['Node.js', 'MongoDB', 'Redis', 'RabbitMQ', 'AWS', 'Docker'],
-    impact: 'Led architecture and delivery from early prototypes through production launches and ongoing operations.',
-    icon: '🏆'
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.956a1 1 0 00.95.69h4.16c.969 0 1.371 1.24.588 1.81l-3.366 2.445a1 1 0 00-.364 1.118l1.286 3.956c.3.921-.755 1.688-1.539 1.118l-3.365-2.445a1 1 0 00-1.176 0L8.046 18.02c-.783.57-1.838-.197-1.539-1.118l1.286-3.956a1 1 0 00-.364-1.118L4.064 9.383c-.783-.57-.38-1.81.588-1.81h4.16a1 1 0 00.95-.69l1.287-3.956z" />`
   },
   {
     name: 'Hybrid Platform Deployments',
-    client: 'Enterprise',
-    description: 'Cloud and on-premises deployment architecture for event-driven services operating across constrained and network-isolated environments.',
+    context: 'Enterprise Infrastructure',
+    challenge: 'Deliver event-driven services consistently across cloud, on-premises, and network-isolated environments.',
+    approach: 'Designed infrastructure automation, container distribution, managed secrets, and environment-specific deployment workflows.',
+    outcome: 'Improved deployment repeatability, security posture, and operational readiness across environments.',
     technologies: ['AWS', 'Terraform', 'Docker', 'S3', 'KMS', 'RabbitMQ'],
-    impact: 'Improved repeatability, security, and operational readiness across multiple deployment environments.',
-    icon: '📊'
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />`
   },
   {
     name: 'High-Scale Event Systems',
-    client: 'Interactive Experiences',
-    description: 'Performance and reliability engineering for high-concurrency microservices, including caching, batching, queue management, and horizontal scaling.',
+    context: 'Interactive Experiences',
+    challenge: 'Maintain predictable behavior during traffic spikes, time-sensitive events, and partial system failures.',
+    approach: 'Applied caching, batching, queue management, horizontal scaling, load testing, and recovery design.',
+    outcome: 'Validated performance characteristics and strengthened resilience under high-concurrency workloads.',
     technologies: ['Node.js', 'Kubernetes', 'RabbitMQ', 'Redis', 'MongoDB'],
-    impact: 'Validated and tuned systems for traffic spikes, time-sensitive events, and failure recovery.',
-    icon: '🚀'
-  },
-  {
-    name: 'Platform Hardening & Operations',
-    client: 'Production Systems',
-    description: 'Cross-cutting work on observability, autoscaling, schema validation, security remediation, deployment testing, and production incident response.',
-    technologies: ['OpenAPI', 'JSON Schema', 'ElasticSearch', 'GitHub Actions', 'Snyk'],
-    impact: 'Reduced release risk and made complex distributed systems easier to test, deploy, and support.',
-    icon: '🛡️'
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z" />`
   },
   {
     name: 'Applied AI & Developer Enablement',
-    client: 'Research & Prototyping',
-    description: 'Exploration of AI-enabled application architecture, speech and transcription pipelines, structured data extraction, and LLM-assisted engineering workflows.',
+    context: 'Research & Prototyping',
+    challenge: 'Turn rapidly changing AI capabilities into useful software patterns and dependable engineering workflows.',
+    approach: 'Explored speech processing, structured extraction, LLM integrations, and repeatable AI-assisted development practices.',
+    outcome: 'Produced practical prototypes and workflow improvements while keeping architecture and operational concerns explicit.',
     technologies: ['LLM APIs', 'Speech Processing', 'TypeScript', 'Python', 'PostgreSQL'],
-    impact: 'Turned emerging AI capabilities into practical prototypes, repeatable workflows, and engineering productivity improvements.',
-    icon: '✨'
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.373 3.373 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />`
   }
 ];
 ---
 
 <Layout title="Projects - Dan Morris">
-  <div class="max-w-4xl mx-auto">
-    <div class="mb-12">
-      <h1 class="text-4xl font-extrabold mb-3 gradient-text">Projects Portfolio</h1>
-      <p class="text-gray-400 text-lg">Open source contributions and client work across industries.</p>
-    </div>
+  <div class="max-w-6xl mx-auto">
+    <header class="max-w-3xl mb-10 sm:mb-14 reveal">
+      <span class="section-kicker">Selected Work</span>
+      <h1 class="text-4xl sm:text-5xl font-extrabold mt-3 mb-4 gradient-text">Projects & Architecture</h1>
+      <p class="text-gray-300 text-lg leading-relaxed">
+        Public developer tools and NDA-safe case studies focused on secure platforms, reliable delivery, and operational clarity.
+      </p>
+    </header>
 
-    <!-- Open Source -->
-    <section class="mb-14">
-      <div class="flex items-center gap-3 mb-6">
-        <div class="w-8 h-8 rounded-lg bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center">
-          <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-          </svg>
+    <section class="mb-14 sm:mb-20 reveal" style="--delay: 70ms">
+      <div class="flex items-end justify-between gap-4 mb-6">
+        <div>
+          <span class="section-kicker">Featured Open Source</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mt-3">Tools built from real platform needs</h2>
         </div>
-        <h2 class="text-2xl font-bold text-white">Open Source</h2>
+        <a href="https://github.com/daniellmorris" target="_blank" rel="noopener noreferrer" class="hidden sm:inline text-sm font-semibold text-indigo-300 hover:text-indigo-200">GitHub profile</a>
       </div>
-      <div class="grid gap-5">
-        {openSourceProjects.map(project => (
-          <div class="bg-white/3 border border-white/8 rounded-xl p-6 card-glow transition-all duration-200">
-            <div class="flex justify-between items-start mb-3">
-              <h3 class="text-lg font-semibold gradient-text-blue">{project.name}</h3>
-              {project.github !== '#' && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-indigo-400 transition-colors px-3 py-1.5 rounded-lg border border-white/8 hover:border-indigo-500/30 bg-white/3"
-                >
-                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                  </svg>
-                  GitHub ↗
-                </a>
-              )}
+
+      <div class="grid md:grid-cols-2 gap-4">
+        {featuredProjects.map((project, i) => (
+          <article class={`featured-project featured-${project.accent} rounded-2xl p-5 sm:p-7 reveal`} style={`--delay: ${100 + i * 55}ms`}>
+            <div class="flex items-start justify-between gap-4 mb-5 sm:mb-8">
+              <div class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-indigo-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={project.icon} />
+              </div>
+              <a href={project.github} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-300 hover:text-white transition-colors">
+                View source
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5h5m0 0v5m0-5L10 14M5 7v12h12" />
+                </svg>
+              </a>
             </div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">{project.description}</p>
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="text-xs text-gray-500 font-medium">{project.role}</span>
-              <span class="text-gray-700">·</span>
-              {project.tags.map(tag => (
-                <span class="tag text-xs">{tag}</span>
+            <p class="text-xs uppercase tracking-[0.14em] font-bold text-indigo-300 mb-2">{project.eyebrow}</p>
+            <h3 class="text-2xl font-bold text-white mb-3">{project.name}</h3>
+            <p class="text-gray-300 text-sm leading-relaxed mb-4 sm:mb-6">{project.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {project.tags.map(tag => <span class="tag">{tag}</span>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-14 sm:mb-20 reveal" style="--delay: 170ms">
+      <div class="mb-6">
+        <span class="section-kicker">More Open Source</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-3">Created, maintained, and improved</h2>
+      </div>
+      <div class="surface rounded-2xl divide-y divide-white/10">
+        {projectGroups.map(group => (
+          <div class="grid md:grid-cols-[180px_1fr] gap-4 px-5 py-6 sm:px-7">
+            <h3 class="text-sm font-bold text-indigo-300 uppercase tracking-wider">{group.title}</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {group.projects.map(project => (
+                <a href={project.github} target="_blank" rel="noopener noreferrer" class="group rounded-xl p-4 bg-white/[0.025] hover:bg-white/[0.055] border border-white/[0.06] hover:border-indigo-400/25 transition-all">
+                  <div class="flex items-center justify-between gap-3">
+                    <h4 class="font-semibold text-white group-hover:text-indigo-200 transition-colors">{project.name}</h4>
+                    <svg class="w-3.5 h-3.5 text-gray-500 group-hover:text-indigo-300 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5h5m0 0v5m0-5L10 14M5 7v12h12" />
+                    </svg>
+                  </div>
+                  <p class="hidden sm:block text-gray-400 text-xs leading-relaxed mt-2 mb-3">{project.description}</p>
+                  <div class="flex gap-2 text-[11px] text-gray-400">
+                    {project.tags.map(tag => <span>{tag}</span>)}
+                  </div>
+                </a>
               ))}
             </div>
           </div>
@@ -167,43 +178,94 @@ const clientProjects = [
       </div>
     </section>
 
-    <!-- Client Projects -->
-    <section>
-      <div class="flex items-center gap-3 mb-6">
-        <div class="w-8 h-8 rounded-lg bg-purple-500/15 border border-purple-500/25 flex items-center justify-center">
-          <svg class="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-        </div>
-        <h2 class="text-2xl font-bold text-white">Client Projects</h2>
+    <section class="reveal" style="--delay: 240ms">
+      <div class="max-w-3xl mb-7">
+        <span class="section-kicker">Architecture Case Studies</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-3">Complex work, described without confidential details</h2>
+        <p class="text-gray-400 leading-relaxed">Each summary focuses on the engineering problem, architectural approach, and durable outcome.</p>
       </div>
-      <div class="grid gap-5">
-        {clientProjects.map(project => (
-          <div class="bg-white/3 border border-white/8 rounded-xl p-6 card-glow transition-all duration-200">
-            <div class="flex items-start gap-4">
-              <span class="text-3xl flex-shrink-0">{project.icon}</span>
-              <div class="flex-1 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 mb-2">
-                  <h3 class="text-lg font-semibold text-white">{project.name}</h3>
-                  <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300">{project.client}</span>
+
+      <div class="space-y-4">
+        {caseStudies.map((project, i) => (
+          <article class="case-study surface rounded-2xl p-4 sm:p-7">
+            <div class="grid lg:grid-cols-[230px_1fr] gap-4 sm:gap-6 lg:gap-10">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-400/20 flex items-center justify-center mb-4">
+                  <svg class="w-5 h-5 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={project.icon} />
                 </div>
-                <p class="text-gray-400 text-sm leading-relaxed mb-4">{project.description}</p>
-                <div class="flex flex-wrap gap-1.5 mb-3">
-                  {project.technologies.map(tech => (
-                    <span class="tag tag-purple text-xs">{tech}</span>
-                  ))}
+                <p class="text-xs uppercase tracking-[0.12em] font-bold text-purple-300 mb-2">{project.context}</p>
+                <h3 class="text-xl font-bold text-white">{project.name}</h3>
+              </div>
+              <div class="grid md:grid-cols-3 gap-3 sm:gap-5">
+                <div>
+                  <p class="case-label">Challenge</p>
+                  <p class="case-copy">{project.challenge}</p>
                 </div>
-                <div class="flex items-start gap-2 text-sm">
-                  <svg class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                  <span class="text-gray-400">{project.impact}</span>
+                <div>
+                  <p class="case-label">Approach</p>
+                  <p class="case-copy">{project.approach}</p>
+                </div>
+                <div>
+                  <p class="case-label">Outcome</p>
+                  <p class="case-copy">{project.outcome}</p>
                 </div>
               </div>
             </div>
-          </div>
+            <div class="hidden sm:flex flex-wrap gap-2 mt-6 pt-5 border-t border-white/10 lg:ml-[270px]">
+              {project.technologies.map(tech => <span class="tag tag-purple">{tech}</span>)}
+            </div>
+          </article>
         ))}
       </div>
     </section>
   </div>
 </Layout>
+
+<style>
+  .featured-project {
+    min-height: 330px;
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    background:
+      radial-gradient(circle at 100% 0%, var(--accent-glow), transparent 48%),
+      rgba(10, 15, 28, 0.82);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .featured-project:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-border);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  }
+
+  .featured-indigo { --accent-glow: rgba(99, 102, 241, 0.2); --accent-border: rgba(129, 140, 248, 0.42); }
+  .featured-purple { --accent-glow: rgba(168, 85, 247, 0.18); --accent-border: rgba(192, 132, 252, 0.42); }
+  .featured-blue { --accent-glow: rgba(59, 130, 246, 0.18); --accent-border: rgba(96, 165, 250, 0.42); }
+  .featured-emerald { --accent-glow: rgba(16, 185, 129, 0.16); --accent-border: rgba(52, 211, 153, 0.38); }
+
+  .case-study {
+    transition: border-color 0.2s ease;
+  }
+
+  .case-study:hover {
+    border-color: rgba(168, 85, 247, 0.28);
+  }
+
+  .case-label {
+    margin-bottom: 0.45rem;
+    color: #c4b5fd;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .case-copy {
+    color: #d1d5db;
+    font-size: 0.875rem;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 640px) {
+    .featured-project { min-height: 0; }
+  }
+</style>

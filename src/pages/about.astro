@@ -112,10 +112,11 @@ const expertise = [
   <div class="max-w-4xl mx-auto">
 
     <!-- Header -->
-    <div class="relative overflow-hidden rounded-2xl p-8 md:p-12 mb-12 about-hero">
+    <div class="relative overflow-hidden rounded-2xl p-7 sm:p-10 md:p-12 mb-10 sm:mb-12 about-hero reveal">
       <div class="relative z-10">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-5 gradient-text">About Me</h1>
-        <p class="text-lg text-gray-300 leading-relaxed max-w-2xl">
+        <span class="section-kicker">About</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold mt-3 mb-5 gradient-text">Engineering with context</h1>
+        <p class="text-lg text-gray-200 leading-relaxed max-w-2xl">
           Hi, I'm Dan Morris — a seasoned Lead System Architect with a passion for turning complex challenges into
           elegant, scalable solutions. With 15+ years in the field, I've mastered the art of building robust
           systems that seamlessly integrate sophisticated backend architectures with intuitive frontend experiences.
@@ -124,19 +125,19 @@ const expertise = [
     </div>
 
     <!-- Philosophy cards -->
-    <div class="grid md:grid-cols-2 gap-6 mb-12">
-      <div class="bg-white/3 border border-white/8 rounded-xl p-6 card-glow transition-all duration-200">
+    <div class="grid md:grid-cols-2 gap-6 mb-12 reveal" style="--delay: 70ms">
+      <div class="border-l-2 border-indigo-400/50 pl-5 py-1">
         <h2 class="text-lg font-semibold mb-3 gradient-text-blue">Professional Journey</h2>
-        <p class="text-gray-400 leading-relaxed text-sm">
+        <p class="text-gray-300 leading-relaxed text-sm">
           Throughout my career, I've collaborated with organizations from innovative startups to industry-leading
           enterprises. My expertise spans high-performance media processing, immersive theme park experiences,
           embedded safety systems, and sophisticated distributed architectures.
         </p>
       </div>
 
-      <div class="bg-white/3 border border-white/8 rounded-xl p-6 card-glow transition-all duration-200">
+      <div class="border-l-2 border-purple-400/50 pl-5 py-1">
         <h2 class="text-lg font-semibold mb-3 gradient-text">Philosophy</h2>
-        <p class="text-gray-400 leading-relaxed text-sm">
+        <p class="text-gray-300 leading-relaxed text-sm">
           Technology should empower people. My approach blends technical innovation with pragmatic problem-solving —
           delivering solutions that are not only cutting-edge but sustainable and impactful. I strive to create
           systems that make a meaningful difference.
@@ -145,17 +146,18 @@ const expertise = [
     </div>
 
     <!-- Expertise -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-6 text-white">Areas of Expertise</h2>
+    <section class="mb-12 reveal" style="--delay: 130ms">
+      <span class="section-kicker">Capabilities</span>
+      <h2 class="text-2xl font-bold mt-3 mb-6 text-white">Areas of Expertise</h2>
       <div class="grid md:grid-cols-2 gap-4">
         {expertise.map(item => (
-          <div class="bg-white/3 border border-white/8 rounded-xl p-5 card-glow transition-all duration-200 flex items-start gap-4">
+          <div class="surface-subtle rounded-xl p-5 hover:border-indigo-400/25 transition-colors flex items-start gap-4">
             <div class="w-9 h-9 rounded-lg bg-indigo-500/15 border border-indigo-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
               <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={item.icon} />
             </div>
             <div>
               <h3 class="font-semibold text-white mb-1">{item.area}</h3>
-              <p class="text-gray-400 text-sm leading-relaxed">{item.description}</p>
+              <p class="text-gray-300 text-sm leading-relaxed">{item.description}</p>
             </div>
           </div>
         ))}
@@ -163,26 +165,27 @@ const expertise = [
     </section>
 
     <!-- Experience timeline -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-6 text-white">Professional Experience</h2>
+    <section class="mb-12 reveal" style="--delay: 190ms">
+      <span class="section-kicker">Career</span>
+      <h2 class="text-2xl font-bold mt-3 mb-6 text-white">Professional Experience</h2>
       <div class="relative">
         <div class="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/40 via-indigo-500/20 to-transparent ml-4 hidden md:block"></div>
         <div class="space-y-4">
           {experience.map((item, i) => (
             <div class="md:pl-12 relative">
               <div class="hidden md:block absolute left-0 w-3 h-3 rounded-full bg-indigo-500 border-2 border-gray-950 top-6 -translate-x-1"></div>
-              <div class="bg-white/3 border border-white/8 rounded-xl p-6 card-glow transition-all duration-200">
+              <div class:list={['rounded-xl p-5 sm:p-6 transition-all duration-200', i === 0 ? 'surface border-indigo-400/25' : 'surface-subtle']}>
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-2">
                   <div>
                     <h3 class="text-base font-semibold gradient-text-blue">{item.role}</h3>
                     <p class="text-purple-400/90 font-medium text-sm">{item.company}</p>
-                    {item.location && <p class="text-gray-500 text-xs mt-0.5">{item.location}</p>}
+                    {item.location && <p class="text-gray-400 text-xs mt-0.5">{item.location}</p>}
                   </div>
                   <span class="text-xs font-medium px-3 py-1.5 rounded-lg bg-white/5 border border-white/8 text-gray-400 whitespace-nowrap">{item.year}</span>
                 </div>
                 <ul class="space-y-1.5 mb-4">
                   {item.highlights.map(h => (
-                    <li class="flex items-start gap-2 text-gray-400 text-sm">
+                    <li class="flex items-start gap-2 text-gray-300 text-sm leading-relaxed">
                       <span class="text-indigo-500 mt-1.5 flex-shrink-0">›</span>
                       {h}
                     </li>
@@ -203,10 +206,10 @@ const expertise = [
     </section>
 
     <!-- CTA -->
-    <div class="relative overflow-hidden rounded-2xl p-8 text-center cta-about">
+    <div class="relative overflow-hidden rounded-2xl p-7 sm:p-8 text-center cta-about reveal" style="--delay: 250ms">
       <div class="relative z-10">
         <h2 class="text-2xl font-bold text-white mb-3">Let's Work Together</h2>
-        <p class="text-gray-400 text-sm mb-6 max-w-md mx-auto">
+        <p class="text-gray-300 text-sm mb-6 max-w-md mx-auto">
           Whether you need architectural guidance, technical expertise, or a strategic technology partner — I'd love to help.
         </p>
         <a

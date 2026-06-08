@@ -5,42 +5,42 @@ const industries = [
   {
     name: 'Audio / Visual',
     clients: ['Dolby'],
-    icon: '🎬',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />`,
     description: 'Developed media processing pipelines and streaming solutions for high-quality audio/visual content delivery.',
     color: 'indigo'
   },
   {
     name: 'Themed Entertainment',
     clients: ['Universal', 'Disney'],
-    icon: '🎡',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8c-3.314 0-6 1.79-6 4s2.686 4 6 4 6-1.79 6-4-2.686-4-6-4zm0 0V4m-5 5L4 6m13 3l3-3M7 15l-2 5m12-5l2 5" />`,
     description: 'Created interactive experiences and backend systems for theme park attractions and guest engagement platforms.',
     color: 'purple'
   },
   {
     name: 'Fashion',
     clients: ['Chanel'],
-    icon: '👔',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 4a3 3 0 006 0m-8 2l-4 4 3 3v7h12v-7l3-3-4-4-3 3h-4L7 6z" />`,
     description: 'Developed digital solutions for luxury fashion brands, including e-commerce and inventory management systems.',
     color: 'pink'
   },
   {
     name: 'Talent Acquisition',
     clients: ['Talent Logic'],
-    icon: '👥',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0z" />`,
     description: 'Built custom CRM solutions and performance tracking systems for talent management and recruitment operations.',
     color: 'sky'
   },
   {
     name: 'Hardware Manufacturing',
     clients: ['Ridge Tool'],
-    icon: '🔧',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11.42 15.17l-5.66 5.66a2 2 0 01-2.83-2.83l5.66-5.66m2.83 2.83l5.66-5.66M14 6l4-4 4 4-4 4-4-4z" />`,
     description: 'Implemented inventory and production management systems for large-scale manufacturing operations.',
     color: 'orange'
   },
   {
     name: 'Non-Profits',
     clients: ['SeeTurtles'],
-    icon: '🌱',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 21V9m0 0C8 9 5 7 5 3c4 0 7 2 7 6zm0 4c4 0 7-2 7-6-4 0-7 2-7 6z" />`,
     description: 'Developed websites and donation platforms for environmental conservation organizations.',
     color: 'emerald'
   }
@@ -58,28 +58,31 @@ const colorMap: Record<string, { bg: string; border: string; badge: string; badg
 
 <Layout title="Industries - Dan Morris">
   <div class="max-w-4xl mx-auto">
-    <div class="relative overflow-hidden rounded-2xl p-8 md:p-12 mb-12 industries-hero">
+    <div class="relative overflow-hidden rounded-2xl p-7 sm:p-10 md:p-12 mb-10 sm:mb-12 industries-hero reveal">
       <div class="relative z-10">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4 gradient-text">Industry Experience</h1>
-        <p class="text-gray-400 text-lg max-w-xl">
+        <span class="section-kicker">Domain Experience</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold mt-3 mb-4 gradient-text">Industry Experience</h1>
+        <p class="text-gray-300 text-lg max-w-xl">
           Delivering specialized solutions across diverse sectors, combining technical expertise with deep domain knowledge.
         </p>
       </div>
     </div>
 
     <div class="grid md:grid-cols-2 gap-5">
-      {industries.map(industry => {
+      {industries.map((industry, i) => {
         const c = colorMap[industry.color];
         return (
           <div
-            class="rounded-xl p-6 border card-glow transition-all duration-200"
-            style={`background: ${c.bg}; border-color: ${c.border};`}
+            class="rounded-xl p-5 sm:p-6 border transition-all duration-200 reveal"
+            style={`background: ${c.bg}; border-color: ${c.border}; --delay: ${70 + i * 45}ms;`}
           >
             <div class="flex items-center gap-3 mb-3">
-              <span class="text-3xl">{industry.icon}</span>
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center" style={`background: ${c.badge}; border: 1px solid ${c.badgeBorder};`}>
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={`color: ${c.badgeText};`} set:html={industry.icon} />
+              </div>
               <h2 class="text-lg font-semibold text-white">{industry.name}</h2>
             </div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">{industry.description}</p>
+            <p class="text-gray-300 text-sm leading-relaxed mb-4">{industry.description}</p>
             <div class="flex flex-wrap gap-2">
               {industry.clients.map(client => (
                 <span
