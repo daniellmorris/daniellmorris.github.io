@@ -3,60 +3,117 @@ import Layout from '../layouts/Layout.astro';
 
 const openSourceProjects = [
   {
+    name: 'Qodi',
+    description: 'A backend service for encrypted, time-limited QR codes. Clients encrypt with a public key while private-key decryption and expiration enforcement remain server-side.',
+    role: 'Creator + Maintainer',
+    tags: ['TypeScript', 'Cryptography', 'OpenAPI', 'Docker'],
+    github: 'https://github.com/GiganticPlayground/qodi'
+  },
+  {
+    name: 'Examen',
+    description: 'A declarative HTTP and CLI test runner for release validation, with YAML suites, assertions, retries, chained tests, parallel checks, and setup and teardown support.',
+    role: 'Creator + Maintainer',
+    tags: ['TypeScript', 'Testing', 'CLI', 'YAML'],
+    github: 'https://github.com/GiganticPlayground/examen'
+  },
+  {
+    name: 'Token Weaver',
+    description: 'A stateless, strategy-driven authentication gateway that translates credentials or upstream authentication responses into signed JWTs.',
+    role: 'Creator + Maintainer',
+    tags: ['TypeScript', 'JWT', 'Authentication', 'Security'],
+    github: 'https://github.com/GiganticPlayground/token-weaver'
+  },
+  {
+    name: 'Airlock Registry',
+    description: 'A container registry template that separates image publishing and retrieval through object storage for network-isolated deployment environments.',
+    role: 'Creator + Maintainer',
+    tags: ['Containers', 'S3', 'Shell', 'Infrastructure'],
+    github: 'https://github.com/GiganticPlayground/airlock-registry'
+  },
+  {
+    name: 'Logra',
+    description: 'Async context-aware logging for Node.js applications, designed to keep structured logs readable while preserving request-level context.',
+    role: 'Creator + Maintainer',
+    tags: ['Node.js', 'Logging', 'Async Context', 'Observability'],
+    github: 'https://github.com/GiganticPlayground/logra'
+  },
+  {
     name: 'Rule Harvester',
-    description: 'A general-purpose rules engine that processes rule definitions against input, transforming data through defined rules. Used in production theme park systems.',
+    description: 'A general-purpose JavaScript rules engine that evaluates declarative rule definitions against application data.',
     role: 'Original Author + Maintainer',
     tags: ['Node.js', 'Rules Engine', 'Data Processing'],
-    github: 'https://github.com/valtech-sd/rule-harvester'
+    github: 'https://github.com/GiganticPlayground/rule-harvester'
   },
   {
     name: 'AMQP Cacoon',
     description: 'An abstraction around node-amqp-connection-manager providing a simple interface with flow control, retries, and automatic reconnects.',
     role: 'Original Author + Maintainer',
     tags: ['Node.js', 'AMQP', 'Message Queue'],
-    github: 'https://github.com/valtech-sd/amqp-cacoon'
+    github: 'https://github.com/GiganticPlayground/amqp-cacoon'
+  },
+  {
+    name: 'PayloadStash',
+    description: 'A YAML-driven HTTP fetch-and-stash tool for defining REST call sequences, validation, captured values, concurrency, and run reporting.',
+    role: 'Contributor',
+    tags: ['Python', 'YAML', 'HTTP Testing', 'Automation'],
+    github: 'https://github.com/ericwastaken/PayloadStash'
+  },
+  {
+    name: 'Kusto Docker Log Aggregator',
+    description: 'A development utility that forwards Docker logs into a local Kusto emulator for ADX-style log exploration.',
+    role: 'Creator + Maintainer',
+    tags: ['Docker', 'Kusto', 'Logging', 'Developer Tools'],
+    github: 'https://github.com/daniellmorris/kusto-docker-log-aggregator'
   },
   {
     name: 'Shillkill',
-    description: 'Chrome extension for Twitter/X to block shills and spam accounts, improving the user experience for crypto and tech communities.',
-    role: 'Original Author',
+    description: 'Chrome extension for Twitter/X that filters cryptocurrency shill and spam patterns from the timeline.',
+    role: 'Creator',
     tags: ['JavaScript', 'Chrome Extension', 'Social Media'],
-    github: '#'
+    github: 'https://github.com/daniellmorris/shillkill'
   }
 ];
 
 const clientProjects = [
   {
-    name: 'Theme Park Rewards Engine',
-    client: 'Universal Studios',
-    description: 'Highly configurable rewards engine enabling quest-based player engagement and real-time rewards distribution across multiple theme parks.',
-    technologies: ['Node.js', 'MongoDB', 'Redis', 'RabbitMQ', 'AWS'],
-    impact: 'Deployed across multiple parks, processing millions of guest interactions daily.',
+    name: 'Fan Engagement Platforms',
+    client: 'Themed Entertainment & Media',
+    description: 'Technical leadership for distributed platforms supporting interactive experiences, player progression, rewards, profiles, and real-time engagement.',
+    technologies: ['Node.js', 'MongoDB', 'Redis', 'RabbitMQ', 'AWS', 'Docker'],
+    impact: 'Led architecture and delivery from early prototypes through production launches and ongoing operations.',
     icon: '🏆'
   },
   {
-    name: 'Analytics Platform',
-    client: 'Theme Park Client',
-    description: 'Comprehensive analytics pipeline tracking and analyzing theme park activities and guest behavior patterns in real time.',
-    technologies: ['Python', 'AWS', 'ElasticSearch', 'Kibana'],
-    impact: 'Processed millions of daily events, providing actionable insights for business decisions.',
+    name: 'Hybrid Platform Deployments',
+    client: 'Enterprise',
+    description: 'Cloud and on-premises deployment architecture for event-driven services operating across constrained and network-isolated environments.',
+    technologies: ['AWS', 'Terraform', 'Docker', 'S3', 'KMS', 'RabbitMQ'],
+    impact: 'Improved repeatability, security, and operational readiness across multiple deployment environments.',
     icon: '📊'
   },
   {
-    name: 'Scalable Microservice Platform',
-    client: 'Enterprise',
-    description: 'Event streaming platform handling high-concurrency workloads during peak events, built on Kubernetes and RabbitMQ.',
-    technologies: ['Node.js', 'Kubernetes', 'RabbitMQ', 'Redis', 'Docker'],
-    impact: 'Successfully handled 50k+ active concurrent users during time-sensitive events.',
+    name: 'High-Scale Event Systems',
+    client: 'Interactive Experiences',
+    description: 'Performance and reliability engineering for high-concurrency microservices, including caching, batching, queue management, and horizontal scaling.',
+    technologies: ['Node.js', 'Kubernetes', 'RabbitMQ', 'Redis', 'MongoDB'],
+    impact: 'Validated and tuned systems for traffic spikes, time-sensitive events, and failure recovery.',
     icon: '🚀'
   },
   {
-    name: 'OTT Media Pipeline',
-    client: 'Dolby',
-    description: 'Media processing platform for streaming content with Dolby Technology integration, supporting high-quality audio/visual output.',
-    technologies: ['Node.js', 'FFmpeg', 'AWS', 'Docker', 'Lambda'],
-    impact: 'Streamlined media processing workflow, reducing delivery time for high-quality content.',
-    icon: '🎬'
+    name: 'Platform Hardening & Operations',
+    client: 'Production Systems',
+    description: 'Cross-cutting work on observability, autoscaling, schema validation, security remediation, deployment testing, and production incident response.',
+    technologies: ['OpenAPI', 'JSON Schema', 'ElasticSearch', 'GitHub Actions', 'Snyk'],
+    impact: 'Reduced release risk and made complex distributed systems easier to test, deploy, and support.',
+    icon: '🛡️'
+  },
+  {
+    name: 'Applied AI & Developer Enablement',
+    client: 'Research & Prototyping',
+    description: 'Exploration of AI-enabled application architecture, speech and transcription pipelines, structured data extraction, and LLM-assisted engineering workflows.',
+    technologies: ['LLM APIs', 'Speech Processing', 'TypeScript', 'Python', 'PostgreSQL'],
+    impact: 'Turned emerging AI capabilities into practical prototypes, repeatable workflows, and engineering productivity improvements.',
+    icon: '✨'
   }
 ];
 ---
