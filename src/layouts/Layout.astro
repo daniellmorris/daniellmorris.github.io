@@ -4,6 +4,7 @@ interface Props {
 }
 
 const { title = 'Dan Morris - Software Engineer' } = Astro.props;
+const currentYear = new Date().getFullYear();
 
 const navLinks = [
   { href: '/about', text: 'About' },
@@ -19,88 +20,146 @@ const socialLinks = [
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <style is:global>
-      /* Keep your existing styles */
+      * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: #030712; }
+      ::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+
+      .nav-link-active {
+        color: white !important;
+        background-color: rgba(99, 102, 241, 0.15) !important;
+      }
+
+      .card-glow:hover {
+        border-color: rgba(99, 102, 241, 0.4) !important;
+        box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.15), 0 4px 24px rgba(99, 102, 241, 0.08);
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #a5b4fc 0%, #818cf8 40%, #c084fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .gradient-text-blue {
+        background: linear-gradient(135deg, #60a5fa 0%, #818cf8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        background-color: rgba(99, 102, 241, 0.1);
+        color: #a5b4fc;
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        transition: all 0.2s;
+      }
+
+      .tag:hover {
+        background-color: rgba(99, 102, 241, 0.2);
+        border-color: rgba(99, 102, 241, 0.4);
+      }
+
+      .tag-purple {
+        background-color: rgba(168, 85, 247, 0.1);
+        color: #d8b4fe;
+        border-color: rgba(168, 85, 247, 0.2);
+      }
+
+      .tag-purple:hover {
+        background-color: rgba(168, 85, 247, 0.2);
+        border-color: rgba(168, 85, 247, 0.4);
+      }
     </style>
   </head>
-  <body class="bg-gray-900 text-gray-100">
-    <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
+  <body class="bg-gray-950 text-gray-100 antialiased">
+    <header class="sticky top-0 z-50 border-b border-white/5 backdrop-blur-xl bg-gray-950/80">
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
           <div class="flex items-center">
-            <a href="/" class="flex items-center">
-              <span class="text-xl font-bold text-white hover:text-blue-400 transition-colors">Dan Morris</span>
+            <a href="/" class="flex items-center group">
+              <span class="text-lg font-bold text-white">
+                Dan <span class="gradient-text">Morris</span>
+              </span>
             </a>
-            <div class="hidden md:flex md:items-center md:ml-10 space-x-8">
+            <div class="hidden md:flex md:items-center md:ml-10 space-x-1">
               {navLinks.map(link => (
-                <a 
+                <a
                   href={link.href}
-                  class="text-gray-300 hover:text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  data-nav-href={link.href}
+                  class="nav-link text-gray-400 hover:text-white hover:bg-white/5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200"
                 >
                   {link.text}
                 </a>
               ))}
             </div>
           </div>
-          
+
+          <div class="hidden md:flex md:items-center md:space-x-4">
+            <a
+              href="mailto:dan@daniellmorris.com"
+              class="text-sm font-medium px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition-all duration-200 shadow-lg shadow-indigo-500/20"
+            >
+              Contact
+            </a>
+          </div>
+
           <!-- Mobile menu button -->
           <div class="flex items-center md:hidden">
-            <button 
-              type="button" 
+            <button
+              type="button"
               id="mobile-menu-button"
-              class="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white p-2"
+              class="text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg hover:bg-white/5"
               aria-controls="mobile-menu"
               aria-expanded="false"
             >
               <span class="sr-only">Open main menu</span>
-              <svg 
-                id="menu-icon"
-                class="h-6 w-6" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path 
-                  stroke-linecap="round" 
-                  stroke-linejoin="round" 
-                  stroke-width="2" 
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+              <svg id="menu-icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
-              <svg 
-                id="close-icon"
-                class="hidden h-6 w-6" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path 
-                  stroke-linecap="round" 
-                  stroke-linejoin="round" 
-                  stroke-width="2" 
-                  d="M6 18L18 6M6 6l12 12"
-                />
+              <svg id="close-icon" class="hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
         </div>
 
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden">
+        <div id="mobile-menu" class="hidden md:hidden border-t border-white/5">
           <div class="px-2 pt-2 pb-3 space-y-1">
             {navLinks.map(link => (
               <a
                 href={link.href}
-                class="text-gray-300 hover:text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+                data-nav-href={link.href}
+                class="nav-link text-gray-400 hover:text-white hover:bg-white/5 block px-3 py-2 rounded-lg text-sm font-medium transition-all"
               >
                 {link.text}
               </a>
             ))}
+            <a
+              href="mailto:dan@daniellmorris.com"
+              class="block text-sm font-medium px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition-all mt-2"
+            >
+              Contact
+            </a>
           </div>
         </div>
       </nav>
@@ -110,28 +169,34 @@ const socialLinks = [
       <slot />
     </main>
 
-    <footer class="bg-gray-800 border-t border-gray-700 mt-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="text-center">
-          <p class="text-gray-300">© 2023 Dan Morris. All rights reserved.</p>
-          <div class="mt-4 space-x-4">
+    <footer class="border-t border-white/5 mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div>
+            <span class="text-lg font-bold text-white">Dan <span class="gradient-text">Morris</span></span>
+            <p class="text-gray-500 text-sm mt-1">Software Engineer & Architect</p>
+          </div>
+          <div class="flex items-center space-x-6">
             {socialLinks.map(link => (
-              <a 
+              <a
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-gray-400 hover:text-white transition-colors"
+                class="text-gray-400 hover:text-indigo-400 text-sm font-medium transition-colors duration-200"
               >
-                {link.text}
+                {link.text} ↗
               </a>
             ))}
+            <a href="mailto:dan@daniellmorris.com" class="text-gray-400 hover:text-indigo-400 text-sm font-medium transition-colors duration-200">
+              Email
+            </a>
           </div>
+          <p class="text-gray-600 text-sm">© {currentYear} Dan Morris</p>
         </div>
       </div>
     </footer>
 
     <script>
-      // Mobile menu functionality
       const mobileMenuButton = document.getElementById('mobile-menu-button');
       const mobileMenu = document.getElementById('mobile-menu');
       const menuIcon = document.getElementById('menu-icon');
@@ -140,19 +205,12 @@ const socialLinks = [
       if (mobileMenuButton && mobileMenu && menuIcon && closeIcon) {
         mobileMenuButton.addEventListener('click', () => {
           const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-          
-          // Toggle menu visibility
           mobileMenu.classList.toggle('hidden');
-          
-          // Toggle icons
           menuIcon.classList.toggle('hidden');
           closeIcon.classList.toggle('hidden');
-          
-          // Update aria-expanded
-          mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+          mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
         });
 
-        // Close menu when clicking a link
         mobileMenu.querySelectorAll('a').forEach(link => {
           link.addEventListener('click', () => {
             mobileMenu.classList.add('hidden');
@@ -162,6 +220,15 @@ const socialLinks = [
           });
         });
       }
+
+      // Active nav link
+      const path = window.location.pathname;
+      document.querySelectorAll('[data-nav-href]').forEach(el => {
+        const href = el.getAttribute('data-nav-href');
+        if (href && path.startsWith(href)) {
+          el.classList.add('nav-link-active');
+        }
+      });
     </script>
   </body>
 </html>

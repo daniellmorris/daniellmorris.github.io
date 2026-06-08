@@ -1,86 +1,89 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const skills = {
-  highLevel: ['Micro-Service Systems', 'System Architecture', 'API Design', 'Database Design', 'Cloud Architecture'],
-  languages: ['Node.js', 'React.js', 'Vue.js', 'Embedded C', 'Java', 'Angular.js', 'Python', 'TypeScript'],
-  databases: ['MongoDB', 'PostgreSQL', 'Prisma ORM', 'Redis', 'ElasticSearch'],
-  cloud: ['AWS', 'Kubernetes', 'Docker', 'Terraform', 'EC2', 'Lambda', 'S3', 'CloudFront'],
-  devops: ['Linux', 'CircleCI', 'GitHub Actions', 'Azure Pipelines', 'Jenkins'],
-  other: ['Okta', 'Clerk', 'Message Bus (RabbitMQ)', 'Web Scraping', 'CRM Development', 'Rules Engine']
+const skillGroups = [
+  {
+    title: 'High-Level Expertise',
+    color: 'indigo',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />`,
+    skills: ['Micro-Service Systems', 'System Architecture', 'API Design', 'Database Design', 'Cloud Architecture']
+  },
+  {
+    title: 'Languages & Frameworks',
+    color: 'emerald',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />`,
+    skills: ['Node.js', 'TypeScript', 'React.js', 'Vue.js', 'Angular.js', 'Python', 'Java', 'Embedded C']
+  },
+  {
+    title: 'Databases & Storage',
+    color: 'violet',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />`,
+    skills: ['MongoDB', 'PostgreSQL', 'Redis', 'ElasticSearch', 'Prisma ORM']
+  },
+  {
+    title: 'Cloud & Infrastructure',
+    color: 'sky',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />`,
+    skills: ['AWS', 'Kubernetes', 'Docker', 'Terraform', 'EC2', 'Lambda', 'S3', 'CloudFront']
+  },
+  {
+    title: 'DevOps & CI/CD',
+    color: 'orange',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />`,
+    skills: ['Linux', 'GitHub Actions', 'CircleCI', 'Azure Pipelines', 'Jenkins']
+  },
+  {
+    title: 'Other Technologies',
+    color: 'pink',
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />`,
+    skills: ['Okta', 'Clerk', 'RabbitMQ', 'Web Scraping', 'CRM Development', 'Rules Engine']
+  }
+];
+
+const colorMap: Record<string, { bg: string; border: string; text: string; tagBg: string; tagBorder: string; tagText: string }> = {
+  indigo:  { bg: 'rgba(99,102,241,0.08)',  border: 'rgba(99,102,241,0.2)',  text: '#818cf8', tagBg: 'rgba(99,102,241,0.1)',  tagBorder: 'rgba(99,102,241,0.25)', tagText: '#a5b4fc' },
+  emerald: { bg: 'rgba(16,185,129,0.08)',  border: 'rgba(16,185,129,0.2)',  text: '#34d399', tagBg: 'rgba(16,185,129,0.1)',  tagBorder: 'rgba(16,185,129,0.25)', tagText: '#6ee7b7' },
+  violet:  { bg: 'rgba(139,92,246,0.08)',  border: 'rgba(139,92,246,0.2)',  text: '#a78bfa', tagBg: 'rgba(139,92,246,0.1)',  tagBorder: 'rgba(139,92,246,0.25)', tagText: '#c4b5fd' },
+  sky:     { bg: 'rgba(14,165,233,0.08)',  border: 'rgba(14,165,233,0.2)',  text: '#38bdf8', tagBg: 'rgba(14,165,233,0.1)',  tagBorder: 'rgba(14,165,233,0.25)', tagText: '#7dd3fc' },
+  orange:  { bg: 'rgba(249,115,22,0.08)',  border: 'rgba(249,115,22,0.2)',  text: '#fb923c', tagBg: 'rgba(249,115,22,0.1)',  tagBorder: 'rgba(249,115,22,0.25)', tagText: '#fdba74' },
+  pink:    { bg: 'rgba(236,72,153,0.08)',  border: 'rgba(236,72,153,0.2)',  text: '#f472b6', tagBg: 'rgba(236,72,153,0.1)',  tagBorder: 'rgba(236,72,153,0.25)', tagText: '#f9a8d4' },
 };
 ---
 
 <Layout title="Skills - Dan Morris">
   <div class="max-w-4xl mx-auto">
-    <h1 class="text-4xl font-bold mb-8 text-center">Technical Skills</h1>
-    
-    <div class="grid gap-8">
-      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4 text-blue-600">High-Level Expertise</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {skills.highLevel.map(skill => (
-            <div class="bg-gray-700 p-3 rounded-lg text-center">
-              <span class="text-blue-300">{skill}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+    <div class="mb-12">
+      <h1 class="text-4xl font-extrabold mb-3 gradient-text">Technical Skills</h1>
+      <p class="text-gray-400 text-lg">15+ years building production systems across the full stack.</p>
+    </div>
 
-      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4 text-green-600">Languages & Frameworks</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {skills.languages.map(skill => (
-            <div class="bg-gray-700 p-3 rounded-lg text-center">
-              <span class="text-green-300">{skill}</span>
+    <div class="grid gap-6">
+      {skillGroups.map(group => {
+        const c = colorMap[group.color];
+        return (
+          <div
+            class="rounded-xl p-6 border card-glow transition-all duration-200"
+            style={`background: ${c.bg}; border-color: ${c.border};`}
+          >
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center" style={`background: ${c.bg}; border: 1px solid ${c.border};`}>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={`color: ${c.text};`} set:html={group.icon} />
+              </div>
+              <h2 class="text-lg font-semibold text-white">{group.title}</h2>
             </div>
-          ))}
-        </div>
-      </div>
-
-      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4 text-purple-600">Databases & Storage</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {skills.databases.map(skill => (
-            <div class="bg-gray-700 p-3 rounded-lg text-center">
-              <span class="text-purple-300">{skill}</span>
+            <div class="flex flex-wrap gap-2">
+              {group.skills.map(skill => (
+                <span
+                  class="px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200"
+                  style={`background: ${c.tagBg}; border: 1px solid ${c.tagBorder}; color: ${c.tagText};`}
+                >
+                  {skill}
+                </span>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-
-      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4 text-orange-600">Cloud & Infrastructure</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {skills.cloud.map(skill => (
-            <div class="bg-gray-700 p-3 rounded-lg text-center">
-              <span class="text-orange-300">{skill}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4 text-red-600">DevOps & CI/CD</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {skills.devops.map(skill => (
-            <div class="bg-gray-700 p-3 rounded-lg text-center">
-              <span class="text-red-300">{skill}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div class="bg-gray-800 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4 text-yellow-600">Other Technologies</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {skills.other.map(skill => (
-            <div class="bg-gray-700 p-3 rounded-lg text-center">
-              <span class="text-yellow-300">{skill}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        );
+      })}
     </div>
   </div>
 </Layout>
