@@ -1907,7 +1907,8 @@ include its leading and trailing slashes:</p>
 </code></pre></div>
 <p>Publish <strong><code>frontend/dist-demo/</code></strong> at that exact directory on an HTTPS static host.
 Asset URLs, API requests, the worker registration/scope and Reset demo all use the
-build base. The worker handles only API paths inside its own directory; sibling
+build base. The emitted worker filename contains a content hash so CDN caching
+does not pin visitors to an older simulation after deployment. The worker handles only API paths inside its own directory; sibling
 documentation and the rest of the website are outside its scope. State is stored
 under a key derived from that scope, so different demo paths remain independent.
 HTTPS is required except on localhost. If a normal app replaces a demo at the
