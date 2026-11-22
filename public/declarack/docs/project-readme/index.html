@@ -1,0 +1,2527 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Build and operate configuration-defined administration interfaces.">
+      
+      
+      
+        <link rel="canonical" href="https://daniellmorris.com/declarack/docs/project-readme/">
+      
+      
+      
+      
+        <link rel="prev" href="../docs/RENAMING/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/logo.svg">
+      <meta name="generator" content="zensical-0.1.3">
+    
+    
+      
+        <title>Repository README - Declarack Docs</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.e2cf241e.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../assets/site.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="Declarack Docs" class="md-header__button md-logo" aria-label="Declarack Docs" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="Declarack Docs">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Declarack Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Repository README
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m3.55 19.09 1.41 1.41 1.8-1.79-1.42-1.42M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6c0-3.32-2.69-6-6-6m8 7h3v-2h-3m-2.76 7.71 1.8 1.79 1.41-1.41-1.79-1.8M20.45 5l-1.41-1.4-1.8 1.79 1.42 1.42M13 1h-2v3h2M6.76 5.39 4.96 3.6 3.55 5l1.79 1.81zM1 13h3v-2H1m12 9h-2v3h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/daniellmorris/declarack" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Declarack on GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../start/quickstart/" class="md-tabs__link">
+          
+  
+  Get started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../guides/configuration-workflow/" class="md-tabs__link">
+          
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../tutorials/api-interface/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../docs/CONFIGURATION/" class="md-tabs__link">
+          
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../project/documentation/" class="md-tabs__link">
+          
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Declarack Docs" class="md-nav__button md-logo" aria-label="Declarack Docs" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="Declarack Docs">
+
+    </a>
+    Declarack Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/daniellmorris/declarack" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Declarack on GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Get started
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Get started
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Quickstart
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start/configuration-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How configuration fits together
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start/concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Concepts and terminology
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configurations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Choose a starting configuration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Guides
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Guides
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/configuration-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Configuration workflow
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Configuration snippets
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONFIG_SKILL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI configuration skill
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/docker-swarm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Docker and Swarm
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment and persistence
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/CREDENTIALS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Credential management
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/BROWSER_DEMO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Browser playground
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/TEMPLATES_AND_DYNAMIC_FORMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Integration setup
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/VOLUME_BROWSER_AND_BATCHES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume browsing and SSH fleets
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Tutorials
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/api-interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your first API admin interface
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  A dashboard across targets
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Scheduled checks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/multi-environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Real two-Swarm lab
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/CONFIGURATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  System configuration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/CONFIG_FOLDERS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Configuration folders
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/REGISTRIES_AND_GIT_SOURCES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Registry credentials and Git sources
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/STORAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Database storage and migration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/ENVIRONMENTS_AND_CHECKS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Targets, environments and checks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/CUSTOM_PAGES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Custom pages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/TABLES_BULK_AND_CHARTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tables, bulk actions and charts
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/GENERIC_CAPABILITIES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Generic resource capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/FRAMEWORK_WORKFLOWS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workflow building blocks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/RESOURCE_CLONING_AND_PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Resource cloning and operation plans
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/DOCKER_ACTIONS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Docker action coverage
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/HEALTH_CHECKS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Health information
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/CODE_ORGANIZATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Code organization and development
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Project
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Documentation development and hosting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/PORTAINER_PARITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Current coverage and limitations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/RENAMING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Upgrade and rename compatibility
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Repository README
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Repository README
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Documentation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-with-a-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Start with a configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-the-complete-multi-environment-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Try the complete multi-environment lab
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Run locally
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-it-your-administration-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Make it your administration interface
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-stacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Deploy stacks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manage-configs-and-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Manage configs and secrets
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-and-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Demo and development
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node-jobs-volumes-and-host-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Node jobs, volumes, and host metrics
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networks-and-detail-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Networks and detail pages
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configured-targets-and-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Configured targets and adapters
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configured targets and adapters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#settings-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Settings storage
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-docker-over-a-managed-ssh-tunnel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Remote Docker over a managed SSH tunnel
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-actions-and-interactive-terminals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker actions and interactive terminals
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view-existing-compose-files-from-the-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        View existing Compose files from the host
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-environment-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Multi-environment dashboard
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Documentation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-with-a-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Start with a configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-the-complete-multi-environment-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Try the complete multi-environment lab
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Run locally
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-it-your-administration-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Make it your administration interface
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-stacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Deploy stacks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manage-configs-and-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Manage configs and secrets
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-and-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Demo and development
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node-jobs-volumes-and-host-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Node jobs, volumes, and host metrics
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networks-and-detail-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Networks and detail pages
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configured-targets-and-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Configured targets and adapters
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configured targets and adapters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#settings-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Settings storage
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-docker-over-a-managed-ssh-tunnel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Remote Docker over a managed SSH tunnel
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-actions-and-interactive-terminals" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker actions and interactive terminals
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#view-existing-compose-files-from-the-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        View existing Compose files from the host
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-environment-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Multi-environment dashboard
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+
+<h1 id="declarack">Declarack<a class="headerlink" href="#declarack" title="Permanent link">&para;</a></h1>
+<p>Connections select reusable <a href="../docs/CREDENTIALS/">credential profiles</a>, managed
+through <strong>Settings → Credentials</strong>. Paste/upload a value or reference a mounted
+file; both use the same named configuration model.</p>
+<p>Configuration is database-managed: files seed the first startup, GUI edits are
+reviewed and saved, and <strong>Activate configuration</strong> makes a saved revision active.
+Optional <code>DECLARACK_CONFIG_FORCE_LOAD=1</code> imports files at each startup;
+<code>DECLARACK_CONFIG_WRITE_BACK=1</code> writes them before GUI activation. Both default to
+off. See <a href="../docs/STORAGE/#active-system-configuration">storage and configuration ownership</a>.</p>
+<p><strong>Administration interfaces, defined in configuration.</strong></p>
+<p>Declarack turns connections, operations, and YAML definitions into a working admin
+interface: searchable tables, dedicated detail pages, forms, confirmed actions,
+terminals, and environment summaries. Start with Docker and Swarm management, then
+bring your own HTTP APIs or SSH hosts into the same workspace.</p>
+<p>Manage a homelab, operate a small Swarm, or assemble an internal administration
+portal without writing a new frontend for every integration.</p>
+<ul>
+<li><strong>One view across environments.</strong> See configured systems together, or define
+  custom pages that query multiple targets and combine their results with JSONata,
+  including charts, filterable tables and opt-in refresh.</li>
+<li><strong>Useful Docker management from day one.</strong> Manage Compose projects and Swarm
+  stacks; inspect resources, read logs, open container terminals, and clean up storage.
+  Edit or duplicate standalone containers with reviewed plans and retained backups.</li>
+<li><strong>Configuration-driven extensions.</strong> Define API operations, map results with
+  JSONata, and reuse views and workflows across environments.</li>
+<li><strong>A small, modular core.</strong> Python backend, React UI, folder-discovered adapters,
+  and on-demand node work. Swarm workers are reached through jobs, not SSH.</li>
+</ul>
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
+<p>Read the <a href="../start/quickstart/">quickstart</a>, follow the runnable
+<a href="../tutorials/api-interface/">API interface tutorial</a>, or browse the
+<a href="../docs/CONFIGURATION/">configuration reference</a>. To preview the complete searchable
+documentation website locally, see <a href="../project/documentation/">documentation development</a>.</p>
+<h2 id="start-with-a-configuration">Start with a configuration<a class="headerlink" href="#start-with-a-configuration" title="Permanent link">&para;</a></h2>
+<p>Already running with a writable configuration folder? Open <strong>Targets → Add integration</strong>
+to generate and review a Docker, Swarm, SSH, Grafana, Prometheus or HTTP API configuration.
+Save it as a new YAML fragment, then reload.</p>
+<table>
+<thead>
+<tr>
+<th>Your use case</th>
+<th>Included starting point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standalone Docker / Compose apps</td>
+<td><a href="../configurations/docker.yaml">Docker management</a></td>
+</tr>
+<tr>
+<td>Swarm services, stacks, and nodes</td>
+<td><a href="../configurations/swarm.yaml">Swarm management</a></td>
+</tr>
+<tr>
+<td>A custom page across Docker, Swarm, and monitoring</td>
+<td><a href="../configurations/operations-dashboard.yaml">Operations dashboard</a></td>
+</tr>
+<tr>
+<td>Local Docker plus a remote Swarm</td>
+<td><a href="../configurations/remote-swarm.yaml">Multiple environments</a></td>
+</tr>
+<tr>
+<td>Linux host metrics</td>
+<td><a href="../configurations/ssh-host.yaml">SSH host</a></td>
+</tr>
+<tr>
+<td>Existing target health and alerts</td>
+<td><a href="../configurations/prometheus.yaml">Prometheus</a></td>
+</tr>
+<tr>
+<td>Existing dashboard inventory</td>
+<td><a href="../configurations/grafana.yaml">Grafana</a></td>
+</tr>
+<tr>
+<td>Your own application API</td>
+<td><a href="../docs/examples/http-environments.yaml">Complete custom application example</a></td>
+</tr>
+</tbody>
+</table>
+<p>Docker/Swarm presets include management actions. Prometheus/Grafana presets are
+read-only integrations with existing services. See the <a href="../configurations/">configuration catalog</a>
+for connection requirements, API/version notes, and instructions for combining them.
+The Docker image includes these presets at <code>/app/configurations</code>.</p>
+<h2 id="try-the-complete-multi-environment-lab">Try the complete multi-environment lab<a class="headerlink" href="#try-the-complete-multi-environment-lab" title="Permanent link">&para;</a></h2>
+<p>Run <a href="../examples/multi-environment/">the real Docker-in-Docker lab</a>: two
+Swarms with one manager and one worker each, running services, Grafana, Prometheus,
+and your host Docker engine, connected through direct access or SSH tunnels.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>up<span class="w"> </span>--http-mode<span class="w"> </span>ssh
+</code></pre></div>
+<p>The lab GUI uses port 9080 and keeps the normal port-8080 installation separate.
+See the lab guide for generated credentials, host SSH commands, transport choices,
+and the complete five-target Declarack configuration.</p>
+<h2 id="run-locally">Run locally<a class="headerlink" href="#run-locally" title="Permanent link">&para;</a></h2>
+<p>From a checkout with Docker available:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DECLARACK_PASSWORD</span><span class="o">=</span><span class="s1">'replace-with-a-strong-password'</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build
+</code></pre></div>
+<p>Open <a href="http://127.0.0.1:8080">Declarack</a> and sign in as <code>admin</code>. The default setup
+detects a local Swarm manager or standalone Docker engine. To choose an explicit
+configuration, follow the <a href="../configurations/#run-a-selected-configuration">catalog setup</a>.
+No Docker/Swarm experience is required to configure an HTTP API integration, but
+you do need a reachable API and knowledge of its response shape.</p>
+<p>The Compose service publishes to loopback and persists saved sources/credentials
+in its <code>declarack-data</code> volume. For remote access, use an SSH tunnel or a trusted
+HTTPS reverse proxy. Docker socket access gives Declarack administrative control
+of the connected engine. Keep its data volume private and back it up.</p>
+<p>Set <code>DECLARACK_STACKS_DIR</code> to a host directory for local stack sources; Compose
+mounts it read-only at <code>/stacks</code>. Use <code>DOCKER_SOCKET</code> for an alternate socket when
+running Python directly, and mount/select that socket explicitly in container deployments.</p>
+<h2 id="make-it-your-administration-interface">Make it your administration interface<a class="headerlink" href="#make-it-your-administration-interface" title="Permanent link">&para;</a></h2>
+<p>The <a href="../docs/CONFIGURATION/">system configuration</a> controls environments, enabled
+capabilities, operation definitions, views, workflows, and authentication. It is
+broader than a dashboard layout. Existing adapters cover Docker, Swarm jobs, SSH,
+and HTTP; new execution mechanisms can be added as trusted adapter packages.</p>
+<p>This is a configurable administration framework with Docker/Swarm as its most
+complete application. Config-defined charts and persisted scheduled checks are
+available. Visual chart builders, SSO/RBAC and outbound check notifications are
+not implemented; see <a href="../docs/HEALTH_CHECKS/">health checks</a>.</p>
+<p>Upgrading from the previous product name? Read the <a href="../docs/RENAMING/">rename guide</a>
+before changing your Compose service or data-volume mapping.</p>
+<h2 id="deploy-stacks">Deploy stacks<a class="headerlink" href="#deploy-stacks" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Open <strong>Stacks</strong>, create a stack or edit the source of an existing stack, and choose one source.</li>
+<li><strong>Compose editor</strong> stores the YAML in Declarack.</li>
+<li><strong>Mounted folder</strong> loads <code>docker-compose.yml</code> or <code>docker-compose.yaml</code> from a directory relative to the mounted source root. Enter <code>.</code> to use the root.</li>
+<li><strong>Git repository (HTTPS / SSH)</strong> supports branches, tags and commit IDs across Git providers, with target-scoped credential references. See <a href="../docs/REGISTRIES_AND_GIT_SOURCES/">registry credentials and Git sources</a>.</li>
+<li><strong>GitHub tag</strong> loads the Compose path from an <code>owner/repository</code> and tag. For private repositories, enter a username and a PAT with read access to repository contents. Declarack stores the source metadata and encrypted PAT in its configured database. The Source page shows the saved repository, tag, Compose path, token status, and last deployed commit. A blank PAT retains the saved credential for the same repository and username. Clear the username to remove the saved credential.</li>
+<li>Save the source and preview it. For GitHub, the preview displays the exact commit. Use <strong>Validate</strong> to run <code>docker stack config</code>.</li>
+<li>Choose <strong>Deploy</strong> and confirm. Declarack checks the preview against the current Compose file and Git commit, then runs <code>docker stack deploy</code>. Check the stack’s service and task views while Swarm converges.</li>
+</ol>
+<p>For an existing stack, choose <strong>Update in place</strong> to keep services absent from the reviewed file, <strong>Update and remove orphaned services</strong> to prune those services, or <strong>Replace stack</strong> to validate the Compose file, remove the deployed resources, and redeploy. Replace causes downtime and keeps volumes by default. Turn on <strong>Clear selected volumes during replacement</strong> to scan nodes and explicitly select volumes to delete. Only existing, stack-labeled local volumes referenced by the deployed services and declared under their default stack-scoped name in the reviewed source are eligible. External, shared-driver, and volumes attached to unrelated containers are excluded. Use the same updated image for Declarack and its node jobs. If the new deployment fails after removal, inspect the cluster and redeploy when the cause is resolved.</p>
+<p>To tear down a deployed stack, open its <strong>Source</strong> page, choose <strong>Remove deployed stack</strong>, and confirm. Docker removes services and stack-owned networks, configs, and secrets. The saved source and volumes are retained. Preview and deploy the source to recreate the stack.</p>
+<p>Deployments are manual. Updating a tag or a folder does not trigger a deployment. GitHub sources are bounded to 16 MiB compressed and 64 MiB extracted and support regular files and directories. Use stack files from trusted sources. Target-scoped registry credential files now support private image pulls, Compose up, Swarm stack deployment with worker authentication, and reviewed service edits. Bind mount paths in service definitions must exist on the target Swarm nodes.</p>
+<h2 id="manage-configs-and-secrets">Manage configs and secrets<a class="headerlink" href="#manage-configs-and-secrets" title="Permanent link">&para;</a></h2>
+<p>Use <strong>Configs</strong> or <strong>Secrets</strong> to create a resource from pasted text or a file of up to 500 KiB. The GUI displays references from running service definitions. To rotate a config or secret, create a new version, update your Compose source to use it, redeploy, and remove the old version after it has no service references. Reference Swarm resources as <code>external: true</code> in Compose and keep secret values out of Compose files. Docker Swarm returns metadata and usage for secrets after creation.</p>
+<p>The dashboard also supports scaling services, node scheduling changes, and recent logs. A standalone engine or worker can display local container data and logs.</p>
+<h2 id="demo-and-development">Demo and development<a class="headerlink" href="#demo-and-development" title="Permanent link">&para;</a></h2>
+<p>For a backend-free playground, run <code>npm run demo --prefix frontend</code> after
+installing frontend dependencies. This serves the existing GUI with a browser-only
+simulated API. See <a href="../docs/BROWSER_DEMO/">static browser playground</a> for free static
+hosting, supported workflows and limitations.</p>
+<p>Run the demo directly from the production image:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>declarack<span class="w"> </span>.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-e<span class="w"> </span><span class="nv">DECLARACK_MODE</span><span class="o">=</span>demo<span class="w"> </span>-p<span class="w"> </span><span class="m">127</span>.0.0.1:8080:8080<span class="w"> </span>declarack
+</code></pre></div>
+<p>The demo uses sample inventory and temporary data. For local development with Node 22.12+ and Python 3.12+, run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>npm<span class="w"> </span>--prefix<span class="w"> </span>frontend<span class="w"> </span>ci
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>npm<span class="w"> </span>--prefix<span class="w"> </span>frontend<span class="w"> </span>run<span class="w"> </span>build
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>.venv/bin/pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nv">DECLARACK_MODE</span><span class="o">=</span>demo<span class="w"> </span>.venv/bin/python<span class="w"> </span>-m<span class="w"> </span>backend.server
+</code></pre></div>
+<p>A local Docker CLI enables Compose validation in the demo. Networks with a private CA can pass a host CA bundle to Docker BuildKit with <code>--secret id=build_ca,src=/path/to/ca-bundle.crt</code>. This only affects dependency installation during the build.</p>
+<h2 id="node-jobs-volumes-and-host-metrics">Node jobs, volumes, and host metrics<a class="headerlink" href="#node-jobs-volumes-and-host-metrics" title="Permanent link">&para;</a></h2>
+<p>Build and publish this same image to a registry that the Swarm nodes can pull from. Set <code>DECLARACK_AGENT_IMAGE</code> to that image reference on the manager, preferably by digest. Use the same version for the dashboard and node jobs.</p>
+<ul>
+<li>In <strong>Volumes</strong>, choose a node or all nodes and select <strong>Refresh volumes</strong>. Each result shows the node, volume driver, and local container attachments. Create a named local volume on a selected node or remove an unused volume. Docker enforces its own in-use checks. Removing a volume deletes its data.</li>
+<li>To enable host metrics, set <code>DECLARACK_HOST_METRICS=1</code> on the dashboard. Open <strong>Host metrics</strong>, select a node, and choose <strong>Collect</strong> to see CPU, memory, host disk, swap, network throughput, kernel, and uptime. Each snapshot shows its collection time. Disk capacity is measured on the filesystem containing <code>/etc</code> by default. Set <code>DECLARACK_HOST_DISK_PATH</code> to an absolute directory on a different node filesystem, such as the Docker data directory, to measure it instead.</li>
+<li>Volume jobs mount the selected node’s Docker socket. If all worker sockets use an alternate path, set <code>DECLARACK_WORKER_SOCKET</code> to that host path. Metrics jobs use read-only Linux host mounts.</li>
+<li>Jobs require a ready, active Linux node and a Docker Engine with support for replicated jobs. The manager pins each job by node ID, reads its JSON result via Docker task logs, and removes the job. A timed-out write can have an unknown outcome, so refresh the volume list before retrying. No inbound callback or persistent worker process is required.</li>
+</ul>
+<h2 id="networks-and-detail-pages">Networks and detail pages<a class="headerlink" href="#networks-and-detail-pages" title="Permanent link">&para;</a></h2>
+<p><strong>Networks</strong> lists Swarm overlays and networks known to the connected Docker engine. Open a network to see its scope, driver, IPAM subnets, Swarm service references, and endpoints reported by that engine. Worker-local network inventory and network creation or removal are outside this view.</p>
+<p>Resource details and creation forms have their own URLs. Use the back link or your browser history to return to the inventory.</p>
+<h2 id="configured-targets-and-adapters">Configured targets and adapters<a class="headerlink" href="#configured-targets-and-adapters" title="Permanent link">&para;</a></h2>
+<p><code>DECLARACK_CONFIG</code> can point to one file or a folder. Folder YAML fragments merge
+into one system configuration; Settings can show each file and reload validated
+changes without rebuilding the application. Start with the
+<a href="../configurations/folder-example/">folder example</a> and <a href="../docs/CONFIG_FOLDERS/">merge/reload guide</a>.</p>
+<p>The main YAML is Declarack's <strong>system configuration</strong>: it controls connections, capabilities, execution definitions, UI presentation, and authentication. Read the <a href="../docs/CONFIGURATION/">complete configuration guide</a> for schemas, examples, storage modes, edit restrictions, and runtime settings. A <a href="../docs/examples/http-environments.yaml">complete custom API example</a> is included.</p>
+<p>The original single-manager setup works without a config file. To use configured targets, start with <a href="../dashboard.example.yaml">dashboard.example.yaml</a>, mount it as <code>/etc/declarack/dashboard.yaml</code>, and set <code>DECLARACK_CONFIG=/etc/declarack/dashboard.yaml</code>. Mount the sockets and credential files referenced by that config. Use <code>auth.password_file</code> for a mounted password secret or set <code>DECLARACK_PASSWORD</code> for development.</p>
+<p>The example enables standalone Docker. Add a Swarm manager, an SSH host, or an upstream HTTP API as another target. Swarm never uses SSH to reach workers. SSH host metrics require <code>python3</code> on the remote Linux host and an OpenSSH-format identity readable by the dashboard. Enable <code>stacks</code>, <code>configs</code>, and <code>secrets</code> in each applicable Swarm target. The same YAML renderer serves configured targets and single-manager installs. Use <code>legacy_workspace: &lt;swarm-target-id&gt;</code> to associate pre-existing saved stacks and bookmark routes with that target. Other targets keep source records in separate logical database scopes. SQLite is the default; PostgreSQL is optional. See <a href="../docs/STORAGE/">storage and migration</a>.</p>
+<p>The app discovers built-in adapters in <code>/app/backend/adapters</code> and additional packages in <code>/etc/declarack/adapters</code> or <code>DECLARACK_ADAPTER_DIR</code>. Mount additional adapters read-only and restart to load them. An adapter can register a connection, operation executor, and optional YAML files with operations and features. See the <a href="../ARCHITECTURE/">architecture writeup</a> for the boundaries and the existing <code>backend/adapters/</code> packages for the actual config schema.</p>
+<h3 id="settings-storage">Settings storage<a class="headerlink" href="#settings-storage" title="Permanent link">&para;</a></h3>
+<p>Settings can validate supported target changes and test a target connection. Changes to top-level operations, features, authentication, or legacy-workspace settings currently require deployment and restart; see the configuration guide. Choose how supported edits apply:</p>
+<ul>
+<li><strong>File</strong> is the default. Set <code>DECLARACK_CONFIG_EDIT=1</code> and mount the enclosing directory writable for atomic saves. The preceding revision is retained next to it with a <code>.previous</code> suffix.</li>
+<li><strong>Swarm</strong> uses <code>DECLARACK_CONFIG_STORE=swarm</code> and <code>DECLARACK_CONFIG_SERVICE</code> to select the dashboard service. The mount target defaults to <code>DECLARACK_CONFIG</code> and can be overridden with <code>DECLARACK_CONFIG_MOUNT</code>. The service update uses the manager socket, optionally overridden by <code>DECLARACK_CONFIG_SOCKET</code>. Docker service rollback can restore the prior config attachment while its config still exists.</li>
+<li><strong>GitHub</strong> uses <code>DECLARACK_CONFIG_STORE=git</code> with <code>DECLARACK_CONFIG_GIT_REPO</code> in <code>owner/repo</code> format. Set <code>DECLARACK_CONFIG_GIT_BRANCH</code> and <code>DECLARACK_CONFIG_GIT_PATH</code> as needed. <code>DECLARACK_CONFIG_GIT_TOKEN_FILE</code> is a mounted credential. Creating pull requests requires repository Contents and Pull Requests write access. The running dashboard still boots from the mounted file, so arrange for merged revisions to update that mount and restart or redeploy it.</li>
+</ul>
+<p>Authentication, adapter packages, and operation and feature definitions are deployment settings. They cannot be changed from the dashboard's Settings editor.</p>
+<p>Run the adapter and storage tests with <code>python -m unittest discover -s backend/tests</code> after installing the Python dependencies.</p>
+<h3 id="remote-docker-over-a-managed-ssh-tunnel">Remote Docker over a managed SSH tunnel<a class="headerlink" href="#remote-docker-over-a-managed-ssh-tunnel" title="Permanent link">&para;</a></h3>
+<p>For a remote manager, replace the target's <code>socket</code> setting with <code>ssh_tunnel</code>. The dashboard container starts OpenSSH as a subprocess when the connection is needed, keeps it alive, and reconnects after a failure. No host-side tunnel service or Docker TCP listener is required.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">targets</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">production</span><span class="p">:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker_socket</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">swarm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">ssh_tunnel</span><span class="p">:</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">swarm-manager.example.com</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="nt">remote_socket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/run/docker.sock</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">      </span><span class="nt">credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tunnel_production</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nt">features</span><span class="p">:</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">overview</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">services</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodes</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tasks</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacks</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">configs</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secrets</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networks</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">volumes</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host_metrics</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="nt">agent_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.example.com/declarack:0.3</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span><span class="nt">host_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="nt">credentials</span><span class="p">:</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">  </span><span class="nt">tunnel_production</span><span class="p">:</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dashboard</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">    </span><span class="nt">private_key</span><span class="p">:</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/production_ssh_key</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">    </span><span class="nt">known_hosts</span><span class="p">:</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/declarack/known_hosts</span>
+</code></pre></div>
+<p>Mount the OpenSSH-format private key and a verified <code>known_hosts</code> file in the container. Set the private key mount to mode <code>0400</code> and make it readable by the dashboard process. The manager's SSH server must allow stream-local forwarding and the SSH account must be able to access the manager's Docker socket. A nonstandard SSH port can be set with <code>port</code>. The socket is private to the dashboard container. Use a separate target for each manager. Swarm reaches workers via the manager's Docker API.</p>
+<p>Stack operations and the bundled Docker CLI use the selected manager connection too. The Swarm-backed Settings store still uses its deployment-side manager socket, configured separately with <code>DECLARACK_CONFIG_SOCKET</code>.</p>
+<h2 id="docker-actions-and-interactive-terminals">Docker actions and interactive terminals<a class="headerlink" href="#docker-actions-and-interactive-terminals" title="Permanent link">&para;</a></h2>
+<p>See <a href="../docs/DOCKER_ACTIONS/">Docker GUI action coverage</a> for the implemented action matrix, configuration examples, terminal behavior, and remaining CLI coverage.</p>
+<p>Standalone Docker targets also expose <strong>Compose projects</strong> for discovery, saved inline/mounted sources, and reviewed lifecycle actions. Swarm task terminals use temporary node relay jobs when <code>agent_image</code> is configured. See the action coverage document for setup and constraints.</p>
+<h2 id="view-existing-compose-files-from-the-host">View existing Compose files from the host<a class="headerlink" href="#view-existing-compose-files-from-the-host" title="Permanent link">&para;</a></h2>
+<p>Optionally mount the host filesystem read-only and expose reported Compose files:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Native Linux Docker host:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>compose.yaml<span class="w"> </span>-f<span class="w"> </span>compose.host-files.yaml<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Docker Desktop on macOS (reported paths under /Users):</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>compose.yaml<span class="w"> </span>-f<span class="w"> </span>compose.host-files.macos.yaml<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build
+</code></pre></div>
+<p>These optional overrides set <code>DECLARACK_COMPOSE_HOST_ROOT=/mnt/host</code>. Native Linux
+mounts <code>/</code> there; the macOS override mounts <code>/Users</code> at <code>/mnt/host/Users</code> because
+Docker Desktop's <code>/</code> is the Linux VM filesystem. Narrower read-only binds work too
+when they preserve the reported absolute path beneath <code>/mnt/host</code>.</p>
+<p>Open a Compose project and select <strong>View host Compose files</strong>. Missing, unreadable,
+non-regular or oversized files are reported individually. The viewer reads files;
+it does not save a deployment source or alter the project. A host-root mount grants
+the dashboard read access to the selected host paths, so it is opt-in.</p>
+<p>For multiple targets, set each target's <code>host_root</code> to the matching mounted host
+filesystem. A local mount cannot expose a remote Docker host's files; SSH-tunnel
+targets require an explicit per-target mapping. When running the Python development
+server directly on the same host as the Compose source files, use
+<code>DECLARACK_COMPOSE_HOST_ROOT=/</code> without a container bind mount.</p>
+<h2 id="multi-environment-dashboard">Multi-environment dashboard<a class="headerlink" href="#multi-environment-dashboard" title="Permanent link">&para;</a></h2>
+<p>For custom pages with cross-target queries, shared JSONata context, cards, and
+tables, see the <a href="../docs/CUSTOM_PAGES/">custom pages guide</a>. The Environments page
+below remains the navigation view for individual targets.</p>
+<p>The home page (<code>#/environments</code>) summarizes all configured targets. Each environment
+has its own snapshot, refresh button, feature links, and <strong>Open workspace</strong> action.
+Search by label, target ID, or provider. Existing target and resource bookmarks
+continue to work. Add environments under <code>targets</code> in the configured dashboard;
+this page does not discover or create remote connections automatically.</p>
+<p>Standalone Docker summaries show Compose projects, total/running/not-running
+containers, and image counts when those features are enabled. Swarm overview
+summaries show services, ready nodes, stacks, and services below desired replicas.
+A failed summary is isolated to its environment; partial results remain usable.
+<strong>Loaded</strong> means summary requests succeeded, rather than a health guarantee.
+Targets without summary definitions still offer links into their workspaces,
+including SSH hosts whose metrics require manual collection.</p>
+<p>Collection runs only on page entry or explicit refresh, with at most four requests
+in flight and a 15-second client timeout per request. Leaving the page cancels
+pending browser requests; it does not guarantee cancellation of work already
+started on a remote server. No host-metric or volume-inventory jobs are started by
+this dashboard.</p>
+<p>Adapters and custom features opt in using the existing feature operation and
+JSONata expressions, for example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">features</span><span class="p">:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">asset_inventory</span><span class="p">:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Assets</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inventory.list</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nt">rows</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">items</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nt">columns</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[{</span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="nv">Name</span><span class="p p-Indicator">,</span><span class="nt"> value</span><span class="p">:</span><span class="w"> </span><span class="nv">name</span><span class="p p-Indicator">}]</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">      </span><span class="nt">cards</span><span class="p">:</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="nv">Assets</span><span class="p p-Indicator">,</span><span class="nt"> value</span><span class="p">:</span><span class="w"> </span><span class="s">'$count(items)'</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Unhealthy</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">'$count(items[healthy</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="s">false])'</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">          </span><span class="nt">tone</span><span class="p">:</span><span class="w"> </span><span class="s">'$count(items[healthy</span><span class="nv"> </span><span class="s">=</span><span class="nv"> </span><span class="s">false])</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">?</span><span class="nv"> </span><span class="s">"destructive"</span><span class="nv"> </span><span class="s">:</span><span class="nv"> </span><span class="s">null'</span>
+</code></pre></div>
+<p>Each card supports <code>label</code>, JSONata <code>value</code>, optional JSONata <code>caption</code> and <code>tone</code>,
+and an optional destination <code>feature</code>. Environment summaries must use operations
+without inputs and cannot be marked manual or on demand. Declare summaries only
+for inexpensive read operations. They inherit each target's enabled features and
+operation permissions; connection settings and credentials are not sent to the UI.</p>
+<p>See <a href="../docs/ENVIRONMENTS_AND_CHECKS/">Targets, environments, and persisted checks</a> for grouping connections and scheduled monitoring.</p>
+<p>See <a href="../docs/PORTAINER_PARITY/">Portainer parity review</a> and <a href="../docs/VOLUME_BROWSER_AND_BATCHES/">volume browsing / multi-target batches</a>.</p>
+<p>Resource editing is driven by adapter YAML and <a href="../docs/FRAMEWORK_WORKFLOWS/">reusable workflow capabilities</a>, including typed JSON forms, change previews and version-checked Swarm updates.</p>
+<p>See <a href="../docs/RESOURCE_CLONING_AND_PLANS/">source-based forms and tracked operation plans</a>
+for reusable row editors, adapter plans, recovery behavior and container recreation limits.</p>
+<p><a href="../docs/TABLES_BULK_AND_CHARTS/">Tables, bulk actions and charts</a> explains reviewed
+resource selection, CSV/JSON exports and multi-source chart configuration.</p>
+<p>See <a href="../docs/TEMPLATES_AND_DYNAMIC_FORMS/">integration templates and dynamic form options</a> for the Add integration workflow, adapter-owned presets, dependent dropdowns and validation.</p>
+<p>Contributor setup, module boundaries and local verification commands are in the
+<a href="../docs/CODE_ORGANIZATION/">code organization guide</a>.</p>
+<p>Configuration folders can be edited from Settings with full-merge validation,
+source and effective-config diffs, and local revision history. Save a reviewed
+file, then reload to apply it. Historical content restores into a draft for review.
+See <a href="../docs/CONFIG_FOLDERS/#reviewed-edits-and-recovery">configuration editing and recovery</a>.</p>
+<p>For AI-assisted setup, load <a href="../CONFIG_SKILL/">CONFIG_SKILL.md</a>: a portable guide
+for creating, validating and applying Declarack configuration. Contributors and
+coding agents should start with <a href="../AGENTS/">AGENTS.md</a>.</p>
+<p>Persistence defaults to a local SQLite database. PostgreSQL is available through
+a database URL or mounted URL secret. Existing installations need an explicit
+<a href="../docs/STORAGE/">storage import</a>; both backends currently support one active controller.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../docs/RENAMING/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Upgrade and rename compatibility">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Upgrade and rename compatibility
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.tabs","navigation.sections","navigation.top","navigation.footer","search.suggest","search.highlight","content.code.copy","content.code.annotate"],"redirect":null,"search":"../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9e76c64c.min.js"></script>
+      
+      
+    
+  </body>
+</html>

@@ -1,0 +1,19 @@
+# Optional fragment: merge with declarack.yaml to add a non-Docker resource selector.
+targets:
+  training:
+    features: [tutorial.apps, tutorial.team-applications]
+features:
+  tutorial.team-applications:
+    title: Applications by team
+    operation: tutorial.team-apps.list
+    rows: items
+    selector:
+      operation: tutorial.teams.list
+      input: team
+      label: Team
+      rows: items
+      value: id
+      text: name
+    columns:
+      - {label: Application, value: name}
+      - {label: Status, value: status}

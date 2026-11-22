@@ -1,0 +1,40 @@
+# Copy into runtime/config/50-grafana-health.yaml, then Reload configuration.
+# This fragment extends the provided lab; it is not a complete standalone config.
+operations:
+  lab.grafana.health:
+    bindings:
+      http:
+        executor: http.request
+        path: /api/health
+features:
+  lab.grafana.health:
+    title: Grafana health
+    group: Monitoring
+    operation: lab.grafana.health
+    rows: '[$]'
+    columns:
+      - {label: Database, value: database}
+      - {label: Version, value: version}
+      - {label: Commit, value: commit, truncate: true}
+targets:
+  grafana:
+    # Lists replace earlier lists, so retain the existing dashboard feature too.
+    features: [grafana.dashboards, lab.grafana.health]
+pages:
+  grafana-health:
+    title: Grafana status
+    sources:
+      health: {target: grafana, operation: lab.grafana.health}
+    cards:
+      - label: Grafana database
+        value: data.health.database
+        tone: 'data.health.database != "ok" ? "destructive" : null'
+      - label: Grafana version
+        value: data.health.version
+    panels:
+      - title: Grafana health response
+        rows: '[data.health]'
+        columns:
+          - {label: Database, value: database}
+          - {label: Version, value: version}
+          - {label: Commit, value: commit}

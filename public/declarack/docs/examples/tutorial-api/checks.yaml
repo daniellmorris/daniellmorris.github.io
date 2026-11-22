@@ -1,0 +1,10 @@
+# Merge with declarack.yaml, optionally also dashboard.yaml.
+checks:
+  tutorial-readiness:
+    title: Training API readiness
+    target: training
+    operation: tutorial.health
+    healthy: status = "ok"
+    every: 10s
+    failure_threshold: 2
+    recovery_threshold: 1

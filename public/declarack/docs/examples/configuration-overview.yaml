@@ -1,0 +1,55 @@
+# Adapt both socket mounts before use. Loading this file does not connect to them.
+targets:
+  engine_a:
+    label: Engine A
+    connection: docker_socket
+    socket: /var/run/docker.sock
+    features: [containers]
+  engine_b:
+    label: Engine B
+    connection: docker_socket
+    socket: /run/engine-b/docker.sock
+    features: [containers]
+
+pages:
+  workloads:
+    title: Workload overview
+    sources:
+      a: {target: engine_a, operation: containers.list}
+      b: {target: engine_b, operation: containers.list}
+    cards:
+      - {label: Engine A containers, value: '$count(data.a)'}
+      - {label: Engine B containers, value: '$count(data.b)'}
+
+batches:
+  inventory:
+    title: Collect container inventory
+    operation: containers.list
+    columns:
+      - {label: Containers, value: '$count(result)'}
+
+environments:
+  root:
+    label: Home
+    pages: [workloads]
+    navigation:
+      - {item: environments, group: Workspace}
+      - {page: workloads}
+      - {item: targets, group: Administration}
+      - {item: checks}
+      - {item: operations}
+      - {item: settings}
+  engines:
+    label: Docker engines
+    targets: [engine_a, engine_b]
+    pages: [workloads]
+    batches: [inventory]
+    navigation:
+      - {page: workloads, group: Overview}
+      - {batch: inventory, label: Collect inventory, group: Tools}
+
+checks:
+  engine_a_connection:
+    title: Engine A connection
+    target: engine_a
+    every: 1m

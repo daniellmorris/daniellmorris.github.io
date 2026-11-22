@@ -1,0 +1,51 @@
+# Merge after declarack.yaml in the tutorial folder.
+targets:
+  staging:
+    label: Staging API
+    connection: http
+    base_url: http://127.0.0.1:9011
+    features: [tutorial.apps]
+environments:
+  tutorial:
+    targets: [training, staging]
+    pages: [tutorial-overview]
+pages:
+  tutorial-overview:
+    title: Application overview
+    sources:
+      training: {target: training, operation: tutorial.apps.list}
+      staging: {target: staging, operation: tutorial.apps.list}
+    cards:
+      - label: Applications across targets
+        sources: [training, staging]
+        value: $count(data.training.items) + $count(data.staging.items)
+    charts:
+      - title: Running applications
+        type: bar
+        sources: [training, staging]
+        rows: '[{"target":"Training","running":$count(data.training.items[status="running"]),"total":$count(data.training.items)},{"target":"Staging","running":$count(data.staging.items[status="running"]),"total":$count(data.staging.items)}]'
+        x: target
+        series:
+          - {label: Running, value: running}
+          - {label: Total, value: total}
+    panels:
+      - title: Training applications
+        sources: [training]
+        rows: data.training.items
+        target: training
+        feature: tutorial.apps
+        row_id: id
+        columns:
+          - {label: Application, value: name}
+          - {label: Status, value: status}
+          - {label: Restarts, value: restarts}
+      - title: Staging applications
+        sources: [staging]
+        rows: data.staging.items
+        target: staging
+        feature: tutorial.apps
+        row_id: id
+        columns:
+          - {label: Application, value: name}
+          - {label: Status, value: status}
+          - {label: Restarts, value: restarts}

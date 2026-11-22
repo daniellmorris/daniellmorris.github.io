@@ -1,0 +1,319 @@
+auth:
+  provider: basic
+  credential: declarack_login
+targets:
+  host:
+    label: Host Docker (standalone view)
+    agent_image: declarack-lab:local
+    connection: docker_socket
+    socket: /var/run/docker.sock
+    swarm: false
+    features:
+    - compose
+    - containers
+    - images
+    - networks
+    - volumes
+    - disk_usage
+  swarm_a:
+    label: Swarm A · manager + worker
+    connection: docker_socket
+    swarm: true
+    ssh_tunnel:
+      host: swarm-a-manager
+      credential: tunnel_swarm_a
+    agent_image: declarack-lab:local
+    host_metrics: true
+    features: &id001
+    - overview
+    - services
+    - nodes
+    - tasks
+    - stacks
+    - configs
+    - secrets
+    - networks
+    - volumes
+    - host_metrics
+    - containers
+  swarm_b:
+    label: Swarm B · manager + worker
+    connection: docker_socket
+    swarm: true
+    ssh_tunnel:
+      host: swarm-b-manager
+      credential: tunnel_swarm_a
+    agent_image: declarack-lab:local
+    host_metrics: true
+    features: *id001
+  prometheus:
+    label: Prometheus
+    connection: http
+    base_url: http://prometheus:9090
+    features:
+    - prometheus.targets
+    - prometheus.alerts
+    ssh_tunnel:
+      host: swarm-a-manager
+      remote_host: prometheus
+      remote_port: 9090
+      credential: tunnel_swarm_a
+  grafana:
+    label: Grafana dashboards
+    connection: http
+    base_url: http://grafana:3000
+    features:
+    - grafana.dashboards
+    ssh_tunnel:
+      host: swarm-b-manager
+      remote_host: grafana
+      remote_port: 3000
+      credential: tunnel_swarm_a
+operations:
+  prometheus.targets.read:
+    bindings:
+      http:
+        executor: http.request
+        path: /api/v1/targets
+        query:
+          state: active
+  prometheus.alerts.read:
+    bindings:
+      http:
+        executor: http.request
+        path: /api/v1/alerts
+  grafana.dashboards.read:
+    bindings:
+      http:
+        executor: http.request
+        path: /api/search
+        query:
+          type: dash-db
+          limit: 1000
+          page: 1
+features:
+  prometheus.targets:
+    title: Scrape targets
+    group: Monitoring
+    operation: prometheus.targets.read
+    rows: data.activeTargets
+    columns:
+    - label: Job
+      value: labels.job
+    - label: Instance
+      value: labels.instance
+    - label: Health
+      value: health
+      badges:
+        up: active
+        down: destructive
+        unknown: muted
+    - label: Endpoint
+      value: scrapeUrl
+      truncate: true
+    - label: Last scrape
+      value: lastScrape
+    - label: Last error
+      value: lastError
+      truncate: true
+    environment:
+      cards:
+      - label: Targets
+        value: $count(data.activeTargets)
+      - label: Up
+        value: $count(data.activeTargets[health = "up"])
+      - label: Not up
+        value: $count(data.activeTargets[health != "up"])
+        tone: '$count(data.activeTargets[health != "up"]) > 0 ? "destructive" : null'
+  prometheus.alerts:
+    title: Active alerts
+    group: Monitoring
+    operation: prometheus.alerts.read
+    rows: data.alerts
+    columns:
+    - label: Alert
+      value: labels.alertname
+    - label: State
+      value: state
+      badges:
+        firing: destructive
+        pending: muted
+    - label: Instance
+      value: labels.instance
+    - label: Summary
+      value: annotations.summary
+      truncate: true
+    - label: Active since
+      value: activeAt
+    environment:
+      cards:
+      - label: Firing alerts
+        value: $count(data.alerts[state = "firing"])
+        tone: '$count(data.alerts[state = "firing"]) > 0 ? "destructive" : null'
+      - label: Pending alerts
+        value: $count(data.alerts[state = "pending"])
+  grafana.dashboards:
+    title: Dashboards
+    group: Monitoring
+    operation: grafana.dashboards.read
+    rows: $
+    columns:
+    - label: Title
+      value: title
+    - label: Folder
+      value: folderTitle
+    - label: UID
+      value: uid
+    - label: Tags
+      value: $join(tags, ", ")
+    - label: Grafana path
+      value: url
+      truncate: true
+    environment:
+      cards:
+      - label: Dashboards returned
+        value: $count($)
+        caption: '"First page, up to 1000 visible dashboards"'
+pages:
+  lab:
+    title: Multi-environment lab
+    description: Two real Swarms, host Docker, Prometheus, and Grafana.
+    sources:
+      a:
+        label: Swarm A services
+        target: swarm_a
+        operation: swarm.services.list
+      b:
+        label: Swarm B services
+        target: swarm_b
+        operation: swarm.services.list
+      host:
+        label: Host containers
+        target: host
+        operation: containers.list
+      targets:
+        label: Prometheus scrape targets
+        target: prometheus
+        operation: prometheus.targets.read
+      grafana:
+        label: Grafana dashboards
+        target: grafana
+        operation: grafana.dashboards.read
+    cards:
+    - label: Services across both Swarms
+      sources:
+      - a
+      - b
+      value: $count(data.a) + $count(data.b)
+    - label: Running host containers
+      sources:
+      - host
+      value: $count(data.host[State = "running"])
+    - label: Healthy scrape targets
+      sources:
+      - targets
+      value: $count(data.targets.data.activeTargets[health = "up"])
+    - label: Grafana dashboards
+      sources:
+      - grafana
+      value: $count(data.grafana)
+    panels:
+    - title: Swarm A services
+      sources:
+      - a
+      rows: data.a
+      target: swarm_a
+      feature: services
+      row_id: ID
+      columns:
+      - label: Service
+        value: Spec.Name
+      - label: Running
+        value: ServiceStatus.RunningTasks
+      - label: Desired
+        value: ServiceStatus.DesiredTasks
+    - title: Swarm B services
+      sources:
+      - b
+      rows: data.b
+      target: swarm_b
+      feature: services
+      row_id: ID
+      columns:
+      - label: Service
+        value: Spec.Name
+      - label: Running
+        value: ServiceStatus.RunningTasks
+      - label: Desired
+        value: ServiceStatus.DesiredTasks
+    - title: Monitoring targets
+      sources:
+      - targets
+      rows: data.targets.data.activeTargets
+      wide: true
+      columns:
+      - label: Job
+        value: labels.job
+      - label: Instance
+        value: labels.instance
+      - label: Health
+        value: health
+        badges:
+          up: active
+          down: destructive
+      - label: Last error
+        value: lastError
+        truncate: true
+environments:
+  swarm-a:
+    label: Swarm A
+    targets:
+    - swarm_a
+    pages:
+    - lab
+  swarm-b:
+    label: Swarm B
+    targets:
+    - swarm_b
+    pages:
+    - lab
+  local:
+    label: Local Docker
+    targets:
+    - host
+  monitoring:
+    label: Monitoring
+    targets:
+    - grafana
+    - prometheus
+checks:
+  swarm-a-manager:
+    title: Swarm A manager connection
+    target: swarm_a
+    every: 60s
+    failure_threshold: 3
+    recovery_threshold: 2
+  swarm-b-manager:
+    title: Swarm B manager connection
+    target: swarm_b
+    every: 60s
+    failure_threshold: 3
+    recovery_threshold: 2
+  grafana:
+    title: Grafana connection
+    target: grafana
+    every: 60s
+    failure_threshold: 2
+credentials:
+  tunnel_swarm_a:
+    type: ssh
+    username: root
+    private_key:
+      file: /run/lab/client_key
+    known_hosts:
+      file: /run/lab/known_hosts
+  declarack_login:
+    type: basic
+    username: admin
+    password:
+      file: /run/lab/declarack_password

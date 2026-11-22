@@ -1,0 +1,8 @@
+# Full system configuration: one standalone Docker engine.
+targets:
+  local:
+    label: Local Docker
+    connection: docker_socket
+    socket: /var/run/docker.sock
+    features: [compose, containers, images, networks, volumes, disk_usage]
+    # host_root: /mnt/host  # Requires a matching read-only filesystem mount.

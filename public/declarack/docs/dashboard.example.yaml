@@ -1,0 +1,90 @@
+# Declarack system configuration (connections, capabilities, UI, and auth).
+# Guide: docs/CONFIGURATION.md
+# Complete custom API example: docs/examples/http-environments.yaml
+targets:
+  lab:
+    label: Local Docker
+    # host_root: /mnt/host  # Optional read-only mapping for reported Compose file paths.
+    connection: docker_socket
+    socket: /var/run/docker.sock
+    features: [compose, containers, images, networks, volumes, disk_usage]
+
+  # production:
+  #   connection: docker_socket
+  #   socket: /var/run/docker.sock
+  #   swarm: true
+  #   agent_image: registry.example.com/declarack:0.3
+  #   host_metrics: true
+  #   features: [overview, services, nodes, tasks, stacks, configs, secrets, networks, volumes, host_metrics]
+
+  # backup:
+  #   connection: ssh
+  #   host: backup.example.com
+  #   user: dashboard
+  #   identity_file: /run/secrets/backup_ssh_key
+  #   known_hosts_file: /etc/declarack/known_hosts
+  #   features: [host_metrics]
+
+# auth:
+#   provider: basic
+#   username: admin
+#   password_file: /run/secrets/declarack_admin_password
+
+# Associate existing SQLite stack records and old bookmarks with a configured target:
+# legacy_workspace: production
+
+# Generic upstream example. Add the target inside "targets", then add these at
+# the top level:
+# operations:
+#   inventory.list:
+#     bindings:
+#       http: {executor: http.request, method: GET, path: /assets}
+# features:
+#   asset_inventory:
+#     title: Assets
+#     operation: inventory.list
+#     rows: items
+#     columns: [{label: Name, value: name}]
+#
+# Target settings:
+#   connection: http
+#   base_url: https://inventory.example.com
+#   bearer_token_file: /run/secrets/inventory_token
+#   features: [asset_inventory]
+
+# Custom pages can query several targets; this local example uses two reads.
+# See configurations/operations-dashboard.yaml for a cross-target example.
+pages:
+  engine:
+    title: Engine dashboard
+    description: Containers and Compose projects in one view.
+    sources:
+      containers: {target: lab, operation: containers.list}
+      projects: {target: lab, operation: compose.list}
+    cards:
+      - label: Running containers
+        sources: [containers]
+        value: '$count(data.containers[State = "running"])'
+      - label: Compose projects
+        sources: [projects]
+        value: '$count(data.projects.items)'
+    panels:
+      - title: Containers
+        sources: [containers]
+        rows: data.containers
+        target: lab
+        feature: containers
+        row_id: Id
+        columns:
+          - {label: Name, value: '$join(Names, ", ")', truncate: true}
+          - {label: State, value: State}
+          - {label: Image, value: Image, truncate: true}
+      - title: Compose projects
+        sources: [projects]
+        rows: data.projects.items
+        target: lab
+        feature: compose
+        row_id: name
+        columns:
+          - {label: Project, value: name}
+          - {label: Status, value: status}

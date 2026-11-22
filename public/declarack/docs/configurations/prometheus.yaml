@@ -1,0 +1,62 @@
+# Full system configuration: read-only Prometheus target health and alerts.
+# Replace the origin with a Prometheus API reachable from Declarack.
+targets:
+  prometheus:
+    label: Prometheus
+    connection: http
+    base_url: https://prometheus.example.com
+    # bearer_token_file: /run/secrets/prometheus_token
+    features: [prometheus.targets, prometheus.alerts]
+operations:
+  prometheus.targets.read:
+    bindings:
+      http:
+        executor: http.request
+        path: /api/v1/targets
+        query: {state: active}
+  prometheus.alerts.read:
+    bindings:
+      http:
+        executor: http.request
+        path: /api/v1/alerts
+features:
+  prometheus.targets:
+    title: Scrape targets
+    group: Monitoring
+    operation: prometheus.targets.read
+    rows: data.activeTargets
+    columns:
+      - {label: Job, value: labels.job}
+      - {label: Instance, value: labels.instance}
+      - label: Health
+        value: health
+        badges: {up: active, down: destructive, unknown: muted}
+      - {label: Endpoint, value: scrapeUrl, truncate: true}
+      - {label: Last scrape, value: lastScrape}
+      - {label: Last error, value: lastError, truncate: true}
+    environment:
+      cards:
+        - {label: Targets, value: '$count(data.activeTargets)'}
+        - {label: Up, value: '$count(data.activeTargets[health = "up"])'}
+        - label: Not up
+          value: '$count(data.activeTargets[health != "up"])'
+          tone: '$count(data.activeTargets[health != "up"]) > 0 ? "destructive" : null'
+  prometheus.alerts:
+    title: Active alerts
+    group: Monitoring
+    operation: prometheus.alerts.read
+    rows: data.alerts
+    columns:
+      - {label: Alert, value: labels.alertname}
+      - label: State
+        value: state
+        badges: {firing: destructive, pending: muted}
+      - {label: Instance, value: labels.instance}
+      - {label: Summary, value: annotations.summary, truncate: true}
+      - {label: Active since, value: activeAt}
+    environment:
+      cards:
+        - label: Firing alerts
+          value: '$count(data.alerts[state = "firing"])'
+          tone: '$count(data.alerts[state = "firing"]) > 0 ? "destructive" : null'
+        - {label: Pending alerts, value: '$count(data.alerts[state = "pending"])'}

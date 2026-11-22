@@ -1,0 +1,41 @@
+targets:
+  local:
+    label: Local Docker
+    connection: docker_socket
+    socket: /var/run/docker.sock
+    features:
+    - compose
+    - containers
+    - images
+    - networks
+    - volumes
+    - disk_usage
+  production:
+    label: Remote production Swarm
+    connection: docker_socket
+    swarm: true
+    ssh_tunnel:
+      host: manager.example.com
+      remote_socket: /var/run/docker.sock
+      credential: tunnel_production
+    agent_image: ghcr.io/daniellmorris/declarack:latest
+    host_metrics: true
+    features:
+    - overview
+    - services
+    - nodes
+    - tasks
+    - stacks
+    - configs
+    - secrets
+    - networks
+    - volumes
+    - host_metrics
+credentials:
+  tunnel_production:
+    type: ssh
+    username: declarack
+    private_key:
+      file: /run/secrets/manager_ssh_key
+    known_hosts:
+      file: /etc/declarack/known_hosts

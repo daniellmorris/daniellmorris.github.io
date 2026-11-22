@@ -1,0 +1,4 @@
+# Loaded after 10-targets/host.yaml. Only this leaf changes; its other settings remain.
+targets:
+  host:
+    label: My Docker host

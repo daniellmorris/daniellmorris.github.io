@@ -1,0 +1,34 @@
+# Full system configuration: read-only Grafana dashboard inventory.
+# Enable anonymous read access or uncomment a mounted service-account token (HTTPS).
+# Uses the supported legacy Search API; review when upgrading Grafana.
+targets:
+  grafana:
+    label: Grafana dashboards
+    connection: http
+    base_url: https://grafana.example.com
+    # bearer_token_file: /run/secrets/grafana_token
+    features: [grafana.dashboards]
+operations:
+  grafana.dashboards.read:
+    bindings:
+      http:
+        executor: http.request
+        path: /api/search
+        query: {type: dash-db, limit: 1000, page: 1}
+features:
+  grafana.dashboards:
+    title: Dashboards
+    group: Monitoring
+    operation: grafana.dashboards.read
+    rows: $
+    columns:
+      - {label: Title, value: title}
+      - {label: Folder, value: folderTitle}
+      - {label: UID, value: uid}
+      - {label: Tags, value: '$join(tags, ", ")'}
+      - {label: Grafana path, value: url, truncate: true}
+    environment:
+      cards:
+        - label: Dashboards returned
+          value: '$count($)'
+          caption: '"First page, up to 1000 visible dashboards"'

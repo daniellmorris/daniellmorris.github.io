@@ -1,0 +1,9 @@
+groups:
+  - name: declarack_lab
+    rules:
+      - alert: LabTargetDown
+        expr: up == 0
+        for: 30s
+        labels: {severity: warning}
+        annotations:
+          summary: 'Lab target {{ $labels.instance }} is unavailable'

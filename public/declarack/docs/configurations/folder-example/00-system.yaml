@@ -1,0 +1,5 @@
+# Set DECLARACK_PASSWORD in the runtime environment, or configure auth here.
+# auth:
+#   provider: basic
+#   username: admin
+#   password_file: /run/secrets/declarack_password

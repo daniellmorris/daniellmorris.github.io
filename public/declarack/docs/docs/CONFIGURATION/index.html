@@ -1,0 +1,4295 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Build and operate configuration-defined administration interfaces.">
+      
+      
+      
+        <link rel="canonical" href="https://daniellmorris.com/declarack/docs/docs/CONFIGURATION/">
+      
+      
+      
+      
+        <link rel="prev" href="../../examples/multi-environment/">
+      
+      
+        <link rel="next" href="../CONFIG_FOLDERS/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.svg">
+      <meta name="generator" content="zensical-0.1.3">
+    
+    
+      
+        <title>System configuration - Declarack Docs</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.e2cf241e.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/site.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Declarack Docs" class="md-header__button md-logo" aria-label="Declarack Docs" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="Declarack Docs">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Declarack Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              System configuration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m3.55 19.09 1.41 1.41 1.8-1.79-1.42-1.42M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6c0-3.32-2.69-6-6-6m8 7h3v-2h-3m-2.76 7.71 1.8 1.79 1.41-1.41-1.79-1.8M20.45 5l-1.41-1.4-1.8 1.79 1.42 1.42M13 1h-2v3h2M6.76 5.39 4.96 3.6 3.55 5l1.79 1.81zM1 13h3v-2H1m12 9h-2v3h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/daniellmorris/declarack" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Declarack on GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../start/quickstart/" class="md-tabs__link">
+          
+  
+  Get started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guides/configuration-workflow/" class="md-tabs__link">
+          
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/api-interface/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="././" class="md-tabs__link">
+          
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../project/documentation/" class="md-tabs__link">
+          
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Declarack Docs" class="md-nav__button md-logo" aria-label="Declarack Docs" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="Declarack Docs">
+
+    </a>
+    Declarack Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/daniellmorris/declarack" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Declarack on GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Get started
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Get started
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Quickstart
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/configuration-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How configuration fits together
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Concepts and terminology
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Choose a starting configuration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Guides
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Guides
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/configuration-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Configuration workflow
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Configuration snippets
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONFIG_SKILL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI configuration skill
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/docker-swarm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Docker and Swarm
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment and persistence
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CREDENTIALS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Credential management
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BROWSER_DEMO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Browser playground
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TEMPLATES_AND_DYNAMIC_FORMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Integration setup
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VOLUME_BROWSER_AND_BATCHES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume browsing and SSH fleets
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Tutorials
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/api-interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your first API admin interface
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  A dashboard across targets
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Scheduled checks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/multi-environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Real two-Swarm lab
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  System configuration
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  System configuration
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Contents
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-configuration-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The configuration layers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-authority-and-file-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Database authority and file synchronization
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-and-validating-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Loading and validating configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Configuration folders
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#root-environment-and-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Root environment and navigation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#targets-and-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Targets and connections
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Targets and connections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-feature-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Built-in feature availability
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-docker-and-swarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Local Docker and Swarm
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-docker-or-swarm-through-a-manager-tunnel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Remote Docker or Swarm through a manager tunnel
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SSH host
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HTTP API
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operations-bindings-and-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Operations, bindings, and inputs
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operations, bindings, and inputs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dispatch-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dispatch API
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-executors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Request executors
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Input types
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-and-specialized-executors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Command and specialized executors
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-and-the-ui-renderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Features and the UI renderer
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features and the UI renderer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#columns-details-and-overview-panels" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Columns, details, and overview panels
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-different-expression-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Three different expression mechanisms
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Environment summaries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-cross-target-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Custom cross-target pages
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actions-and-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Actions and workflows
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Actions and workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-and-detail-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Table and detail actions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-forms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Workflow forms
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-resources-and-child-rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Related resources and child rows
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-complete-http-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A complete HTTP integration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings-editing-and-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Settings editing and storage
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Settings editing and storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-can-be-edited-in-settings-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What can be edited in Settings today?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        File storage
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GitHub storage
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swarm-config-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Swarm config storage
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-and-credential-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Authentication and credential files
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Runtime environment variables
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-sources-and-persistent-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Application sources and persistent state
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adapter-packages-and-extension-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adapter packages and extension boundaries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-and-current-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Troubleshooting and current limits
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-tools-and-dashboard-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Table tools and dashboard charts
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generic-resource-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Generic resource capabilities
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONFIG_FOLDERS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Configuration folders
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REGISTRIES_AND_GIT_SOURCES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Registry credentials and Git sources
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STORAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Database storage and migration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ENVIRONMENTS_AND_CHECKS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Targets, environments and checks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CUSTOM_PAGES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Custom pages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TABLES_BULK_AND_CHARTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tables, bulk actions and charts
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GENERIC_CAPABILITIES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Generic resource capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FRAMEWORK_WORKFLOWS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workflow building blocks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RESOURCE_CLONING_AND_PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Resource cloning and operation plans
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DOCKER_ACTIONS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Docker action coverage
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HEALTH_CHECKS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Health information
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CODE_ORGANIZATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Code organization and development
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Project
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Documentation development and hosting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PORTAINER_PARITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Current coverage and limitations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RENAMING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Upgrade and rename compatibility
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Repository README
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Contents
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-configuration-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The configuration layers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-authority-and-file-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Database authority and file synchronization
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-and-validating-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Loading and validating configuration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Configuration folders
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#root-environment-and-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Root environment and navigation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#targets-and-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Targets and connections
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Targets and connections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-feature-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Built-in feature availability
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-docker-and-swarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Local Docker and Swarm
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-docker-or-swarm-through-a-manager-tunnel" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Remote Docker or Swarm through a manager tunnel
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        SSH host
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HTTP API
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operations-bindings-and-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Operations, bindings, and inputs
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operations, bindings, and inputs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dispatch-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dispatch API
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-executors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Request executors
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Input types
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-and-specialized-executors" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Command and specialized executors
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-and-the-ui-renderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Features and the UI renderer
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features and the UI renderer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#columns-details-and-overview-panels" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Columns, details, and overview panels
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-different-expression-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Three different expression mechanisms
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Environment summaries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-cross-target-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Custom cross-target pages
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actions-and-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Actions and workflows
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Actions and workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-and-detail-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Table and detail actions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-forms" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Workflow forms
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-resources-and-child-rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Related resources and child rows
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-complete-http-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        A complete HTTP integration
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings-editing-and-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Settings editing and storage
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Settings editing and storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-can-be-edited-in-settings-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What can be edited in Settings today?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        File storage
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GitHub storage
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swarm-config-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Swarm config storage
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-and-credential-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Authentication and credential files
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Runtime environment variables
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-sources-and-persistent-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Application sources and persistent state
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adapter-packages-and-extension-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Adapter packages and extension boundaries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-and-current-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Troubleshooting and current limits
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-tools-and-dashboard-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Table tools and dashboard charts
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generic-resource-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Generic resource capabilities
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+
+<h1 id="declarack-configuration-guide">Declarack configuration guide<a class="headerlink" href="#declarack-configuration-guide" title="Permanent link">&para;</a></h1>
+<p>New to the model? Read <a href="../../start/configuration-model/">How configuration fits together</a>
+for diagrams, an example and the edit/review/save/reload workflow.</p>
+<p>Declarack's main YAML is the <strong>system configuration</strong>. It describes the environments
+Declarack connects to, the capabilities it exposes, the operations it can execute,
+how their results appear, and the installation's authentication. A dashboard layout
+is one part of that configuration.</p>
+<p>The existing filename <code>dashboard.yaml</code>, environment variable <code>DECLARACK_CONFIG</code>,
+Python class <code>Dashboard</code>, and Settings terminology remain supported. This guide
+uses “system configuration” to describe their scope; it does not rename those interfaces.</p>
+<h2 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#the-configuration-layers">The configuration layers</a></li>
+<li><a href="#loading-and-validating-configuration">Loading and validating configuration</a></li>
+<li><a href="#targets-and-connections">Targets and connections</a></li>
+<li><a href="#operations-bindings-and-inputs">Operations, bindings, and inputs</a></li>
+<li><a href="#features-and-the-ui-renderer">Features and the UI renderer</a></li>
+<li><a href="#environment-summaries">Environment summaries</a></li>
+<li><a href="#custom-cross-target-pages">Custom cross-target pages</a></li>
+<li><a href="#actions-and-workflows">Actions and workflows</a></li>
+<li><a href="#related-resources-and-child-rows">Related resources and child rows</a></li>
+<li><a href="#a-complete-http-integration">A complete HTTP integration</a></li>
+<li><a href="#settings-editing-and-storage">Settings editing and storage</a></li>
+<li><a href="#authentication-and-credential-files">Authentication and credential files</a></li>
+<li><a href="#runtime-environment-variables">Runtime environment variables</a></li>
+<li><a href="#application-sources-and-persistent-state">Application sources and persistent state</a></li>
+<li><a href="#adapter-packages-and-extension-boundaries">Adapter packages and extension boundaries</a></li>
+<li><a href="#troubleshooting-and-current-limits">Troubleshooting and current limits</a></li>
+</ul>
+<h2 id="the-configuration-layers">The configuration layers<a class="headerlink" href="#the-configuration-layers" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Examples</th>
+<th>Where it lives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deployment/bootstrap</td>
+<td>Port mapping, socket/host mounts, config source, process environment, Docker secrets</td>
+<td>Docker Compose, Swarm service spec, environment variables</td>
+</tr>
+<tr>
+<td>System configuration</td>
+<td>Targets, environments, views, operations and auth references</td>
+<td>Active database revision; <code>DECLARACK_CONFIG</code> supplies import/export source documents</td>
+</tr>
+<tr>
+<td>Adapter definitions</td>
+<td>Connection/executor code, built-in operations and UI definitions</td>
+<td><code>backend/adapters/*</code>, optional mounted adapter packages</td>
+</tr>
+<tr>
+<td>Application source</td>
+<td>An application's Compose YAML, GitHub repository/ref, stack deployment inputs</td>
+<td>Saved source records, mounted folders, GitHub</td>
+</tr>
+<tr>
+<td>Runtime state</td>
+<td>Saved stack metadata/PATs, Compose sources, browser table preferences, terminal sessions</td>
+<td>Data directory, browser storage, process memory</td>
+</tr>
+</tbody>
+</table>
+<p>The system config does <strong>not</strong> replace an application's Compose file or the Docker
+daemon's <code>daemon.json</code>. It does not continuously reconcile container state. Its
+operations run when requested; enabling a feature is not a command to deploy an
+application. An HTTP environment is just as valid as a Docker environment.</p>
+<p>Start with the <a href="../../configurations/">included configuration catalog</a> for
+Docker, Swarm, SSH, Prometheus, or Grafana. See <a href="../HEALTH_CHECKS/">health checks</a>
+for current health integrations, persisted checks and notification limits.
+Upgraders should read the <a href="../RENAMING/">Declarack rename guide</a>.</p>
+<p>The main file has these recognized top-level sections:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">           </span><span class="c1"># Required: at least one connection</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">operations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">        </span><span class="c1"># Optional: additional named operations</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">features</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">          </span><span class="c1"># Optional: additional UI features</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">credentials</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">       </span><span class="c1"># Named inline/file-backed credential profiles</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">pages</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">             </span><span class="c1"># Optional: custom pages querying multiple targets</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nt">environments</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">      </span><span class="c1"># Optional: groups of targets</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nt">checks</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">            </span><span class="c1"># Optional: scheduled read/connection checks</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nt">batches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">           </span><span class="c1"># Optional: multi-target operation pages</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nt">integration_templates</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"> </span><span class="c1"># Optional: trusted setup templates</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># auth: ...          # Optional: installation-wide Basic Auth settings</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># legacy_workspace: production</span>
+</code></pre></div>
+<p>Built-in operations and features are loaded from adapters before custom definitions.
+Custom names must be unique: system config adds definitions; it cannot override a
+built-in definition with the same ID. Enable only the desired features per target.</p>
+<h2 id="database-authority-and-file-synchronization">Database authority and file synchronization<a class="headerlink" href="#database-authority-and-file-synchronization" title="Permanent link">&para;</a></h2>
+<p>The active system configuration lives in the database. YAML files seed an empty
+installation and remain explicit import/export sources. GUI saves create a saved
+database revision; <strong>Activate configuration</strong> updates the active revision. On
+restart, the active revision is loaded, not pending saved changes or edited files.
+<code>DECLARACK_CONFIG_FORCE_LOAD=1</code> imports the configured source on every startup;
+<code>DECLARACK_CONFIG_WRITE_BACK=1</code> writes local files before GUI activation. Both
+default to off. GUI editing defaults to enabled; disable it with
+<code>DECLARACK_CONFIG_EDIT=0</code>. See <a href="../STORAGE/#active-system-configuration">configuration authority and recovery</a>
+for exact flag combinations, publication providers and write-back recovery.</p>
+<h2 id="loading-and-validating-configuration">Loading and validating configuration<a class="headerlink" href="#loading-and-validating-configuration" title="Permanent link">&para;</a></h2>
+<p>Without <code>DECLARACK_CONFIG</code>, Declarack generates a single local Docker target. It
+checks the Docker socket to choose Swarm or standalone features. If that check
+fails, the current fallback assumes Swarm; use an explicit file to remove ambiguity.
+The Settings editor is available only when an explicit config file was loaded.</p>
+<p>With a file, Declarack loads exactly the targets in that file; it does not add the
+automatic local target. Mount the configuration and all referenced paths into the
+container, then set the environment variable. For the repository's <code>compose.yaml</code>,
+a small override can be:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># compose.config.yaml; paths assume this file is in the repository root.</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">services</span><span class="p">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">declarack</span><span class="p">:</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="nt">DECLARACK_CONFIG</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/declarack/dashboard.yaml</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./docs/examples/http-environments.yaml:/etc/declarack/dashboard.yaml:ro</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Set DECLARACK_PASSWORD in your shell or deployment environment first.</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>compose.yaml<span class="w"> </span>-f<span class="w"> </span>compose.config.yaml<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build
+</code></pre></div>
+<p>The base Compose deployment supplies its existing socket and data mounts. Change
+the example API addresses before using those environments. Settings load at startup. Local files and folders can also be explicitly reloaded
+from top-level Settings after external edits. Reload validates before swapping the
+running model; invalid changes retain the previous model. Authentication and
+legacy-workspace changes still need restart. There is no automatic file/Git watcher.
+See the <a href="../CONFIG_FOLDERS/">folder merge/reload guide</a> for exact rules and limits.</p>
+<p>For a local schema check from the repository, with backend dependencies installed:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;'PY'</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="s">from backend.server import load_dashboard</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="s">config = load_dashboard("docs/examples/http-environments.yaml")</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="s">for target in config.public()["targets"]:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="s">    print(target["id"], target["provider"])</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="s">PY</span>
+</code></pre></div>
+<p>This loads trusted adapter Python and validates references and executor definitions.
+It does not execute inventory operations or prove upstream connectivity. Credential
+files referenced by the configuration must exist even for validation. JSONata
+expressions are evaluated in the frontend; startup validation checks required field
+shapes, not every expression's syntax or every UI option.</p>
+<p>General rules:</p>
+<ul>
+<li>YAML files are limited to 1 MiB. Swarm config saves have a stricter 500 KiB limit.</li>
+<li>Duplicate YAML keys fail validation. Merge into existing top-level mappings.</li>
+<li>IDs for targets, features, operations, and adapters start with a lowercase letter,
+  followed by lowercase letters, digits, <code>_</code>, <code>.</code>, or <code>-</code>; maximum length is 80.</li>
+<li>Labels and titles are human-readable and may contain spaces/capitalization.</li>
+<li>Paths refer to the filesystem <strong>inside Declarack</strong>, unless a particular setting
+  explicitly identifies a remote or worker-host path.</li>
+<li>The YAML loader does not perform environment substitution, includes, or shell
+  expansion. <code>${TOKEN}</code> in this YAML is a literal string. Docker Compose's own
+  <code>${...}</code> substitution applies to deployment Compose files, a separate layer.</li>
+</ul>
+<h2 id="configuration-folders">Configuration folders<a class="headerlink" href="#configuration-folders" title="Permanent link">&para;</a></h2>
+<p>A folder is one large recursive configuration merge, not a collection of separate
+apps. Files load in relative filename order, mappings merge, and later scalars/lists
+replace earlier values. Use <a href="../CONFIG_FOLDERS/">CONFIG_FOLDERS.md</a> for source browsing,
+manual reload, a working example, and the current local-storage-only boundary.</p>
+<h2 id="root-environment-and-navigation">Root environment and navigation<a class="headerlink" href="#root-environment-and-navigation" title="Permanent link">&para;</a></h2>
+<p>Use <strong>Settings → Home &amp; environments</strong> for a form editor backed by the same YAML
+review/save/reload workflow. See <a href="../CUSTOM_PAGES/#editing-home-and-environments-in-the-gui">the environment editing guide</a>.</p>
+<p><code>environments.root</code> is the reserved Home environment and always exists. Configure
+its <code>label</code>, <code>pages</code>, <code>batches</code>, <code>targets</code> and ordered <code>navigation</code> just like other
+environment placement. Root defaults to no targets or batches and all custom pages.
+An explicit root <code>pages</code> list replaces the default. Built-in installation tools
+can be ordered, grouped, renamed or hidden through root navigation; Settings
+remains installation-wide. See <a href="../CUSTOM_PAGES/#global-and-environment-placement">page and fleet placement</a>
+for the complete schema and example. The former page <code>top_level</code> flag is removed.</p>
+<h2 id="targets-and-connections">Targets and connections<a class="headerlink" href="#targets-and-connections" title="Permanent link">&para;</a></h2>
+<p>A target is a named environment. Its <code>connection</code> selects an adapter; that adapter
+reports a provider used to choose operation bindings.</p>
+<table>
+<thead>
+<tr>
+<th>Connection/settings</th>
+<th>Selected provider</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker_socket</code>, no <code>swarm</code> or <code>swarm: false</code></td>
+<td><code>docker_standalone</code></td>
+<td>Standalone Docker engine</td>
+</tr>
+<tr>
+<td><code>docker_socket</code>, <code>swarm: true</code></td>
+<td><code>docker_swarm</code></td>
+<td>Swarm manager</td>
+</tr>
+<tr>
+<td><code>ssh</code></td>
+<td><code>ssh</code></td>
+<td>Commands/collectors on an SSH host</td>
+</tr>
+<tr>
+<td><code>http</code></td>
+<td><code>http</code></td>
+<td>An upstream API</td>
+</tr>
+</tbody>
+</table>
+<p>Common target keys are <code>label</code>, <code>connection</code>, and <code>features</code>. <code>features</code> is an
+ordered list of enabled feature IDs, not inline feature definitions. Navigation
+preserves that order within feature groups. Feature lists must match available
+bindings; enabling Swarm configs/secrets on standalone Docker fails validation.</p>
+<h3 id="built-in-feature-availability">Built-in feature availability<a class="headerlink" href="#built-in-feature-availability" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature IDs</th>
+<th>Compatible providers / scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>overview</code>, <code>services</code>, <code>nodes</code>, <code>tasks</code>, <code>stacks</code>, <code>configs</code>, <code>secrets</code></td>
+<td>Swarm manager</td>
+</tr>
+<tr>
+<td><code>compose</code>, <code>images</code>, <code>disk_usage</code></td>
+<td>Standalone Docker</td>
+</tr>
+<tr>
+<td><code>containers</code></td>
+<td>Standalone engine or the connected Swarm manager's local engine</td>
+</tr>
+<tr>
+<td><code>networks</code></td>
+<td>Connected standalone/Swarm engine, with Swarm references where available</td>
+</tr>
+<tr>
+<td><code>volumes</code></td>
+<td>Standalone engine or node-local Swarm jobs; manual inventory/size collection</td>
+</tr>
+<tr>
+<td><code>host_metrics</code></td>
+<td>Swarm node jobs or SSH host; manual collection</td>
+</tr>
+</tbody>
+</table>
+<p>Resource-specific behavior and current action coverage are documented in
+<a href="../DOCKER_ACTIONS/">DOCKER_ACTIONS.md</a>. This list does not imply every Docker CLI
+flag is exposed by every feature.</p>
+<h3 id="local-docker-and-swarm">Local Docker and Swarm<a class="headerlink" href="#local-docker-and-swarm" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">targets</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">lab</span><span class="p">:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Local Docker</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker_socket</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">socket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/run/docker.sock</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">features</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">compose</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">containers</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">images</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">networks</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">volumes</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">disk_usage</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="nt">production</span><span class="p">:</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Production Swarm</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker_socket</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="nt">socket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/production-docker.sock</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nt">swarm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nt">agent_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.example.com/declarack@sha256:REPLACE_WITH_IMAGE_DIGEST</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="nt">host_metrics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="nt">worker_socket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/run/docker.sock</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="nt">metrics_disk_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/lib/docker</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="nt">features</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">overview</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">services</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">nodes</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">tasks</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">stacks</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">configs</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">secrets</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">networks</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">volumes</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">host_metrics</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p>These socket paths must already be mounted or otherwise supplied. Defining two
+targets pointing at one socket does not create two independent environments.</p>
+<table>
+<thead>
+<tr>
+<th>Docker target key</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>socket</code></td>
+<td>Absolute Unix socket path inside Declarack; mutually exclusive with <code>ssh_tunnel</code></td>
+</tr>
+<tr>
+<td><code>swarm</code></td>
+<td>Boolean, default false; Swarm operations require an active manager</td>
+</tr>
+<tr>
+<td><code>agent_image</code></td>
+<td>Same Declarack image available to worker nodes, preferably pinned by digest</td>
+</tr>
+<tr>
+<td><code>host_metrics</code></td>
+<td>Enable Swarm host-metric jobs; enabling the feature alone is insufficient</td>
+</tr>
+<tr>
+<td><code>worker_socket</code></td>
+<td>Docker socket <strong>on each worker host</strong>, default from runtime settings</td>
+</tr>
+<tr>
+<td><code>metrics_disk_path</code></td>
+<td>Absolute <strong>worker-host</strong> path whose filesystem capacity is measured</td>
+</tr>
+<tr>
+<td><code>stack_root</code></td>
+<td>Mounted source-folder root; falls back to <code>DECLARACK_STACK_ROOT</code>, then <code>/stacks</code></td>
+</tr>
+<tr>
+<td><code>host_root</code></td>
+<td>Optional host filesystem mapping for viewing reported Compose source files</td>
+</tr>
+</tbody>
+</table>
+<p>Swarm node-local work uses short-lived jobs pinned to nodes. The manager reads the
+results and removes jobs. It never SSHes into individual workers. Remote terminals
+also use temporary Swarm relay jobs, not worker SSH. See <a href="../DOCKER_ACTIONS/">action coverage</a>.</p>
+<h3 id="remote-docker-or-swarm-through-a-manager-tunnel">Remote Docker or Swarm through a manager tunnel<a class="headerlink" href="#remote-docker-or-swarm-through-a-manager-tunnel" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">targets</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">remote_swarm</span><span class="p">:</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Remote production</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker_socket</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="nt">swarm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="nt">ssh_tunnel</span><span class="p">:</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">manager.example.com</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">      </span><span class="nt">remote_socket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/run/docker.sock</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">      </span><span class="nt">credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tunnel_remote_swarm</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="nt">agent_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.example.com/declarack:YOUR_VERSION</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="nt">features</span><span class="p">:</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">overview</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">services</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodes</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tasks</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stacks</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">configs</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secrets</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networks</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">volumes</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="nt">credentials</span><span class="p">:</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">  </span><span class="nt">tunnel_remote_swarm</span><span class="p">:</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">declarack</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">    </span><span class="nt">private_key</span><span class="p">:</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/manager_ssh_key</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="w">    </span><span class="nt">known_hosts</span><span class="p">:</span>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/declarack/known_hosts</span>
+</code></pre></div>
+<p>The tunnel forwards the manager's Unix socket to a temporary local socket.
+Declarack supervises/reconnects the SSH process. The SSH user needs access to the
+remote Docker socket. Identity and known-hosts files must exist in Declarack;
+host-key verification is enabled. <code>port</code> defaults to 22 and <code>remote_socket</code> to
+<code>/var/run/docker.sock</code>. Use <code>swarm: false</code> and standalone features for a remote
+standalone engine. This is distinct from <code>connection: ssh</code> below.</p>
+<h3 id="ssh-host">SSH host<a class="headerlink" href="#ssh-host" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">targets</span><span class="p">:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">backup</span><span class="p">:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Backup host</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backup.example.com</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nt">features</span><span class="p">:</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host_metrics</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="nt">credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh_backup</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="nt">credentials</span><span class="p">:</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="nt">ssh_backup</span><span class="p">:</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">declarack</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">    </span><span class="nt">private_key</span><span class="p">:</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/backup_ssh_key</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">    </span><span class="nt">known_hosts</span><span class="p">:</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/declarack/known_hosts</span>
+</code></pre></div>
+<p>The SSH adapter executes configured commands on that host. The built-in metrics
+collector requires remote <code>python3</code>; it is manual and does not supply an automatic
+environment summary. A custom inexpensive SSH operation can supply a summary.</p>
+<h3 id="http-api">HTTP API<a class="headerlink" href="#http-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">targets</span><span class="p">:</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">inventory</span><span class="p">:</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Inventory API</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://inventory.example.com/api</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="nt">features</span><span class="p">:</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">asset_inventory</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="nt">credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">token_inventory</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="nt">credentials</span><span class="p">:</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">  </span><span class="nt">token_inventory</span><span class="p">:</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">token</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="nt">token</span><span class="p">:</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/inventory_token</span>
+</code></pre></div>
+<p><code>base_url</code> may have a path prefix. A binding path <code>/assets</code> is appended to it, giving
+<code>https://inventory.example.com/api/assets</code>. Userinfo, query strings, fragments, and
+whitespace are not accepted in <code>base_url</code>. Bearer credentials require HTTPS.
+An optional <code>ssh_tunnel</code> block uses the same SSH host/user/identity/known-hosts
+settings as manager tunnels, with <code>remote_host</code> and <code>remote_port</code> for the TCP
+upstream. They default to the URL host and HTTP/HTTPS port. The URL remains the
+HTTP Host/TLS identity; SSH forwards through a private local Unix socket. Direct
+HTTP behavior is unchanged when the block is absent. HTTPS certificate checks and
+the HTTPS requirement for bearer credentials remain in effect. Settings connection
+tests isolate temporary forwards; removed target forwards are retired on apply.
+See the <a href="../../examples/multi-environment/">running multi-environment lab</a>
+for direct/tunneled Grafana and Prometheus configurations.</p>
+<p>The adapter does not follow redirects. Requests default to JSON responses, have a
+15-second upstream timeout, and a 2 MiB response limit. Arbitrary custom headers,
+OAuth login flows, and configurable TLS client certificates are not implemented.</p>
+<h2 id="operations-bindings-and-inputs">Operations, bindings, and inputs<a class="headerlink" href="#operations-bindings-and-inputs" title="Permanent link">&para;</a></h2>
+<p>An operation is a named backend capability. A feature invokes its ID; the target's
+provider selects a binding; the binding's executor performs the work.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">operations</span><span class="p">:</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">assets.inspect</span><span class="p">:</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">bindings</span><span class="p">:</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">      </span><span class="nt">http</span><span class="p">:</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">        </span><span class="nt">executor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http.request</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">        </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GET</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/assets/{id}</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">        </span><span class="nt">query</span><span class="p">:</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">          </span><span class="nt">include</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">details</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">        </span><span class="nt">inputs</span><span class="p">:</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">string</span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<p><code>bindings</code> must be nonempty. A target exposes only the operations referenced by its
+enabled features, actions, selectors, detail views, workflows, or related resources.
+A registered operation is not automatically callable on every target. This is an
+installation capability boundary, not per-user role-based authorization.</p>
+<h3 id="dispatch-api">Dispatch API<a class="headerlink" href="#dispatch-api" title="Permanent link">&para;</a></h3>
+<p>The UI calls <code>POST /api/v1/targets/TARGET/operations/OPERATION/run</code> with the input
+mapping as its JSON body. The response wraps executor output as <code>{"result": ...}</code>;
+JSONata feature expressions receive the inner result. State-changing HTTP requests
+to Declarack require <code>X-Declarack-Action: 1</code> as well as authentication, even when
+the configured upstream operation is a read. Cross-site action requests are rejected.
+<code>GET /api/v1/targets</code> exposes public feature metadata, not connection credentials.
+These endpoints dispatch registered capabilities; they do not accept ad-hoc URLs,
+commands, or feature definitions from callers.</p>
+<h3 id="request-executors">Request executors<a class="headerlink" href="#request-executors" title="Permanent link">&para;</a></h3>
+<p><code>http.request</code> and <code>docker.request</code> share <code>path</code>, <code>method</code>, <code>query</code>, <code>body</code>, and
+<code>inputs</code>. HTTP calls use the target's configured API; Docker calls use the selected
+engine. Methods are <code>GET</code> (default), <code>POST</code>, <code>PUT</code>, <code>PATCH</code>, and <code>DELETE</code>.</p>
+<ul>
+<li><code>path</code> starts with <code>/</code>; no origin override, dot segments, query, or fragment.</li>
+<li><code>{name}</code> placeholders refer to declared required inputs. Path values are encoded
+  as individual path segments; query values are URL-encoded separately.</li>
+<li><code>body</code> recursively substitutes string templates. An exact <code>'{count}'</code> preserves
+  the input's JSON type; <code>'prefix-{count}'</code> produces a string.</li>
+<li>Literal braces in templates need Python-format escaping (<code>{{</code> and <code>}}</code>). Prefer
+  a YAML mapping for a JSON body rather than embedding a JSON document in a string.</li>
+<li>Optional inputs cannot appear in these templates: absent inputs have no implicit
+  default. Define separate operations when request shapes differ.</li>
+<li><code>http.request</code> supports <code>output: json</code> (default), <code>json_lines</code>, or <code>text</code> through
+  the shared decoder. Text becomes <code>{text: ...}</code>; JSON lines become <code>{items: [...]}</code>.</li>
+<li><code>docker.request</code> can use <code>fields</code> to project top-level fields and
+  <code>output: docker_logs</code> to decode Docker's log framing. Its specialized <code>projection</code>
+  modes are used by built-in service/node views; prefer full responses for custom views.</li>
+</ul>
+<h3 id="input-types">Input types<a class="headerlink" href="#input-types" title="Permanent link">&para;</a></h3>
+<p>All fields are required unless <code>required: false</code>. Unknown supplied fields fail.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Validation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string</code></td>
+<td>Up to 512 characters, no NUL</td>
+</tr>
+<tr>
+<td><code>text</code></td>
+<td>Up to 700 KiB encoded text, no NUL</td>
+</tr>
+<tr>
+<td><code>integer</code></td>
+<td>Actual integer; <code>min</code>/<code>max</code> default to 0/1000</td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td>Actual boolean, not the strings <code>"true"</code>/<code>"false"</code></td>
+</tr>
+<tr>
+<td><code>choice</code></td>
+<td>String in the declared nonempty <code>choices</code> list</td>
+</tr>
+<tr>
+<td><code>list</code></td>
+<td>Array with at most 20 items; executor supplies any item-level checks</td>
+</tr>
+</tbody>
+</table>
+<p><code>label</code> supplies a human-readable action-form label. Backend schemas and executor
+validation remain authoritative regardless of UI confirmation or field visibility.</p>
+<h3 id="command-and-specialized-executors">Command and specialized executors<a class="headerlink" href="#command-and-specialized-executors" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Executor</th>
+<th>Binding-specific settings</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ssh.exec</code></td>
+<td>Fixed <code>command</code> argument list, <code>output</code>; optional built-in <code>script: host_metrics</code></td>
+</tr>
+<tr>
+<td><code>swarm.exec</code></td>
+<td><code>command</code>, <code>output</code>, <code>mount_profile</code>, <code>all_nodes</code>, <code>write</code>, <code>inputs.node_id</code></td>
+</tr>
+<tr>
+<td><code>swarm.update</code></td>
+<td>Built-in version-aware service/node updates via <code>action</code></td>
+</tr>
+<tr>
+<td><code>swarm.workflow</code></td>
+<td>Registered coordinating workflow selected by <code>handler</code></td>
+</tr>
+<tr>
+<td><code>docker.volumes</code></td>
+<td>Built-in volume operations selected by <code>operation</code></td>
+</tr>
+<tr>
+<td><code>docker.compose</code></td>
+<td>Built-in Compose actions selected by <code>action</code></td>
+</tr>
+<tr>
+<td><code>docker.pull</code></td>
+<td>Validated image pull using its <code>reference</code> input</td>
+</tr>
+<tr>
+<td><code>docker.terminal</code>, <code>swarm.terminal</code></td>
+<td>Session lifecycle selected by <code>operation</code></td>
+</tr>
+</tbody>
+</table>
+<p>Command templates substitute declared inputs into an argument list, not a local
+shell command string. SSH quotes those arguments for the remote shell. The first
+argument must be a fixed executable. These definitions are trusted: choosing a
+shell/interpreter explicitly still gives the configured code its normal authority.
+Command output modes are <code>json</code>, <code>json_lines</code>, <code>text</code>, and <code>agent_json</code>; results are
+bounded to 2 MiB. Specialized executors accept their own registered actions, not
+arbitrary new workflow names. Consult their bundled YAML for exact input schemas.</p>
+<p>Swarm job mount profiles are <code>docker_socket</code>, <code>host_metrics</code>, or <code>none</code>. All-node
+jobs use <code>all_nodes: true</code> with string <code>node_id</code> (including <code>all</code>); single-node jobs
+use <code>type: string</code> with <code>pattern: '[a-z0-9]{12,64}'</code>. <code>all_nodes</code> with <code>write</code> is rejected. All-node reads have bounded
+fan-out and return per-node results/errors. Setting operation-level
+<code>on_demand: true</code> makes the normal feature manual; detail operations and environment
+summaries cannot use on-demand operations.</p>
+<h2 id="features-and-the-ui-renderer">Features and the UI renderer<a class="headerlink" href="#features-and-the-ui-renderer" title="Permanent link">&para;</a></h2>
+<p>A feature combines an operation with a generic presentation. It can be a table,
+a card overview, or a detail/creation workflow. The target chooses which features
+are visible; feature definitions themselves live at the file's top level or in an adapter.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">features</span><span class="p">:</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">asset_inventory</span><span class="p">:</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Assets</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Workspace</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">assets.list</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="nt">rows</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">items</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="nt">columns</span><span class="p">:</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="nv">Name</span><span class="p p-Indicator">,</span><span class="nt"> value</span><span class="p">:</span><span class="w"> </span><span class="nv">name</span><span class="p p-Indicator">,</span><span class="nt"> truncate</span><span class="p">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">State</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">state</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">        </span><span class="nt">badges</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">ready</span><span class="p">:</span><span class="w"> </span><span class="nv">active</span><span class="p p-Indicator">,</span><span class="nt"> failed</span><span class="p">:</span><span class="w"> </span><span class="nv">destructive</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Size</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">'$string($round(bytes</span><span class="nv"> </span><span class="s">/</span><span class="nv"> </span><span class="s">1000000,</span><span class="nv"> </span><span class="s">2))</span><span class="nv"> </span><span class="s">&amp;</span><span class="nv"> </span><span class="s">"</span><span class="nv"> </span><span class="s">MB"'</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">        </span><span class="nt">sort_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bytes</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">        </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">    </span><span class="nt">details</span><span class="p">:</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">      </span><span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">assets.inspect</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">      </span><span class="nt">row_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">      </span><span class="nt">input</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w">      </span><span class="nt">fields</span><span class="p">:</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="nv">Name</span><span class="p p-Indicator">,</span><span class="nt"> value</span><span class="p">:</span><span class="w"> </span><span class="nv">name</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="nv">Attributes</span><span class="p p-Indicator">,</span><span class="nt"> value</span><span class="p">:</span><span class="w"> </span><span class="nv">attributes</span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<p>This fragment requires matching <code>assets.list</code>/<code>assets.inspect</code> operations and a
+target that enables <code>asset_inventory</code>. <a href="../examples/http-environments.yaml">The full example</a>
+includes every required section.</p>
+<table>
+<thead>
+<tr>
+<th>Feature field</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>Page/navigation label</td>
+</tr>
+<tr>
+<td><code>group</code></td>
+<td>Sidebar heading; defaults to Workspace</td>
+</tr>
+<tr>
+<td><code>group_by_provider</code></td>
+<td>Provider-to-heading mapping overriding <code>group</code></td>
+</tr>
+<tr>
+<td><code>operation</code></td>
+<td>Inventory/overview operation ID</td>
+</tr>
+<tr>
+<td><code>rows</code></td>
+<td>JSONata selecting table records, default <code>$</code></td>
+</tr>
+<tr>
+<td><code>columns</code></td>
+<td>Ordered table columns</td>
+</tr>
+<tr>
+<td><code>manual</code></td>
+<td>Do not automatically collect ordinary inventory on entry</td>
+</tr>
+<tr>
+<td><code>selector</code></td>
+<td>Resource selector mapping: lookup operation, input binding, labels and JSONata row/value/text expressions</td>
+</tr>
+<tr>
+<td><code>details</code></td>
+<td>Dedicated detail route, operation, identity mapping, fields</td>
+</tr>
+<tr>
+<td><code>cards</code>, <code>panels</code></td>
+<td>Dedicated overview-page presentation</td>
+</tr>
+<tr>
+<td><code>environment</code></td>
+<td>Cards contributed to the combined Environments page</td>
+</tr>
+<tr>
+<td><code>actions</code>, <code>workflow</code></td>
+<td>Action controls and optional source/lifecycle forms</td>
+</tr>
+<tr>
+<td><code>children</code>, <code>related</code></td>
+<td>On-demand expanded rows / associated-resource sections</td>
+</tr>
+</tbody>
+</table>
+<p><code>description</code> is forwarded to the frontend but is not a universal page subtitle.
+Not every forwarded metadata field has visible behavior in every renderer mode.</p>
+<h3 id="columns-details-and-overview-panels">Columns, details, and overview panels<a class="headerlink" href="#columns-details-and-overview-panels" title="Permanent link">&para;</a></h3>
+<p>Column <code>value</code> is a JSONata expression evaluated against <strong>one selected row</strong>.
+<code>sort_value</code> optionally provides a raw numeric/string sorting key, independent of
+formatted text. <code>badges</code> maps exact returned strings to <code>active</code>, <code>muted</code>, or
+<code>destructive</code>. <code>truncate</code> shortens long values visually. <code>optional</code> starts a column
+hidden; <code>optional_by_provider</code> can override that per provider.</p>
+<p>The first visible column links to details when the row has <code>details.row_id</code>.
+<code>details.input</code> names the backend argument receiving that ID; <code>details.title</code> is a
+dotted result path. Detail <code>fields</code> use JSONata against the complete detail response.
+Nested values can be expanded in the shared structured-value inspector.</p>
+<p>Ordinary tables search all mapped columns before frontend sorting and pagination.
+Page-size choices are 10, 25, 50, 100, and 250. Density, hidden columns, and main-table
+page size are browser preferences, not configurable system defaults. These controls
+do not implement upstream pagination: the operation still fetches its configured result.</p>
+<p>Feature-level <code>cards</code> calculate <code>value</code> and optional <code>caption</code> against the whole
+response. A <code>feature</code> destination links within that target when enabled. Built-in
+overviews use <code>tone</code> names such as <code>mint</code>, <code>blue</code>, <code>purple</code>, and <code>amber</code> for styling.
+<code>panels</code> declare <code>title</code>, <code>feature</code>, JSONata <code>rows</code>, <code>row_id</code>, <code>columns</code>, and optional
+<code>wide</code>. Panel column <code>tone</code> is a JSONata expression that can return <code>destructive</code>.
+These overview cards differ from the <code>environment.cards</code> schema below.</p>
+<p>Current collection inputs are intentionally limited: automatic inventory takes no
+inputs except the renderer's supported <code>node_id</code> picker; a detail page supplies its
+one declared identity argument. Arbitrary multi-input search forms should use an
+action/workflow rather than assuming generic inventory filters exist.</p>
+<h3 id="three-different-expression-mechanisms">Three different expression mechanisms<a class="headerlink" href="#three-different-expression-mechanisms" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Mechanism</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rows, values, captions, summary tones, related inputs</td>
+<td>JSONata</td>
+<td><code>$count(items[status = "healthy"])</code></td>
+</tr>
+<tr>
+<td>Request/command templates</td>
+<td>Declared input substitution</td>
+<td><code>/applications/{id}</code></td>
+</tr>
+<tr>
+<td>Workflow <code>bind</code>, <code>needs</code>, <code>disabled</code>, <code>when</code> keys</td>
+<td>Dotted context paths</td>
+<td><code>form.name</code>, <code>results.preview.digest</code></td>
+</tr>
+</tbody>
+</table>
+<p>Workflow <code>when</code>/<code>locked</code> rules compare values for exact equality. They are not
+JSONata conditions. A workflow <code>bind</code> value is a context path, not an arbitrary
+expression. Quoting expressions in YAML helps preserve punctuation, colons, and strings.</p>
+<h2 id="environment-summaries">Environment summaries<a class="headerlink" href="#environment-summaries" title="Permanent link">&para;</a></h2>
+<p>The home route <code>#/environments</code> gathers summaries from all configured targets.
+An enabled feature opts in using <code>environment.cards</code> and its existing operation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">environment</span><span class="p">:</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">cards</span><span class="p">:</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="nv">Applications</span><span class="p p-Indicator">,</span><span class="nt"> value</span><span class="p">:</span><span class="w"> </span><span class="s">'$count(items)'</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Unhealthy</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">'$count(items[status</span><span class="nv"> </span><span class="s">!=</span><span class="nv"> </span><span class="s">"healthy"])'</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">      </span><span class="nt">caption</span><span class="p">:</span><span class="w"> </span><span class="s">'"Current</span><span class="nv"> </span><span class="s">inventory"'</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">      </span><span class="nt">tone</span><span class="p">:</span><span class="w"> </span><span class="s">'$count(items[status</span><span class="nv"> </span><span class="s">!=</span><span class="nv"> </span><span class="s">"healthy"])</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">?</span><span class="nv"> </span><span class="s">"destructive"</span><span class="nv"> </span><span class="s">:</span><span class="nv"> </span><span class="s">null'</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">      </span><span class="nt">feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">applications</span>
+</code></pre></div>
+<p><code>value</code>, <code>caption</code>, and <code>tone</code> are JSONata evaluated against the <strong>entire operation
+result</strong>. <code>feature</code> is an optional destination feature ID, not an expression.
+A <code>destructive</code> tone highlights the value. Current environment cards do not offer
+arbitrary color palettes or chart types. Captions describe returned data; historical comparison requires the operation
+to supply historical data.</p>
+<p>Summary operations must have no inputs in their bindings and cannot be manual or
+on demand. Use inexpensive reads: the core does not independently prove a custom
+operation is read-only. Enabling a summary explicitly allows its operation to run
+on page entry or refresh.</p>
+<p>Collection is bounded to four concurrent requests across cards, with a 15-second
+client timeout per request. Refresh can be global or per environment. There is no
+background polling. Client cancellation does not guarantee cancellation of remote
+work already in progress. Built-in summaries do not start host metrics/volume jobs.</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Checking</td>
+<td>At least one summary is pending</td>
+</tr>
+<tr>
+<td>Loaded</td>
+<td>All configured summaries succeeded; not a workload-health guarantee</td>
+</tr>
+<tr>
+<td>Partial</td>
+<td>Some summaries succeeded and some failed</td>
+</tr>
+<tr>
+<td>Unavailable</td>
+<td>All attempted summaries failed; not a definitive host reachability test</td>
+</tr>
+<tr>
+<td>No summary</td>
+<td>No eligible summary configured; workspace links remain available</td>
+</tr>
+</tbody>
+</table>
+<p>Standalone summaries are supplied by enabled Compose, container, and image features.
+Swarm's <code>overview</code> feature supplies service/node/stack/replica summaries. If local <code>containers</code> is enabled on a Swarm target, it also contributes engine-local
+container counts; those are not cluster-wide container counts. The same custom
+feature can summarize multiple HTTP or SSH environments without JSX changes.</p>
+<h2 id="custom-cross-target-pages">Custom cross-target pages<a class="headerlink" href="#custom-cross-target-pages" title="Permanent link">&para;</a></h2>
+<p>Top-level <code>pages</code> definitions combine named operation sources across targets, with
+JSONata cards and tables using their shared results. They reuse existing target
+permissions and keep manual collectors on demand. Unlike per-target features, they
+can calculate totals or join rows from multiple environments. Read the
+<a href="../CUSTOM_PAGES/">custom pages guide</a> and the
+<a href="../../configurations/operations-dashboard.yaml">complete operations dashboard preset</a>.</p>
+<h2 id="actions-and-workflows">Actions and workflows<a class="headerlink" href="#actions-and-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="table-and-detail-actions">Table and detail actions<a class="headerlink" href="#table-and-detail-actions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">actions</span><span class="p">:</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Restart application</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">applications.restart</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">restart</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="nt">help</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ask the application API to restart the selected application.</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="nt">row</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="nv">id</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="nt">confirmation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Restart this application? Expect a brief interruption.</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">destructive</span>
+</code></pre></div>
+<p>This example maps the row's <code>id</code> to backend input <code>id</code>. Other required inputs from
+the operation schema appear in the shared action form. <code>row</code> values are direct
+record keys, not JSONata or dotted paths. <code>detail: true</code> places an action in detail
+view instead of its list location. Without <code>row</code> or <code>detail</code>, it is a page-level action.</p>
+<table>
+<thead>
+<tr>
+<th>Action field</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>label</code>, <code>icon</code>, <code>help</code></td>
+<td>Visible/accessibility label, icon, tooltip</td>
+</tr>
+<tr>
+<td><code>confirmation</code></td>
+<td>Shared confirmation modal before submitting</td>
+</tr>
+<tr>
+<td><code>variant</code></td>
+<td>Button style: usually <code>outline</code> or <code>destructive</code></td>
+</tr>
+<tr>
+<td><code>immediate</code></td>
+<td>Execute directly; do not use for actions requiring confirmation</td>
+</tr>
+<tr>
+<td><code>output: json</code></td>
+<td>Full JSON inspector, unmasked</td>
+</tr>
+<tr>
+<td><code>output: FIELD</code></td>
+<td>Display the named result field as text</td>
+</tr>
+<tr>
+<td><code>output: '$'</code></td>
+<td>Show the serialized whole result in the ordinary action renderer</td>
+</tr>
+<tr>
+<td><code>result: replace</code></td>
+<td>Replace displayed inventory with action result</td>
+</tr>
+<tr>
+<td><code>back</code></td>
+<td>Return to the list after a detail action</td>
+</tr>
+<tr>
+<td><code>enabled_when</code></td>
+<td>JSONata against a list row to enable/disable its action</td>
+</tr>
+<tr>
+<td><code>disabled</code></td>
+<td>Direct row key whose truthy/nonempty value disables the row action</td>
+</tr>
+<tr>
+<td><code>requires</code></td>
+<td>Dotted result path required for showing a detail action</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td>Hide action from ordinary controls (for supporting operations)</td>
+</tr>
+</tbody>
+</table>
+<p>Action icons currently include <code>json</code>, <code>play</code>, <code>stop</code>, <code>pause</code>, <code>restart</code>, <code>trash</code>,
+<code>plus</code>, <code>tag</code>, <code>edit</code>, <code>terminal</code>, <code>logs</code>, <code>activity</code>, <code>network</code>, and <code>settings</code>.
+The <code>terminal</code> configuration object wires a feature to the session renderer;
+use existing container/task definitions as the reference for its operation IDs and
+identity mapping. An icon alone does not enable a terminal.</p>
+<p>Confirmations and disabled controls are UI behavior, not extra backend authorization.
+Executors must validate destructive inputs and enforce their own prerequisites.</p>
+<h3 id="workflow-forms">Workflow forms<a class="headerlink" href="#workflow-forms" title="Permanent link">&para;</a></h3>
+<p>A <code>workflow</code> uses a dedicated create/detail page for coordinated forms. Source
+settings and lifecycle actions can be separated using named <code>sections</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">workflow</span><span class="p">:</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">create_label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">New item</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">''</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="nt">sections</span><span class="p">:</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="nv">source</span><span class="p p-Indicator">,</span><span class="nt"> title</span><span class="p">:</span><span class="w"> </span><span class="nv">Source</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="nv">deployment</span><span class="p p-Indicator">,</span><span class="nt"> title</span><span class="p">:</span><span class="w"> </span><span class="nv">Execution</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">  </span><span class="nt">fields</span><span class="p">:</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">      </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">      </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">      </span><span class="nt">changes_source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">      </span><span class="nt">section</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">  </span><span class="nt">actions</span><span class="p">:</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Save</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">      </span><span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">items.save</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">      </span><span class="nt">bind</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="nv">form.name</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">      </span><span class="nt">validate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">      </span><span class="nt">open</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">      </span><span class="nt">reload</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="w">      </span><span class="nt">primary</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="w">      </span><span class="nt">section</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source</span>
+</code></pre></div>
+<p>This is a schema illustration; <code>items.save</code> must be defined before use.
+<code>create_only: true</code> limits the workflow to creation. Without it, details can render
+the workflow. <code>defaults</code> are merged with the current detail entry to initialize the
+form. <code>summary</code> fields use JSONata against the entry. <code>readout</code> can display an entry's
+text field or a downloadable base64 field; see config/secret feature definitions.</p>
+<p>Workflow field options:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code>, <code>label</code>, <code>section</code></td>
+<td>Form key, visible name, section ID</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>Native input type or <code>textarea</code>, <code>select</code>, <code>checkbox</code>, <code>file</code>, <code>selection</code></td>
+</tr>
+<tr>
+<td><code>required</code>, <code>description</code>, <code>rows</code></td>
+<td>Validation hint, explanatory text, textarea height</td>
+</tr>
+<tr>
+<td><code>choices</code></td>
+<td>For select: mapping of stored values to labels</td>
+</tr>
+<tr>
+<td><code>when</code></td>
+<td>Equality rules against context paths; visibility</td>
+</tr>
+<tr>
+<td><code>locked</code></td>
+<td>Equality rules against context paths; disable editing</td>
+</tr>
+<tr>
+<td><code>changes_source</code></td>
+<td>Mark dirty and invalidate stored operation results</td>
+</tr>
+<tr>
+<td><code>reset</code>, <code>reset_results</code></td>
+<td>Merge reset values into the form; discard named stored results when reset is applied</td>
+</tr>
+<tr>
+<td><code>source</code>, <code>warnings</code>, <code>item_label</code>, <code>empty</code>, <code>limit</code></td>
+<td>Context paths/options for a selection list</td>
+</tr>
+</tbody>
+</table>
+<p>File inputs encode up to 500 KiB as base64. Selection fields return selected item
+objects; specialized executors validate them. Sections must match fields/actions'
+<code>section</code> values. Without sections, omit the <code>section</code> key on fields/actions too.</p>
+<p>Workflow action options:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bind</code></td>
+<td>Input-name to dotted context-path mapping</td>
+</tr>
+<tr>
+<td><code>values</code></td>
+<td>Fixed input values</td>
+</tr>
+<tr>
+<td><code>when</code></td>
+<td>Equality visibility rules</td>
+</tr>
+<tr>
+<td><code>validate</code></td>
+<td>Require visible required fields and mark saved form clean after success</td>
+</tr>
+<tr>
+<td><code>clean</code></td>
+<td>Disable until source changes have been saved</td>
+</tr>
+<tr>
+<td><code>store</code></td>
+<td>Store result under <code>results.NAME</code></td>
+</tr>
+<tr>
+<td><code>needs</code></td>
+<td>Require a present context value, e.g. preview digest</td>
+</tr>
+<tr>
+<td><code>disabled</code></td>
+<td>Disable if the context path has a present value</td>
+</tr>
+<tr>
+<td><code>confirmation</code></td>
+<td>Fixed confirmation text</td>
+</tr>
+<tr>
+<td><code>confirmation_by</code></td>
+<td>Choose text using <code>field</code> path and <code>choices</code> mapping</td>
+</tr>
+<tr>
+<td><code>output</code>, <code>success</code></td>
+<td>Display a named result field, or a success message</td>
+</tr>
+<tr>
+<td><code>reload</code>, <code>back</code>, <code>open</code></td>
+<td>Reload details, return to inventory, or open the created item's input ID</td>
+</tr>
+<tr>
+<td><code>reset</code></td>
+<td>List of form keys to restore from defaults after success</td>
+</tr>
+<tr>
+<td><code>primary</code>, <code>variant</code>, <code>help</code>, <code>icon</code></td>
+<td>Presentation</td>
+</tr>
+</tbody>
+</table>
+<p>The context contains <code>form</code>, original <code>entry</code>, boolean <code>creating</code>, stored <code>results</code>,
+and <code>provider</code>. Hidden form fields are omitted from form-bound inputs. Workflow
+<code>output</code> is a named field; unlike ordinary actions, it is not a special JSON
+inspector switch. Built-in stack/Compose workflows require preview digests in the
+backend as well as in their UI; copying <code>needs</code> alone does not implement that guarantee.</p>
+<h2 id="related-resources-and-child-rows">Related resources and child rows<a class="headerlink" href="#related-resources-and-child-rows" title="Permanent link">&para;</a></h2>
+<p><code>related</code> renders associated resources on workflow detail pages. <code>children</code> renders
+expandable inventory rows and child sections on ordinary details. Both use the
+shared resource renderer and declare their own operation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">related</span><span class="p">:</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Application resources</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">applications.resources</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="nt">inputs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="nv">id</span><span class="p p-Indicator">}</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">  </span><span class="nt">sections</span><span class="p">:</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Containers</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">      </span><span class="nt">rows</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containers</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">      </span><span class="nt">row_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Id</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">      </span><span class="nt">open</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">      </span><span class="nt">columns</span><span class="p">:</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">'$join(Names,</span><span class="nv"> </span><span class="s">",</span><span class="nv"> </span><span class="s">")'</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">          </span><span class="nt">feature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containers</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">          </span><span class="nt">row_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Id</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="nv">State</span><span class="p p-Indicator">,</span><span class="nt"> value</span><span class="p">:</span><span class="w"> </span><span class="nv">State</span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<p>Related <code>inputs</code> values are JSONata against the parent entry. Each section selects
+rows from the related operation's result. Column <code>feature</code> and <code>row_id</code> link to a
+destination only when that feature is enabled. <code>route_prefix</code> supports special
+routes such as terminal identities; <code>link_when</code> is JSONata against the child row.
+Sections can declare nested <code>children</code> using the same model. Related collection
+runs when its detail section or expanded row mounts and on explicit refresh.
+Avoid expensive operations here because these sections are not inherently manual.</p>
+<p>Related tables provide their own search/sort/paging. Unlike main-table columns,
+the current related renderer sorts displayed mapped values; <code>sort_value</code> does not
+supply an alternate key there. See the built-in Compose and stack definitions for
+real associated-resource schemas.</p>
+<h2 id="a-complete-http-integration">A complete HTTP integration<a class="headerlink" href="#a-complete-http-integration" title="Permanent link">&para;</a></h2>
+<p><a href="../examples/http-environments.yaml">examples/http-environments.yaml</a> is a complete,
+loadable system configuration containing:</p>
+<ol>
+<li>Local Docker with built-in features.</li>
+<li>Staging and production API targets reusing one custom feature.</li>
+<li>List/inspect/restart HTTP operations and typed inputs.</li>
+<li>A table, detail page, JSON inspector, confirmation action, and environment cards.</li>
+</ol>
+<p>Its upstream API contract is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>GET  /applications              -&gt; {"items": [application, ...]}
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>GET  /applications/{id}         -&gt; application
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>POST /applications/{id}/restart -&gt; successful JSON response, or empty success response
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>                                  body: {"reason": "operator-entered text"}
+</code></pre></div>
+<p>An application record looks like:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"website"</span><span class="p">,</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Website"</span><span class="p">,</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"healthy"</span><span class="p">,</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.4.2"</span><span class="p">,</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">  </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Platform team"</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>This contract is illustrative; Declarack does not supply the example upstream APIs.
+Adapt paths and JSONata to your real API. No new adapter is needed for these HTTP
+calls. The restart button sends the configured request; the upstream implements
+what “restart” actually does.</p>
+<h2 id="settings-editing-and-storage">Settings editing and storage<a class="headerlink" href="#settings-editing-and-storage" title="Permanent link">&para;</a></h2>
+<p>The Settings page reads the selected authoritative source, validates proposed YAML,
+and can test a target connection. Writes require the revision returned by the last
+read. A conflict requires reloading rather than overwriting another change.</p>
+<h3 id="what-can-be-edited-in-settings-today">What can be edited in Settings today?<a class="headerlink" href="#what-can-be-edited-in-settings-today" title="Permanent link">&para;</a></h3>
+<p>Target definitions can change through Settings, subject to storage permissions and
+normal validation. Changes to top-level <code>operations</code>, <code>features</code>, <code>auth</code>, and
+<code>legacy_workspace</code> are rejected by <code>FileSettings.validate</code>. The target named by
+<code>legacy_workspace</code> is also protected from Settings edits. This restriction applies
+to the existing single-document editor, validation, connection testing, and saving
+in <strong>all three storage modes</strong>. Folder-backed <strong>New file</strong> instead validates the
+full merged model and supports new execution/UI definitions; see the
+<a href="../CONFIG_FOLDERS/">folder guide</a>.</p>
+<p>Execution and UI definitions can still be changed in the source file/folder
+through deployment, then applied using local Reload configuration. Authentication
+and legacy-workspace changes require restart/redeploy. “Configuration alone” means no Python/JS changes; it does
+not currently mean every definition can be changed through the browser editor.</p>
+<p>The restriction is an implementation guardrail, not a YAML requirement. Custom
+operations may execute privileged commands or requests using the application's
+credentials. Authentication and some legacy-workspace globals are initialized at
+startup rather than safely hot-reloaded. A future full-config editor would need
+explicit lifecycle/restart behavior and broader validation. Target editing is also
+privileged; the present division is not a complete security boundary or per-user
+permission system. The current code does not offer a toggle to lift this restriction.</p>
+<h3 id="file-storage">File storage<a class="headerlink" href="#file-storage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>DECLARACK_CONFIG=/etc/declarack/dashboard.yaml
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>DECLARACK_CONFIG_STORE=file
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>DECLARACK_CONFIG_EDIT=1
+</code></pre></div>
+<p><code>file</code> is the default store. Without <code>DECLARACK_CONFIG_EDIT=1</code>, Settings is read-only.
+With it, supported changes replace the validated file atomically, retain the
+previous content as <code>dashboard.yaml.previous</code>, and update the running target model.
+Mount the <strong>enclosing directory writable</strong>, not a single bind-mounted file, for
+atomic replacement. This enables supported Settings edits, not unrestricted edits
+to execution definitions or auth. External file changes can use Reload configuration; authentication and legacy changes need restart.</p>
+<h3 id="github-storage">GitHub storage<a class="headerlink" href="#github-storage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>DECLARACK_CONFIG=/etc/declarack/dashboard.yaml
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>DECLARACK_CONFIG_STORE=git
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>DECLARACK_CONFIG_GIT_REPO=your-org/your-config-repo
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>DECLARACK_CONFIG_GIT_BRANCH=main
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>DECLARACK_CONFIG_GIT_PATH=declarack/dashboard.yaml
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>DECLARACK_CONFIG_GIT_TOKEN_FILE=/run/secrets/config_git_token
+</code></pre></div>
+<p>Runtime startup still reads the <strong>local mounted file</strong>. Settings reads the configured
+GitHub branch/file. Saving creates a branch, file commit, and pull request; it does
+not merge the PR, pull the file into the container, or replace the running config.
+Your deployment pipeline must deliver the merged file and redeploy. Keep the
+mounted file and Git source aligned. Without a token, storage is read-only and
+only works where GitHub permits unauthenticated reads. This implementation is
+GitHub-specific, not a generic Git remote or repository watcher.</p>
+<h3 id="swarm-config-storage">Swarm config storage<a class="headerlink" href="#swarm-config-storage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>DECLARACK_CONFIG=/etc/declarack/dashboard.yaml
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>DECLARACK_CONFIG_STORE=swarm
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>DECLARACK_CONFIG_SERVICE=your-stack_declarack
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>DECLARACK_CONFIG_SOCKET=/var/run/docker.sock
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>DECLARACK_CONFIG_MOUNT=/etc/declarack/dashboard.yaml
+</code></pre></div>
+<p>The named service must mount a Swarm config at <code>DECLARACK_CONFIG_MOUNT</code>. Settings
+reads that attachment through the selected manager socket. Saving validates the
+revision, creates a versioned Swarm config, and updates the service's config
+attachment. Swarm then redeploys Declarack. The old config remains available for
+Docker rollback; there is no automatic config-pruning policy. Keep your external
+deployment specification aligned so a later stack deploy does not restore an old
+attachment. The settings socket is separate from targets' connection definitions.</p>
+<h2 id="authentication-and-credential-files">Authentication and credential files<a class="headerlink" href="#authentication-and-credential-files" title="Permanent link">&para;</a></h2>
+<p>All runtime credentials use <a href="../CREDENTIALS/">named credential profiles</a>, including
+mounted-file references. The GUI manages them under Settings → Credentials.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nt">auth</span><span class="p">:</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="nt">credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">declarack_login</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="nt">credentials</span><span class="p">:</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">  </span><span class="nt">declarack_login</span><span class="p">:</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/declarack_admin_password</span>
+</code></pre></div>
+<p>Only installation-wide Basic Auth is implemented. <code>provider</code> defaults to <code>basic</code>,
+<code>auth.credential</code> selects a basic profile whose username/password take precedence
+over the bootstrap <code>DECLARACK_PASSWORD</code> fallback. Without one, the username is
+admin and <code>DECLARACK_PASSWORD</code> is required outside demo mode.
+There is no inline <code>auth.password</code>, user database, role mapping, or per-target login.
+Settings and operation APIs use the installation's authentication.</p>
+<p>A credential file must contain one nonempty value; a trailing newline is accepted,
+embedded newline/NUL is not. Secret references are filesystem paths, not Docker
+secret names or automatic Docker API lookups. Mount the secret first:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Deployment Compose/Swarm fragment, not system YAML.</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nt">services</span><span class="p">:</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="nt">declarack</span><span class="p">:</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="nt">secrets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">declarack_admin_password</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nt">secrets</span><span class="p">:</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span><span class="nt">declarack_admin_password</span><span class="p">:</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">    </span><span class="nt">external</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>This fragment assumes the external Swarm secret already exists. Standalone Compose
+has its own file-backed secret mechanism; standalone Docker Engine does not provide
+Swarm secret/config resources. Feature bindings enforce that distinction.</p>
+<p>Bearer tokens, SSH keys/known-hosts, Basic Auth, and the GitHub Settings token are
+separate credentials with separate purposes. Ordinary target metadata sent to the
+renderer excludes connection settings, but authenticated Settings reads show the
+system YAML. JSON inspection intentionally shows the full unmasked resource data.
+Treat the system YAML and Settings editor as administrator interfaces. Credential
+rotation is not file-watched; restart/redeploy to reload startup credentials.</p>
+<h2 id="runtime-environment-variables">Runtime environment variables<a class="headerlink" href="#runtime-environment-variables" title="Permanent link">&para;</a></h2>
+<p><code>DECLARACK_CONFIG_FORCE_LOAD</code> and <code>DECLARACK_CONFIG_WRITE_BACK</code> accept <code>0</code> or <code>1</code>
+and default to <code>0</code>; see <a href="../STORAGE/#active-system-configuration">database configuration</a>.</p>
+<p>These configure the process/deployment, not arbitrary interpolation in system YAML.</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default / purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DECLARACK_CONFIG</code></td>
+<td>Unset: generated local target; set: load a system YAML file or merged config folder</td>
+</tr>
+<tr>
+<td><code>DECLARACK_ADAPTER_DIR</code></td>
+<td>Extra adapter root, default <code>/etc/declarack/adapters</code> when loading configured targets</td>
+</tr>
+<tr>
+<td><code>DECLARACK_PASSWORD</code></td>
+<td>Required outside demo unless <code>auth.credential</code> supplies it</td>
+</tr>
+<tr>
+<td><code>DECLARACK_MODE</code></td>
+<td><code>demo</code> enables demo data; cannot combine demo with an explicit config file</td>
+</tr>
+<tr>
+<td><code>HOST</code></td>
+<td>Python default <code>127.0.0.1</code>; runtime image sets <code>0.0.0.0</code></td>
+</tr>
+<tr>
+<td><code>PORT</code></td>
+<td><code>8080</code></td>
+</tr>
+<tr>
+<td><code>DOCKER_SOCKET</code></td>
+<td><code>/var/run/docker.sock</code>; generated target and settings-socket fallback</td>
+</tr>
+<tr>
+<td><code>DECLARACK_DATA</code></td>
+<td><code>/data</code>; default SQLite database and local working files/locks</td>
+</tr>
+<tr>
+<td><code>DECLARACK_DATABASE_URL</code></td>
+<td>Optional SQLite or PostgreSQL connection URL</td>
+</tr>
+<tr>
+<td><code>DECLARACK_DATABASE_URL_FILE</code></td>
+<td>Mounted single-line URL file; mutually exclusive with the URL variable</td>
+</tr>
+<tr>
+<td><code>DECLARACK_STACK_ROOT</code></td>
+<td><code>/stacks</code>; mounted application source-folder root</td>
+</tr>
+<tr>
+<td><code>DECLARACK_COMPOSE_HOST_ROOT</code></td>
+<td>Unset; opt-in mapping for viewing reported host Compose files</td>
+</tr>
+<tr>
+<td><code>DECLARACK_AGENT_IMAGE</code></td>
+<td>Empty; fallback image for Swarm jobs</td>
+</tr>
+<tr>
+<td><code>DECLARACK_HOST_METRICS</code></td>
+<td>Enabled only by <code>1</code>; fallback flag for Swarm metric jobs</td>
+</tr>
+<tr>
+<td><code>DECLARACK_HOST_DISK_PATH</code></td>
+<td><code>/etc</code>; fallback worker-host path for disk measurement</td>
+</tr>
+<tr>
+<td><code>DECLARACK_WORKER_SOCKET</code></td>
+<td><code>/var/run/docker.sock</code>; fallback worker-host Docker socket</td>
+</tr>
+<tr>
+<td><code>DECLARACK_CONFIG_STORE</code></td>
+<td><code>file</code>; alternatives <code>git</code>, <code>swarm</code></td>
+</tr>
+<tr>
+<td><code>DECLARACK_CONFIG_EDIT</code></td>
+<td>File-store writes enabled only by <code>1</code></td>
+</tr>
+<tr>
+<td><code>DECLARACK_CONFIG_SOCKET</code></td>
+<td>Defaults to <code>DOCKER_SOCKET</code>; manager connection for Swarm Settings storage</td>
+</tr>
+<tr>
+<td><code>DECLARACK_CONFIG_SERVICE</code></td>
+<td>Required Swarm service ID/name for Swarm Settings storage</td>
+</tr>
+<tr>
+<td><code>DECLARACK_CONFIG_MOUNT</code></td>
+<td>Defaults to <code>DECLARACK_CONFIG</code>; service config attachment path</td>
+</tr>
+<tr>
+<td><code>DECLARACK_CONFIG_GIT_REPO</code></td>
+<td>Required <code>owner/repository</code> for GitHub storage</td>
+</tr>
+<tr>
+<td><code>DECLARACK_CONFIG_GIT_BRANCH</code></td>
+<td><code>main</code></td>
+</tr>
+<tr>
+<td><code>DECLARACK_CONFIG_GIT_PATH</code></td>
+<td><code>dashboard.yaml</code>, relative to the GitHub repository</td>
+</tr>
+<tr>
+<td><code>DECLARACK_CONFIG_GIT_TOKEN_FILE</code></td>
+<td>Optional mounted GitHub Settings credential</td>
+</tr>
+</tbody>
+</table>
+<p>Explicit Docker targets require a <code>socket</code> or <code>ssh_tunnel</code>; they do not inherit a
+missing socket from <code>DOCKER_SOCKET</code>. Per-target <code>agent_image</code>, <code>host_metrics</code>,
+<code>metrics_disk_path</code>, <code>worker_socket</code>, and <code>stack_root</code> override runtime fallbacks.
+With <code>legacy_workspace</code>, several worker fallbacks are reassigned from that target
+during startup, so explicitly setting worker options on each Swarm target is the
+clearest multi-environment setup.</p>
+<p><code>DECLARACK_COMPOSE_HOST_ROOT</code> applies to local Docker targets; tunneled targets
+require an explicit <code>host_root</code>. A local mount cannot read another server's
+filesystem. On native Linux, the optional deployment override maps <code>/</code> read-only
+to <code>/mnt/host</code>. Docker Desktop/macOS uses <code>/Users</code> to <code>/mnt/host/Users</code> instead.
+See <a href="../../project-readme/#view-existing-compose-files-from-the-host">host source viewing</a>
+and the two <code>compose.host-files*.yaml</code> overrides. Viewing a file neither imports it
+as deployment source nor changes the Compose project.</p>
+<p>Deployment-only names in <code>compose.yaml</code>, such as <code>DECLARACK_STACKS_DIR</code>, are Docker
+Compose substitution variables, not separately read backend environment variables.
+Registry/build secrets belong to the image build workflow, not the system YAML.</p>
+<h2 id="application-sources-and-persistent-state">Application sources and persistent state<a class="headerlink" href="#application-sources-and-persistent-state" title="Permanent link">&para;</a></h2>
+<p>The system config selects connections and capabilities; saved application sources
+are separate. Keep the data volume when you rely on GUI-managed sources.</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Current storage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stack source metadata, last deployment/commit and legacy encrypted PATs</td>
+<td>Target-scoped documents in the shared database</td>
+</tr>
+<tr>
+<td>Legacy PAT encryption key</td>
+<td>Binary document in the same database</td>
+</tr>
+<tr>
+<td>Saved Compose source definitions and inline YAML</td>
+<td>Target-scoped database documents; working YAML materialized locally</td>
+</tr>
+<tr>
+<td>Checks, operation records and configuration revisions</td>
+<td>Framework database tables</td>
+</tr>
+<tr>
+<td>Mounted-folder source files</td>
+<td>Configured/mounted <code>stack_root</code>; external to the database</td>
+</tr>
+<tr>
+<td>Table density, columns, main page size</td>
+<td>Browser local storage</td>
+</tr>
+<tr>
+<td>Terminal sessions and inventory snapshots</td>
+<td>In-memory/session state</td>
+</tr>
+</tbody>
+</table>
+<p>SQLite defaults to <code>/data/state.sqlite</code>; PostgreSQL can be selected through
+<code>DECLARACK_DATABASE_URL</code> or <code>DECLARACK_DATABASE_URL_FILE</code>. See
+<a href="../STORAGE/">database storage and migration</a> before upgrading an existing data
+volume. The import preserves historical source records and credential keys.</p>
+<p>Named targets normally have separate logical database scopes. <code>legacy_workspace</code>
+uses the default legacy scope and bridges old bookmarks; it must name a configured
+Swarm target. Renaming target IDs does not automatically move stored records.</p>
+<p>Swarm sources support inline YAML, mounted folders, general HTTPS/SSH Git sources
+with branch/tag/commit refs, and legacy GitHub-tag sources. General Git stores
+credential references; legacy PAT records remain encrypted in database documents.
+See <a href="../REGISTRIES_AND_GIT_SOURCES/">source retrieval and credentials</a> for exact
+storage, authentication and deployment behavior.</p>
+<p>Standalone Compose currently supports saved inline and mounted-folder sources;
+it does not have the GitHub-backed stack source workflow. Reported Docker Compose
+file paths are discovery metadata until explicitly viewed through <code>host_root</code> or
+saved as a source. Lifecycle actions require saved sources and fresh preview digests.</p>
+<p>Swarm config-backed <strong>system settings</strong> do not make all Declarack application state
+stateless. GUI-managed stack sources/PATs and saved Compose sources still need a persisted
+database. External source management can reduce that state, but the current
+implementation does not reconstruct all saved source metadata from Swarm configs.</p>
+<h2 id="adapter-packages-and-extension-boundaries">Adapter packages and extension boundaries<a class="headerlink" href="#adapter-packages-and-extension-boundaries" title="Permanent link">&para;</a></h2>
+<p>Built-in packages are discovered under <code>/app/backend/adapters</code> in the image.
+Configured installations can also load packages from the optional extra root.
+Each package has a manifest, trusted Python entrypoint, and optional YAML files:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inventory</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nt">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adapter.py:register</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">http</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="nt">operations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">operations.yaml</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="nt">features</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">features.yaml</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p>The package may register reusable connections/executors; YAML lists define named
+operations/features. Dependencies load first. Duplicate IDs, unknown dependencies,
+cycles, invalid package-relative paths, and unsupported API versions fail startup.
+Packages run in the server process; mounting one is equivalent to deploying trusted
+application code. There is no browser plugin installer or automatic dependency installation.</p>
+<table>
+<thead>
+<tr>
+<th>Desired change</th>
+<th>Configuration sufficient?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add another existing connection type</td>
+<td>Yes, with needed mounts/credentials</td>
+</tr>
+<tr>
+<td>Reuse a feature across environments</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Add an HTTP list/detail/action integration</td>
+<td>Yes, using <code>http.request</code></td>
+</tr>
+<tr>
+<td>Change columns, JSONata, summaries, supported forms</td>
+<td>Yes, new unique feature definitions</td>
+</tr>
+<tr>
+<td>Add a command through SSH or a Swarm job</td>
+<td>Usually, within that executor's contracts</td>
+</tr>
+<tr>
+<td>Add a new transport/execution protocol</td>
+<td>Adapter code</td>
+</tr>
+<tr>
+<td>Add coordinated durable workflows</td>
+<td>Usually adapter/backend code</td>
+</tr>
+<tr>
+<td>Add a new chart type or arbitrary page layout</td>
+<td>Frontend renderer work</td>
+</tr>
+<tr>
+<td>Add continuous analytics ingestion/scheduling</td>
+<td>Not implemented by these settings</td>
+</tr>
+<tr>
+<td>Add roles, SSO, or per-user target permissions</td>
+<td>Not implemented by these settings</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="../../ARCHITECTURE/">ARCHITECTURE.md</a>, <a href="../DOCKER_ACTIONS/">action coverage</a>, and
+bundled adapter YAML for resource-specific execution schemas. This guide describes
+implemented behavior; architectural aspirations are not additional config fields.</p>
+<h2 id="troubleshooting-and-current-limits">Troubleshooting and current limits<a class="headerlink" href="#troubleshooting-and-current-limits" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Duplicate identifier</td>
+<td>Custom names must not collide with built-ins; use a prefix such as <code>acme.assets</code></td>
+</tr>
+<tr>
+<td>Unknown/incompatible operation</td>
+<td>Enabled feature must have matching bindings for the target's provider and connection</td>
+</tr>
+<tr>
+<td>Expected standalone configs/secrets</td>
+<td>Those are Swarm resources; use Compose/application source files for standalone</td>
+</tr>
+<tr>
+<td>Missing file or socket</td>
+<td>Path must exist inside the running container with appropriate access</td>
+</tr>
+<tr>
+<td>SSH prepare fails</td>
+<td>Identity/known-hosts paths must be existing files; verify host/user/port</td>
+</tr>
+<tr>
+<td>HTTP upstream fails</td>
+<td>Check the final base URL + path, JSON response shape, HTTPS token use, and redirects</td>
+</tr>
+<tr>
+<td>Environment summary absent</td>
+<td>Enable the feature and define <code>environment.cards</code>; no inputs/manual/on-demand operation</td>
+</tr>
+<tr>
+<td>JSONata result empty</td>
+<td>Confirm expression context: whole response vs selected row vs detail entry</td>
+</tr>
+<tr>
+<td>Settings rejects custom definitions</td>
+<td>Edit through deployment and restart; the Settings restriction is deliberate</td>
+</tr>
+<tr>
+<td>File Settings cannot save</td>
+<td>Enable editing and mount the enclosing writable directory</td>
+</tr>
+<tr>
+<td>Git change not reflected in UI</td>
+<td>PR creation does not deploy it; deliver the merged file and redeploy</td>
+</tr>
+<tr>
+<td>Swarm Settings rollback/redeploy surprises</td>
+<td>Keep external service/stack config attachment declarations aligned</td>
+</tr>
+<tr>
+<td>Volume sizes/host metrics not automatic</td>
+<td>Collection is deliberately manual; Swarm needs a usable agent image</td>
+</tr>
+<tr>
+<td>Saved sources disappear after redeploy</td>
+<td>Persist the correct target data directory and preserve target IDs</td>
+</tr>
+</tbody>
+</table>
+<p>The core validates many references and argument schemas, but it is not a complete
+JSON Schema validator for all YAML/UI keys. Unknown or unsupported UI fields may be
+ignored. Test custom integrations against representative responses and review the
+executor's behavior before enabling actions. There is no arbitrary JS/Python
+expression evaluator embedded in system YAML; use the supported JSONata mappings,
+input templates, and registered execution mechanisms.</p>
+<p>See <a href="../ENVIRONMENTS_AND_CHECKS/">Targets, environments, and persisted checks</a> for grouping connections and scheduled monitoring.</p>
+<p>See <a href="../PORTAINER_PARITY/">Portainer parity review</a> and <a href="../VOLUME_BROWSER_AND_BATCHES/">volume browsing / multi-target batches</a>.</p>
+<p>See <a href="../FRAMEWORK_WORKFLOWS/">framework workflow extensions</a> for typed JSON, JSONata initialization/payloads, previews and embedded resource editing.</p>
+<h2 id="table-tools-and-dashboard-charts">Table tools and dashboard charts<a class="headerlink" href="#table-tools-and-dashboard-charts" title="Permanent link">&para;</a></h2>
+<p>Features and page panels support configured filters and filtered CSV/JSON exports.
+Features can opt row actions into reviewed bulk execution. Custom pages can define
+line/bar charts and browser-driven refresh intervals. See the complete
+<a href="../TABLES_BULK_AND_CHARTS/">tables, bulk actions and charts reference</a> for schemas,
+examples, execution guarantees, and limits.</p>
+<p>See <a href="../TEMPLATES_AND_DYNAMIC_FORMS/">integration templates and dynamic form options</a> for the Add integration workflow, adapter-owned presets, dependent dropdowns and validation.</p>
+<h2 id="generic-resource-capabilities">Generic resource capabilities<a class="headerlink" href="#generic-resource-capabilities" title="Permanent link">&para;</a></h2>
+<p>See <a href="../GENERIC_CAPABILITIES/">resource selectors, terminal sessions, file trees and input constraints</a> for their schemas, adapter responsibilities and pre-release migration notes.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../examples/multi-environment/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Real two-Swarm lab">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Real two-Swarm lab
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../CONFIG_FOLDERS/" class="md-footer__link md-footer__link--next" aria-label="Next: Configuration folders">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Configuration folders
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.tabs","navigation.sections","navigation.top","navigation.footer","search.suggest","search.highlight","content.code.copy","content.code.annotate"],"redirect":null,"search":"../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.9e76c64c.min.js"></script>
+      
+      
+    
+  </body>
+</html>

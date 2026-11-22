@@ -1,0 +1,90 @@
+# Complete Declarack SYSTEM configuration, not an application Compose file.
+# Replace the two API origins with your own. See ../CONFIGURATION.md.
+targets:
+  local:
+    label: Local Docker
+    connection: docker_socket
+    socket: /var/run/docker.sock
+    features: [compose, containers, images, networks, volumes, disk_usage]
+  staging:
+    label: Staging applications
+    connection: http
+    base_url: https://staging-api.example.com
+    features: [applications]
+    # bearer_token_file: /run/secrets/staging_api_token
+  production:
+    label: Production applications
+    connection: http
+    base_url: https://api.example.com
+    features: [applications]
+    # bearer_token_file: /run/secrets/production_api_token
+
+operations:
+  applications.list:
+    bindings:
+      http:
+        executor: http.request
+        method: GET
+        path: /applications
+  applications.inspect:
+    bindings:
+      http:
+        executor: http.request
+        method: GET
+        path: /applications/{id}
+        inputs:
+          id: {type: string}
+  applications.restart:
+    bindings:
+      http:
+        executor: http.request
+        method: POST
+        path: /applications/{id}/restart
+        body:
+          reason: '{reason}'
+        inputs:
+          id: {type: string}
+          reason: {type: string, label: Reason for restart}
+
+features:
+  applications:
+    title: Applications
+    group: Workspace
+    operation: applications.list
+    rows: items
+    columns:
+      - {label: Name, value: name}
+      - label: Status
+        value: status
+        badges: {healthy: active, degraded: destructive, down: destructive}
+      - {label: Version, value: version}
+    environment:
+      cards:
+        - {label: Applications, value: '$count(items)'}
+        - {label: Healthy, value: '$count(items[status = "healthy"])'}
+        - label: Unhealthy
+          value: '$count(items[status != "healthy"])'
+          tone: '$count(items[status != "healthy"]) > 0 ? "destructive" : null'
+    details:
+      operation: applications.inspect
+      row_id: id
+      input: id
+      title: name
+      fields:
+        - {label: Name, value: name}
+        - {label: Status, value: status}
+        - {label: Version, value: version}
+        - {label: Owner, value: owner}
+    actions:
+      - label: Inspect JSON
+        operation: applications.inspect
+        icon: json
+        row: {id: id}
+        immediate: true
+        output: json
+      - label: Restart application
+        operation: applications.restart
+        icon: restart
+        row: {id: id}
+        confirmation: Restart this application? Expect a brief interruption.
+        help: Sends a restart request to the configured application API.

@@ -1,0 +1,18 @@
+services:
+  declarack:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      DECLARACK_PASSWORD: ${DECLARACK_PASSWORD:?Set DECLARACK_PASSWORD}
+      DECLARACK_AGENT_IMAGE: ${DECLARACK_AGENT_IMAGE:-}
+      DECLARACK_HOST_DISK_PATH: ${DECLARACK_HOST_DISK_PATH:-/etc}
+      DECLARACK_HOST_METRICS: ${DECLARACK_HOST_METRICS:-0}
+      DECLARACK_WORKER_SOCKET: ${DECLARACK_WORKER_SOCKET:-/var/run/docker.sock}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - declarack-data:/data
+      - ${DECLARACK_STACKS_DIR:-./stacks}:/stacks:ro
+    restart: unless-stopped
+volumes:
+  declarack-data:

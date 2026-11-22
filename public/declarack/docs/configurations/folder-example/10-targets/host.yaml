@@ -1,0 +1,7 @@
+targets:
+  host:
+    label: Host Docker
+    connection: docker_socket
+    socket: /var/run/docker.sock
+    swarm: false
+    features: [compose, containers, images, networks, volumes, disk_usage]

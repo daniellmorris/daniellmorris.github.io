@@ -1,0 +1,15 @@
+# Copy into runtime/config/85-page-placement.yaml, then reload.
+# Only Local Docker exposes this page; the lab overview remains global/shared.
+pages:
+  local-engine:
+    title: Local engine overview
+    sources:
+      containers: {target: host, operation: containers.list}
+    cards:
+      - {label: Containers, value: '$count(data.containers)'}
+      - {label: Running, value: '$count(data.containers[State = "running"])'}
+environments:
+  root:
+    pages: [lab]
+  local:
+    pages: [local-engine]

@@ -1,0 +1,124 @@
+targets:
+  training:
+    label: Training API
+    connection: http
+    base_url: http://127.0.0.1:9010
+    features: [tutorial.apps]
+environments:
+  tutorial:
+    label: Tutorial
+    targets: [training]
+operations:
+  tutorial.apps.list:
+    bindings:
+      http: {executor: http.request, path: /apps}
+  tutorial.apps.inspect:
+    bindings:
+      http:
+        executor: http.request
+        path: /apps/{id}
+        inputs:
+          id: {type: string}
+  tutorial.apps.restart:
+    bindings:
+      http:
+        executor: http.request
+        method: POST
+        path: /apps/{id}/restart
+        inputs:
+          id: {type: string}
+  tutorial.teams.list:
+    bindings:
+      http: {executor: http.request, path: /teams}
+  tutorial.team-apps.list:
+    bindings:
+      http:
+        executor: http.request
+        path: /teams/{team}/apps
+        inputs:
+          team: {type: string}
+  tutorial.health:
+    check_safe: true
+    bindings:
+      http: {executor: http.request, path: /health}
+features:
+  tutorial.teams:
+    title: Team lookup
+    operation: tutorial.teams.list
+    rows: items
+    columns: [{label: Name, value: name}]
+  tutorial.team-apps:
+    title: Application lookup
+    operation: tutorial.team-apps.list
+    rows: items
+    columns: [{label: Name, value: name}]
+  tutorial.apps:
+    title: Applications
+    description: Training data. Restart actions increment a counter; they do not restart real workloads.
+    group: Workspace
+    operation: tutorial.apps.list
+    rows: items
+    columns:
+      - {label: Application, value: name}
+      - {label: Team, value: team}
+      - label: Status
+        value: status
+        badges: {running: active, stopped: muted}
+      - {label: Restarts, value: restarts}
+    filters:
+      - key: status
+        label: Status
+        value: status
+        choices: {running: Running, stopped: Stopped}
+    environment:
+      cards:
+        - {label: Applications, value: '$count(items)'}
+        - {label: Running, value: '$count(items[status="running"])'}
+    details:
+      operation: tutorial.apps.inspect
+      row_id: id
+      input: id
+      title: name
+      fields:
+        - {label: Name, value: name}
+        - {label: Team, value: team}
+        - {label: Status, value: status}
+        - {label: Restarts, value: restarts}
+    actions:
+      - label: Restart example app
+        operation: tutorial.apps.restart
+        row: {id: id}
+        bulk: true
+        icon: restart
+        confirmation: Increment the restart counter for the selected training application? No real workload is restarted.
+    workflow:
+      create_label: Restart by team
+      create_only: true
+      fields:
+        - key: team
+          label: Team
+          type: select
+          required: true
+          options_from:
+            operation: tutorial.teams.list
+            rows: items
+            value: id
+            label: name
+        - key: app
+          label: Application
+          type: select
+          required: true
+          options_from:
+            operation: tutorial.team-apps.list
+            depends_on: [team]
+            inputs: {team: form.team}
+            rows: items
+            value: id
+            label: name
+      actions:
+        - label: Restart example app
+          operation: tutorial.apps.restart
+          bind: {id: form.app}
+          validate: true
+          back: true
+          confirmation: Increment this training application's restart counter? No real workload is restarted.

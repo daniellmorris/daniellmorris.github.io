@@ -1,0 +1,13 @@
+Port 22
+ListenAddress 0.0.0.0
+HostKey /var/lib/lab-ssh/ssh_host_ed25519_key
+PermitRootLogin prohibit-password
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+PubkeyAuthentication yes
+AllowTcpForwarding yes
+AllowStreamLocalForwarding yes
+GatewayPorts no
+X11Forwarding no
+PrintMotd no
+PidFile /run/sshd.pid

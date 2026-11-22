@@ -1,0 +1,228 @@
+targets:
+  lab:
+    label: Local Docker
+    connection: docker_socket
+    socket: /var/run/docker.sock
+    features:
+    - compose
+    - containers
+    - images
+    - networks
+    - volumes
+    - disk_usage
+  production:
+    label: Production Swarm
+    connection: docker_socket
+    socket: /run/production-docker.sock
+    swarm: true
+    features:
+    - overview
+    - services
+    - nodes
+    - tasks
+  prometheus:
+    label: Prometheus
+    connection: http
+    base_url: https://prometheus.example.com
+    features:
+    - prometheus.targets
+    - prometheus.alerts
+operations:
+  prometheus.targets.read:
+    bindings:
+      http:
+        executor: http.request
+        path: /api/v1/targets
+        query:
+          state: active
+  prometheus.alerts.read:
+    bindings:
+      http:
+        executor: http.request
+        path: /api/v1/alerts
+features:
+  prometheus.targets:
+    title: Scrape targets
+    group: Monitoring
+    operation: prometheus.targets.read
+    rows: data.activeTargets
+    columns:
+    - label: Job
+      value: labels.job
+    - label: Instance
+      value: labels.instance
+    - label: Health
+      value: health
+      badges:
+        up: active
+        down: destructive
+        unknown: muted
+    - label: Endpoint
+      value: scrapeUrl
+      truncate: true
+    - label: Last scrape
+      value: lastScrape
+    - label: Last error
+      value: lastError
+      truncate: true
+    environment:
+      cards:
+      - label: Targets
+        value: $count(data.activeTargets)
+      - label: Up
+        value: $count(data.activeTargets[health = "up"])
+      - label: Not up
+        value: $count(data.activeTargets[health != "up"])
+        tone: '$count(data.activeTargets[health != "up"]) > 0 ? "destructive" : null'
+  prometheus.alerts:
+    title: Active alerts
+    group: Monitoring
+    operation: prometheus.alerts.read
+    rows: data.alerts
+    columns:
+    - label: Alert
+      value: labels.alertname
+    - label: State
+      value: state
+      badges:
+        firing: destructive
+        pending: muted
+    - label: Instance
+      value: labels.instance
+    - label: Summary
+      value: annotations.summary
+      truncate: true
+    - label: Active since
+      value: activeAt
+    environment:
+      cards:
+      - label: Firing alerts
+        value: $count(data.alerts[state = "firing"])
+        tone: '$count(data.alerts[state = "firing"]) > 0 ? "destructive" : null'
+      - label: Pending alerts
+        value: $count(data.alerts[state = "pending"])
+pages:
+  operations:
+    title: Operations overview
+    description: Application workloads and alerts across Docker, Swarm, and Prometheus.
+    sources:
+      local_containers:
+        label: Local containers
+        target: lab
+        operation: containers.list
+      production_services:
+        label: Production services
+        target: production
+        operation: swarm.services.list
+      alerts:
+        label: Prometheus alerts
+        target: prometheus
+        operation: prometheus.alerts.read
+    cards:
+    - label: Workloads across environments
+      sources:
+      - local_containers
+      - production_services
+      value: $count(data.local_containers) + $count(data.production_services)
+    - label: Running local containers
+      sources:
+      - local_containers
+      value: $count(data.local_containers[State = "running"])
+      target: lab
+      feature: containers
+    - label: Services below desired replicas
+      sources:
+      - production_services
+      value: $count(data.production_services[ServiceStatus.RunningTasks < ServiceStatus.DesiredTasks])
+      tone: '$count(data.production_services[ServiceStatus.RunningTasks < ServiceStatus.DesiredTasks])
+        > 0 ? "destructive" : null'
+      target: production
+      feature: services
+    - label: Firing alerts
+      sources:
+      - alerts
+      value: $count(data.alerts.data.alerts[state = "firing"])
+      tone: '$count(data.alerts.data.alerts[state = "firing"]) > 0 ? "destructive" : null'
+    panels:
+    - title: Production services
+      sources:
+      - production_services
+      rows: data.production_services
+      target: production
+      feature: services
+      row_id: ID
+      columns:
+      - label: Service
+        value: Spec.Name
+      - label: Running
+        value: ServiceStatus.RunningTasks
+      - label: Desired
+        value: ServiceStatus.DesiredTasks
+    - title: Local containers
+      sources:
+      - local_containers
+      rows: data.local_containers
+      target: lab
+      feature: containers
+      row_id: Id
+      columns:
+      - label: Name
+        value: $join(Names, ", ")
+        truncate: true
+      - label: State
+        value: State
+        badges:
+          running: active
+          exited: muted
+      - label: Image
+        value: Image
+        truncate: true
+      filters:
+      - key: state
+        label: State
+        value: State
+        choices:
+          running: Running
+          exited: Stopped
+          created: Created
+          paused: Paused
+    - title: Active alerts
+      sources:
+      - alerts
+      rows: data.alerts.data.alerts
+      columns:
+      - label: Alert
+        value: labels.alertname
+      - label: State
+        value: state
+        badges:
+          firing: destructive
+          pending: muted
+      - label: Summary
+        value: annotations.summary
+        truncate: true
+      wide: true
+    refresh_interval: 30
+    charts:
+    - title: Workloads across targets
+      type: bar
+      sources:
+      - local_containers
+      - production_services
+      rows: '[{"target":"Local Docker","count":$count(data.local_containers)},{"target":"Production
+        Swarm","count":$count(data.production_services)}]'
+      x: target
+      series:
+      - label: Workloads
+        value: count
+    - title: Production service replicas
+      type: bar
+      sources:
+      - production_services
+      rows: data.production_services
+      x: Spec.Name
+      series:
+      - label: Running
+        value: ServiceStatus.RunningTasks
+      - label: Desired
+        value: ServiceStatus.DesiredTasks

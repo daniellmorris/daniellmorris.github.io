@@ -1,0 +1,16 @@
+targets:
+  host:
+    label: Linux host
+    connection: ssh
+    host: host.example.com
+    features:
+    - host_metrics
+    credential: ssh_host
+credentials:
+  ssh_host:
+    type: ssh
+    username: declarack
+    private_key:
+      file: /run/secrets/host_ssh_key
+    known_hosts:
+      file: /etc/declarack/known_hosts

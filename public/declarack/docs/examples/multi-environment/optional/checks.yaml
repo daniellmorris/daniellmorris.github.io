@@ -1,0 +1,24 @@
+# Copy into runtime/config/75-monitoring-checks.yaml, then Reload configuration.
+# This check-only target has no environment membership and no UI features.
+targets:
+  grafana_health:
+    label: Grafana health endpoint (checks only)
+    connection: http
+    base_url: http://grafana:3000
+    features: []
+operations:
+  lab.grafana.database:
+    check_safe: true
+    bindings:
+      http:
+        executor: http.request
+        path: /api/health
+checks:
+  grafana-database:
+    title: Grafana database health
+    target: grafana_health
+    operation: lab.grafana.database
+    every: 30s
+    healthy: 'database = "ok"'
+    failure_threshold: 2
+    recovery_threshold: 1

@@ -1,0 +1,11 @@
+# Full system configuration: a local Swarm manager.
+# Publish this same Declarack image and replace agent_image before using node jobs.
+targets:
+  production:
+    label: Production Swarm
+    connection: docker_socket
+    socket: /var/run/docker.sock
+    swarm: true
+    agent_image: ghcr.io/daniellmorris/declarack:latest
+    host_metrics: true
+    features: [overview, services, nodes, tasks, stacks, configs, secrets, networks, volumes, host_metrics, containers]

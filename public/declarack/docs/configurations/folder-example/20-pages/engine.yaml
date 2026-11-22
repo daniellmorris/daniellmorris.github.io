@@ -1,0 +1,28 @@
+pages:
+  engine:
+    title: Engine dashboard
+    sources:
+      containers: {target: host, operation: containers.list}
+      projects: {target: host, operation: compose.list}
+    cards:
+      - {label: Running containers, sources: [containers], value: '$count(data.containers[State = "running"])'}
+      - {label: Compose projects, sources: [projects], value: '$count(data.projects.items)'}
+    panels:
+      - title: Containers
+        sources: [containers]
+        rows: data.containers
+        target: host
+        feature: containers
+        row_id: Id
+        columns:
+          - {label: Name, value: '$join(Names, ", ")', truncate: true}
+          - {label: State, value: State}
+      - title: Compose projects
+        sources: [projects]
+        rows: data.projects.items
+        target: host
+        feature: compose
+        row_id: name
+        columns:
+          - {label: Project, value: name}
+          - {label: Status, value: status}

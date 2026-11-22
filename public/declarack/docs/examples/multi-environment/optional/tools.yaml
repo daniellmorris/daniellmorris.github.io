@@ -1,0 +1,56 @@
+targets:
+  host:
+    agent_image: declarack-lab:local
+  ssh_a:
+    label: SSH manager A host
+    connection: ssh
+    host: swarm-a-manager
+    features:
+    - host_metrics
+    - ssh_commands
+    credential: ssh_ssh_a
+  ssh_b:
+    label: SSH manager B host
+    connection: ssh
+    host: swarm-b-manager
+    features:
+    - host_metrics
+    - ssh_commands
+    credential: ssh_ssh_a
+environments:
+  ssh-hosts:
+    label: SSH hosts
+    targets:
+    - ssh_a
+    - ssh_b
+    batches:
+    - fleet-metrics
+    - fleet-command
+batches:
+  fleet-metrics:
+    title: SSH fleet metrics
+    operation: host.metrics
+    columns:
+    - label: CPU percent
+      value: result.cpu
+    - label: Load
+      value: $string(result.load)
+    - label: Memory available MB
+      value: $round(result.memory.MemAvailable / 1000000, 1)
+    - label: Disk available GB
+      value: $round(result.disk.available / 1000000000, 2)
+  fleet-command:
+    title: SSH fleet command
+    operation: ssh.command
+    confirmation: Run this command on every selected SSH host as its configured user?
+    columns:
+    - label: Output
+      value: $substring(result.text, 0, 500)
+credentials:
+  ssh_ssh_a:
+    type: ssh
+    username: root
+    private_key:
+      file: /run/lab/client_key
+    known_hosts:
+      file: /run/lab/known_hosts

@@ -1,0 +1,13 @@
+# Optional native-Linux host filesystem viewer. The default deployment has no root mount.
+# docker compose -f compose.yaml -f compose.host-files.yaml up -d --build
+services:
+  declarack:
+    environment:
+      DECLARACK_COMPOSE_HOST_ROOT: /mnt/host
+    volumes:
+      - type: bind
+        source: /
+        target: /mnt/host
+        read_only: true
+        bind:
+          create_host_path: false
