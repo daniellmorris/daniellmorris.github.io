@@ -265,6 +265,10 @@ pages:
         value: lastError
         truncate: true
 environments:
+  swarms:
+    label: Both Swarms
+    targets: [swarm_a, swarm_b]
+    pages: [lab]
   swarm-a:
     label: Swarm A
     targets:

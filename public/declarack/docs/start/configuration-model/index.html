@@ -606,6 +606,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#browsing-an-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Browsing an environment
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1910,6 +1921,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#browsing-an-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Browsing an environment
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2170,6 +2192,30 @@ explain defaults, flags, exports and write-back recovery.</p>
 <li><a href="../../docs/CONFIGURATION/">System configuration reference</a></li>
 <li><a href="../../tutorials/api-interface/">Runnable API tutorial</a></li>
 </ul>
+<h2 id="browsing-an-environment">Browsing an environment<a class="headerlink" href="#browsing-an-environment" title="Permanent link">&para;</a></h2>
+<p>Select an environment to keep its targets and shared workflows together. Each
+member target has a collapsible sidebar group populated from its enabled feature
+definitions. Opening a resource, detail, terminal or deployment workflow keeps the
+same environment selected. Breadcrumbs show environment, target and feature.
+Changing environments is explicit through the selector or Home.</p>
+<p>The environment overview collects each target’s configured summary cards and
+existing summary panels together. Panels show up to five rows, with <strong>View all</strong>
+opening the target’s full resource page inside the same environment. Requests are
+bounded and failures remain isolated by target/feature. Manual operations such as
+host metrics are not automatically triggered. No cross-target mutation is implied
+by displaying resources together.</p>
+<p>Environment <code>batches</code> expose shared operations such as SSH fleet metrics or fleet
+commands. Their eligible targets are intersected with the environment membership;
+the execution page lets the operator choose a subset and reports each target’s
+result separately. These workflows remain alongside individual target features.
+<code>navigation</code> continues to control labels, grouping and ordering; target membership
+determines the collapsible resource groups. Installation settings remain at Home.</p>
+<p>Scoped resource URLs use
+<code>#/environments/&lt;environment&gt;/targets/&lt;target&gt;/&lt;feature&gt;</code> and retain this prefix for
+details and workflows. Direct <code>#/&lt;target&gt;/&lt;feature&gt;</code> bookmarks still work without
+implicitly selecting an environment. An explicit scoped URL cannot open a target
+outside that environment. Environment membership controls presentation, not user
+permissions: all signed-in accounts are administrators.</p>
 
 
 
