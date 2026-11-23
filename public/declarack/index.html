@@ -1,1 +1,425 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Declarack</title><style>body{font:18px system-ui;max-width:48rem;margin:12vh auto;padding:2rem;background:#10141e;color:#edf3f2}a{color:#8ed5be;margin-right:2rem}p{line-height:1.6}</style><main><h1>Declarack</h1><p>Build administration interfaces with configuration. Manage Docker, Swarm, SSH hosts and HTTP APIs in one place.</p><p><a href="demo/">Try the browser demo</a><a href="docs/">Read the documentation</a></p></main></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Declarack — Your systems. Your interface.</title>
+    <meta
+      name="description"
+      content="Build the administration interface your infrastructure needs. Manage Docker, Swarm, SSH hosts and HTTP APIs with configuration-driven dashboards and workflows."
+    />
+    <meta name="theme-color" content="#101514" />
+    <link rel="canonical" href="https://daniellmorris.com/declarack/" />
+    <meta
+      property="og:title"
+      content="Declarack — Your systems. Your interface."
+    />
+    <meta
+      property="og:description"
+      content="Docker and Swarm management today. Your own administration workflows through configuration."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://daniellmorris.com/declarack/" />
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/landing.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="wrap">
+      <a class="brand" href="./" aria-label="Declarack home"
+        ><img src="assets/logo.svg" width="34" height="34" alt="" /><span
+          >Decla<span class="mint">rack</span></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#why">Why Declarack</a><a href="#features">Features</a
+        ><a href="#compare">Compare</a><a href="docs/">Docs ↗</a>
+      </nav>
+      <a class="button small" href="demo/"
+        >Try the demo <span aria-hidden="true">↗</span></a
+      >
+    </header>
+    <main id="main">
+      <section class="hero wrap">
+        <div class="eyebrow">
+          <span class="dot"></span> CONFIGURABLE ADMINISTRATION
+        </div>
+        <h1>Your systems.<br /><span>Your interface.</span></h1>
+        <p class="lede">
+          Bring Docker, Swarm, SSH hosts and HTTP APIs into one workspace. Shape
+          the dashboards and workflows around how <em>you</em> operate.
+        </p>
+        <div class="actions">
+          <a class="button" href="demo/"
+            >Explore the interactive demo <span aria-hidden="true">↗</span></a
+          ><a class="text-link" href="docs/start/quickstart/"
+            >Get started <span aria-hidden="true">→</span></a
+          >
+        </div>
+        <p class="fine">Self-hosted · YAML-driven · Built for extending</p>
+        <figure class="product">
+          <div class="window-bar">
+            <span><i></i><i></i><i></i></span
+            ><span>ONE WORKSPACE. MULTIPLE TARGETS.</span
+            ><span class="live">● Browser demo</span>
+          </div>
+          <a href="demo/" aria-label="Explore the Declarack browser demo"
+            ><img
+              src="assets/workspace.jpg"
+              alt="Declarack browser demo showing a multi-environment operations dashboard and grouped navigation"
+              width="1280"
+              fetchpriority="high"
+          /></a>
+          <figcaption>
+            Explore a simulated fleet in your browser. No install or connected
+            infrastructure required.
+          </figcaption>
+        </figure>
+        <div class="integrations" aria-label="Supported connection types">
+          <span>START WITH WHAT YOU RUN</span><b>Docker</b><b>Swarm</b><b>SSH</b
+          ><b>HTTP APIs</b><span>+ your own adapters</span>
+        </div>
+      </section>
+      <section class="wrap section" id="why">
+        <div class="section-intro">
+          <p class="eyebrow">WHY DECLARACK?</p>
+          <h2>An admin interface<br />that fits your work.</h2>
+          <p>
+            Your infrastructure rarely lives in one product. Declarack gives its
+            different parts a shared interface, with configuration you can
+            understand and change.
+          </p>
+        </div>
+        <div class="three-grid why-grid">
+          <article>
+            <span class="number">01 / CONNECT</span>
+            <h3>See the whole environment.</h3>
+            <p>
+              Group targets by project, team or location. Build a page that
+              combines containers, Swarm services and API data from independent
+              systems.
+            </p>
+          </article>
+          <article>
+            <span class="number">02 / CONFIGURE</span>
+            <h3>Make the interface yours.</h3>
+            <p>
+              Define navigation, tables, details, charts, forms and actions in
+              YAML. Use JSONata to turn upstream responses into useful views.
+            </p>
+          </article>
+          <article>
+            <span class="number">03 / OPERATE</span>
+            <h3>Turn knowledge into workflows.</h3>
+            <p>
+              Give repeatable operations a home in the GUI. Reuse typed inputs,
+              confirmations and reviewed plans instead of building another
+              frontend.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="tinted">
+        <div class="wrap section" id="features">
+          <div class="section-intro">
+            <p class="eyebrow">USEFUL FROM THE FIRST CONNECTION</p>
+            <h2>Manage today.<br />Customize tomorrow.</h2>
+            <p>
+              Start with bundled management features, then add the views and
+              operations your environment needs.
+            </p>
+          </div>
+          <div class="three-grid feature-grid">
+            <article>
+              <span class="icon" aria-hidden="true">▱</span>
+              <h3>Docker &amp; Compose</h3>
+              <p>
+                Manage container lifecycles and Compose projects. Inspect
+                health, read logs, open terminals and manage images, networks
+                and volumes.
+              </p>
+            </article>
+            <article>
+              <span class="icon" aria-hidden="true">⬡</span>
+              <h3>Swarm operations</h3>
+              <p>
+                Work with services, nodes, tasks, stacks, configs and secrets.
+                Deploy stacks from inline YAML, folders or Git sources.
+              </p>
+            </article>
+            <article>
+              <span class="icon" aria-hidden="true">⌘</span>
+              <h3>SSH &amp; HTTP integrations</h3>
+              <p>
+                Run commands across SSH targets in an environment, collect host
+                metrics and connect custom API operations. Use SSH tunnels for
+                remote connections.
+              </p>
+            </article>
+            <article>
+              <span class="icon" aria-hidden="true">▥</span>
+              <h3>Dashboards across targets</h3>
+              <p>
+                Combine cards, charts and tables from multiple systems.
+                Configure page placement, data mappings, filters and optional
+                refresh.
+              </p>
+            </article>
+            <article>
+              <span class="icon" aria-hidden="true">⌁</span>
+              <h3>Inspect, then act</h3>
+              <p>
+                Search, sort and page through resources. Open full JSON,
+                dedicated details, confirmations, bulk reviews and supported
+                operation plans.
+              </p>
+            </article>
+            <article>
+              <span class="icon" aria-hidden="true">▤</span>
+              <h3>Configuration workbench</h3>
+              <p>
+                Edit YAML fragments in the GUI, copy examples, review changes
+                and activate saved revisions. Manage named credential profiles
+                in one place.
+              </p>
+            </article>
+            <article>
+              <span class="icon" aria-hidden="true">◷</span>
+              <h3>Checks &amp; history</h3>
+              <p>
+                Schedule configured checks and retain results, failure
+                thresholds and recovery transitions. Outbound alert delivery is
+                not included yet.
+              </p>
+            </article>
+            <article>
+              <span class="icon" aria-hidden="true">◇</span>
+              <h3>Accounts &amp; HTTPS</h3>
+              <p>
+                Use administrator accounts, revocable sessions and built-in TLS
+                with supplied or self-signed certificates. All accounts have
+                administrator access.
+              </p>
+            </article>
+            <article>
+              <span class="icon" aria-hidden="true">↗</span>
+              <h3>Self-hosted &amp; extensible</h3>
+              <p>
+                Run the Python and React application in a container. Store state
+                in SQLite or PostgreSQL and add trusted adapters from a mounted
+                folder.
+              </p>
+            </article>
+          </div>
+          <a class="text-link" href="docs/docs/PORTAINER_PARITY/"
+            >Read the detailed Docker &amp; Swarm coverage review →</a
+          >
+        </div>
+      </section>
+      <section class="wrap section config-section">
+        <div>
+          <p class="eyebrow">YOUR NEXT INTEGRATION STARTS HERE</p>
+          <h2>A new view.<br />A YAML definition.</h2>
+          <p>
+            Point an operation at an API. Map its response into a reusable
+            table. Add actions, forms and environment summaries as you need
+            them.
+          </p>
+          <p>
+            The same renderer powers bundled management features and your own
+            integrations.
+          </p>
+          <a class="text-link" href="docs/tutorials/api-interface/"
+            >Build your first API interface →</a
+          >
+          <p class="fine">
+            Configuration excerpt · assumes an HTTP target using this feature
+          </p>
+        </div>
+        <div class="code-card">
+          <div class="code-heading">
+            <span>applications.yaml</span><span>HTTP → JSONata → UI</span>
+          </div>
+          <pre><code><span class="key">operations:</span>
+  apps.list:
+    bindings:
+      http:
+        executor: <span class="value">http.request</span>
+        path: <span class="value">/apps</span>
+
+<span class="key">features:</span>
+  applications:
+    title: <span class="value">Applications</span>
+    operation: <span class="value">apps.list</span>
+    rows: <span class="value">items</span>
+    columns:
+      - label: <span class="value">Name</span>
+        value: <span class="value">name</span>
+      - label: <span class="value">Status</span>
+        value: <span class="value">status</span></code></pre>
+          <a href="docs/tutorials/api-interface/"
+            >See the complete runnable tutorial
+            <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+      <section class="tinted">
+        <div class="wrap section" id="compare">
+          <div class="section-intro">
+            <p class="eyebrow">FIND YOUR FIT</p>
+            <h2>Different tools.<br />Different starting points.</h2>
+            <p>
+              Declarack is a fit when you want to configure an administration
+              interface across systems. Other tools may be a better fit for
+              specialized deployment or enterprise governance.
+            </p>
+          </div>
+          <div
+            class="table-scroll"
+            tabindex="0"
+            role="region"
+            aria-label="Product comparison; scroll horizontally on smaller screens"
+          >
+            <table>
+              <caption>
+                Product focus and documented capabilities
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Product</th>
+                  <th scope="col">Main focus</th>
+                  <th scope="col">Docker &amp; Swarm</th>
+                  <th scope="col">Choose it when…</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="highlight">
+                  <th scope="row">
+                    Declarack <span>CONFIGURE YOUR INTERFACE</span>
+                  </th>
+                  <td>
+                    YAML-defined administration across Docker, SSH and HTTP.
+                  </td>
+                  <td>
+                    Standalone / Compose and Swarm workflows; coverage varies by
+                    operation.
+                  </td>
+                  <td>
+                    You want custom pages and reusable workflows across
+                    different target types.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <a href="https://docs.portainer.io/">Portainer ↗</a>
+                  </th>
+                  <td>Container management across multiple environments.</td>
+                  <td>
+                    Docker Standalone and Swarm management, plus other
+                    orchestrators.
+                  </td>
+                  <td>
+                    You need broad container tooling and Business Edition
+                    governance such as granular RBAC.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <a href="https://github.com/swarmpit/swarmpit"
+                      >Swarmpit ↗</a
+                    >
+                  </th>
+                  <td>A dedicated Docker Swarm management interface.</td>
+                  <td>Swarm-focused resource management and monitoring.</td>
+                  <td>
+                    You want an interface centered on operating Docker Swarm.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <a href="https://komo.do/docs/swarm">Komodo ↗</a>
+                  </th>
+                  <td>Server, deployment and build automation.</td>
+                  <td>
+                    Compose stacks and Swarm nodes, services, stacks, configs
+                    and secrets.
+                  </td>
+                  <td>
+                    You want deployment automation, Git-based sources and build
+                    workflows.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <a href="https://github.com/louislam/dockge">Dockge ↗</a>
+                  </th>
+                  <td>A Compose-file-centered stack manager.</td>
+                  <td>
+                    Compose management across Docker hosts through agents.
+                  </td>
+                  <td>
+                    You mainly want to edit and operate Compose stacks with
+                    files on disk.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="fine sources">
+            Reviewed November 23, 2026. This is a positioning comparison, not a
+            full parity claim. Editions and capabilities change. Sources:
+            <a href="https://docs.portainer.io/admin/environments/add"
+              >Portainer environments</a
+            >,
+            <a href="https://docs.portainer.io/admin/user/roles"
+              >Portainer BE roles</a
+            >, <a href="https://github.com/swarmpit/swarmpit">Swarmpit</a>,
+            <a href="https://komo.do/docs/swarm">Komodo Swarm</a>,
+            <a href="https://komo.do/docs/deploy/compose">Komodo Compose</a>,
+            <a href="https://github.com/louislam/dockge#-features"
+              >Dockge features</a
+            >.
+          </p>
+          <aside class="honest">
+            <h3>Where Declarack stands today</h3>
+            <p>
+              Declarack is evolving. It does not offer full Portainer parity,
+              granular roles or SSO, an image-build UI, outbound alert
+              notifications or a distributed scheduler. Grafana and Prometheus
+              presets provide API views into existing installations. The browser
+              demo simulates operations; terminals and real infrastructure
+              connections require a running installation.
+            </p>
+            <a class="text-link" href="docs/docs/PORTAINER_PARITY/"
+              >See shipped coverage and remaining gaps →</a
+            >
+          </aside>
+        </div>
+      </section>
+      <section class="wrap section start">
+        <p class="eyebrow">MAKE IT YOUR WORKSPACE</p>
+        <h2>Start with the demo.<br />Build around your systems.</h2>
+        <p>
+          Explore the interface, follow a hands-on tutorial, or run the real
+          two-Swarm lab with Docker-in-Docker.
+        </p>
+        <div class="actions">
+          <a class="button" href="demo/"
+            >Try Declarack <span aria-hidden="true">↗</span></a
+          ><a class="text-link" href="docs/">Read the guides →</a
+          ><a class="text-link" href="docs/examples/multi-environment/"
+            >Run the real lab →</a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="wrap">
+      <a class="brand" href="./"
+        ><img src="assets/logo.svg" width="28" height="28" alt="" /><span
+          >Decla<span class="mint">rack</span></span
+        ></a
+      ><span>Administration interfaces, defined in configuration.</span
+      ><a href="docs/">Documentation ↗</a>
+    </footer>
+  </body>
+</html>

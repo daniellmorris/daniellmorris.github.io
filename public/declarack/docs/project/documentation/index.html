@@ -1987,6 +1987,10 @@ its own loopback canonical URL.</p>
 <td>Real Docker-in-Docker lab guide and source files</td>
 </tr>
 <tr>
+<td><code>landing/</code></td>
+<td>Product landing page HTML, CSS and curated public assets</td>
+</tr>
+<tr>
 <td><code>mkdocs.yml</code></td>
 <td>Navigation, theme, extensions and validation</td>
 </tr>
@@ -2013,8 +2017,7 @@ staging allowlist. The checked-in tutorial screenshots under
 <h2 id="build-and-publication-workflow">Build and publication workflow<a class="headerlink" href="#build-and-publication-workflow" title="Permanent link">&para;</a></h2>
 <p><code>.github/workflows/docs.yml</code> builds the documentation and browser demo together.
 Pull requests validate both and upload the <code>declarack-site</code> artifact. Main-branch
-pushes and manual runs additionally publish generated <code>demo/</code>, <code>docs/</code> and link
-page files into <code>public/declarack/</code> in the existing public personal website
+pushes and manual runs additionally publish generated <code>demo/</code>, <code>docs/</code>, landing-page assets and HTML into <code>public/declarack/</code> in the existing public personal website
 repository. The Astro Pages workflow there performs the final deployment.</p>
 <p>The application repository stays private. The publisher copies the curated docs
 build and compiled demo, not the checkout. Only the generated Declarack directory
