@@ -752,6 +752,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../USERS_AND_TLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administrators, sessions and TLS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/troubleshooting/" class="md-nav__link">
         
   
@@ -1560,6 +1587,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#account-and-transport-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Account and transport boundaries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1817,6 +1855,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#account-and-transport-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Account and transport boundaries
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1850,7 +1899,19 @@ service locator.</p>
 <tbody>
 <tr>
 <td><code>server.py</code>, <code>api_support.py</code></td>
-<td>HTTP authentication, endpoints, startup and response/request handling</td>
+<td>Application composition, endpoints, startup and response/request handling</td>
+</tr>
+<tr>
+<td><code>auth/store.py</code>, <code>auth/http.py</code>, <code>auth/__main__.py</code></td>
+<td>Database administrators, password hashes, bootstrap, sessions/throttling, cookie/CSRF HTTP boundary and host password recovery</td>
+</tr>
+<tr>
+<td><code>identity.py</code></td>
+<td>Request actor context for recorded operation-plan metadata</td>
+</tr>
+<tr>
+<td><code>serving.py</code></td>
+<td>Single-listener Cheroot host, native TLS identity and explicit one-hop proxy trust</td>
 </tr>
 <tr>
 <td><code>adapter_registry.py</code></td>
@@ -1935,12 +1996,13 @@ adapters still use the same manifest and registration interface.</p>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                          # terminal/file views and action state
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    dashboards/           # Configured multi-target pages and charts
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    environments/         # Environment groups and target summaries
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    settings/             # Source editing and integration setup
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    checks/               # Check state and history
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    operations/           # Run history and multi-target batches
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    workflows/            # Configured workflow editor
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>  components/ui/          # Shared presentation primitives and controls
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>  lib/                    # Pure mapping, sorting, routing and execution helpers
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    auth/                 # Session gate, login and installation administrators
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    settings/             # Source editing and integration setup
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    checks/               # Check state and history
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    operations/           # Run history and multi-target batches
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    workflows/            # Configured workflow editor
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>  components/ui/          # Shared presentation primitives and controls
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>  lib/                    # Pure mapping, sorting, routing and execution helpers
 </code></pre></div>
 <p>Within the resource feature, <code>resource-page.jsx</code> coordinates collection and view
 state. <code>resource-table.jsx</code>, <code>resource-toolbar.jsx</code>, <code>resource-action-dialog.jsx</code>,
@@ -2007,6 +2069,27 @@ settings page is <code>features/settings/environment-editor.jsx</code>.</p>
 database pointers. <code>configuration/writeback.py</code> handles journal recovery and local
 file publication. Storage write transactions reserve the SQLite writer before
 reading state; PostgreSQL uses normal transactional locking.</p>
+<h2 id="account-and-transport-boundaries">Account and transport boundaries<a class="headerlink" href="#account-and-transport-boundaries" title="Permanent link">&para;</a></h2>
+<p><code>auth/store.py</code> owns account validation, scrypt password hashing, first-user-only
+bootstrap, hashed opaque sessions, shared login throttling and bounded account
+audit documents in <code>framework.auth.audit</code> (1,000 retained; activity reads return
+100). Account writes revalidate the actual session hash under the account lock
+after password hashing, preventing revoked sessions from finishing queued writes. <code>auth/http.py</code>
+installs the cookie/CSRF boundary and account endpoints; <code>auth/__main__.py</code> provides
+host-only password recovery. Migration <code>0002</code> adds the four authentication tables.
+Login accounts are distinct from configuration credential profiles.
+<code>identity.py</code> supplies <code>metadata.actor</code> to recorded operation plans, and
+<code>batches.py</code> propagates ContextVars into fan-out threads to preserve that actor.
+Bounded account activity plus plan metadata is not a complete generic resource
+audit log; direct calls do not all produce recorded plans.</p>
+<p><code>serving.py</code> loads TLS certificates at startup, persists self-signed files under
+<code>&lt;DECLARACK_DATA&gt;/tls</code>, and accepts forwarded proto/client information only from
+explicit immediate-proxy IPs/CIDRs. The frontend <code>features/auth/session-gate.jsx</code>
+unmounts protected children after logout, the session expiry timer or an API 401;
+the header owns the signed-in username and sign-out control. <code>users-page.jsx</code> owns the dedicated
+<code>#/settings/~users</code> account page, consequential-change confirmations and read-only
+Recent account activity. See
+<a href="../USERS_AND_TLS/">administrators and TLS</a> for maintained operator behavior.</p>
 
 
 

@@ -752,6 +752,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../USERS_AND_TLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administrators, sessions and TLS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/troubleshooting/" class="md-nav__link">
         
   
@@ -2747,8 +2774,8 @@ uses “system configuration” to describe their scope; it does not rename thos
 </tr>
 <tr>
 <td>Runtime state</td>
-<td>Saved stack metadata/PATs, Compose sources, browser table preferences, terminal sessions</td>
-<td>Data directory, browser storage, process memory</td>
+<td>Administrators, sessions, login limits, saved stack metadata/PATs, Compose sources, browser table preferences, terminal sessions</td>
+<td>Database, data directory, browser storage, process memory</td>
 </tr>
 </tbody>
 </table>
@@ -2770,7 +2797,7 @@ Upgraders should read the <a href="../RENAMING/">Declarack rename guide</a>.</p>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nt">checks</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">            </span><span class="c1"># Optional: scheduled read/connection checks</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nt">batches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w">           </span><span class="c1"># Optional: multi-target operation pages</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nt">integration_templates</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span><span class="w"> </span><span class="c1"># Optional: trusted setup templates</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># auth: ...          # Optional: installation-wide Basic Auth settings</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># auth: ...          # Optional: local account bootstrap and session settings</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># legacy_workspace: production</span>
 </code></pre></div>
 <p>Built-in operations and features are loaded from adapters before custom definitions.
@@ -3106,9 +3133,10 @@ installation capability boundary, not per-user role-based authorization.</p>
 <p>The UI calls <code>POST /api/v1/targets/TARGET/operations/OPERATION/run</code> with the input
 mapping as its JSON body. The response wraps executor output as <code>{"result": ...}</code>;
 JSONata feature expressions receive the inner result. State-changing HTTP requests
-to Declarack require <code>X-Declarack-Action: 1</code> as well as authentication, even when
+to Declarack require <code>X-Declarack-Action: 1</code>, the session cookie and
+<code>X-Declarack-CSRF</code> from the auth snapshot, even when
 the configured upstream operation is a read. Cross-site action requests are rejected.
-<code>GET /api/v1/targets</code> exposes public feature metadata, not connection credentials.
+<code>GET /api/v1/targets</code> exposes feature metadata to authenticated users, not connection credentials.
 These endpoints dispatch registered capabilities; they do not accept ad-hoc URLs,
 commands, or feature definitions from callers.</p>
 <h3 id="request-executors">Request executors<a class="headerlink" href="#request-executors" title="Permanent link">&para;</a></h3>
@@ -3800,24 +3828,36 @@ Docker rollback; there is no automatic config-pruning policy. Keep your external
 deployment specification aligned so a later stack deploy does not restore an old
 attachment. The settings socket is separate from targets' connection definitions.</p>
 <h2 id="authentication-and-credential-files">Authentication and credential files<a class="headerlink" href="#authentication-and-credential-files" title="Permanent link">&para;</a></h2>
-<p>All runtime credentials use <a href="../CREDENTIALS/">named credential profiles</a>, including
-mounted-file references. The GUI manages them under Settings → Credentials.</p>
+<p>Connection credentials and optional first-account bootstrap use
+<a href="../CREDENTIALS/">named credential profiles</a>, including mounted-file references.
+The GUI manages profiles under Settings → Credentials and database login accounts
+under Settings → Administrators.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nt">auth</span><span class="p">:</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span>
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="nt">credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">declarack_login</span>
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="nt">credentials</span><span class="p">:</span>
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">  </span><span class="nt">declarack_login</span><span class="p">:</span>
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span>
-<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
-<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span>
-<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/declarack_admin_password</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="nt">bootstrap_credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">declarack_login</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">  </span><span class="nt">session_hours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="nt">credentials</span><span class="p">:</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">  </span><span class="nt">declarack_login</span><span class="p">:</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/declarack_admin_password</span>
 </code></pre></div>
-<p>Only installation-wide Basic Auth is implemented. <code>provider</code> defaults to <code>basic</code>,
-<code>auth.credential</code> selects a basic profile whose username/password take precedence
-over the bootstrap <code>DECLARACK_PASSWORD</code> fallback. Without one, the username is
-admin and <code>DECLARACK_PASSWORD</code> is required outside demo mode.
-There is no inline <code>auth.password</code>, user database, role mapping, or per-target login.
-Settings and operation APIs use the installation's authentication.</p>
+<p>Installation authentication uses database-backed local administrators and cookie
+sessions. <code>provider</code> defaults to <code>local</code>; <code>bootstrap_credential</code> optionally selects
+a basic profile used only when the users table is empty. <code>session_hours</code> defaults
+to 8 and accepts integers from 1 to 168. Without a bootstrap profile, use
+<code>DECLARACK_ADMIN_USERNAME</code> (default <code>admin</code>) and either <code>DECLARACK_PASSWORD_FILE</code>
+or <code>DECLARACK_PASSWORD</code> to seed the first account. Later changes to those inputs
+do not rotate existing passwords, and an absent bootstrap password mount does
+not prevent existing users from signing in.</p>
+<p>Settings → Administrators manages database accounts separately from YAML. All
+administrators have full installation, credential and workload access. There are
+no granular roles or per-target permissions. HTTP Basic Auth is unsupported;
+migrate <code>provider: basic</code> / <code>credential</code> to <code>provider: local</code> /
+<code>bootstrap_credential</code>, and migrate clients to cookies and CSRF headers. See
+<a href="../USERS_AND_TLS/">administrators, recovery, sessions and TLS</a> for the complete
+contract, deployment examples and upgrade steps.</p>
 <p>A credential file must contain one nonempty value; a trailing newline is accepted,
 embedded newline/NUL is not. Secret references are filesystem paths, not Docker
 secret names or automatic Docker API lookups. Mount the secret first:</p>
@@ -3832,12 +3872,15 @@ secret names or automatic Docker API lookups. Mount the secret first:</p>
 <p>This fragment assumes the external Swarm secret already exists. Standalone Compose
 has its own file-backed secret mechanism; standalone Docker Engine does not provide
 Swarm secret/config resources. Feature bindings enforce that distinction.</p>
-<p>Bearer tokens, SSH keys/known-hosts, Basic Auth, and the GitHub Settings token are
+<p>Bearer tokens, SSH keys/known-hosts, outbound HTTP Basic credentials, administrator
+bootstrap profiles, and the GitHub Settings token are
 separate credentials with separate purposes. Ordinary target metadata sent to the
 renderer excludes connection settings, but authenticated Settings reads show the
 system YAML. JSON inspection intentionally shows the full unmasked resource data.
 Treat the system YAML and Settings editor as administrator interfaces. Credential
-rotation is not file-watched; restart/redeploy to reload startup credentials.</p>
+rotation is not file-watched. Connection credentials that are cached require
+activation/restart; existing login accounts require an account password reset.
+Inline bootstrap profile values remain in configuration history and exports.</p>
 <h2 id="runtime-environment-variables">Runtime environment variables<a class="headerlink" href="#runtime-environment-variables" title="Permanent link">&para;</a></h2>
 <p><code>DECLARACK_CONFIG_FORCE_LOAD</code> and <code>DECLARACK_CONFIG_WRITE_BACK</code> accept <code>0</code> or <code>1</code>
 and default to <code>0</code>; see <a href="../STORAGE/#active-system-configuration">database configuration</a>.</p>
@@ -3859,8 +3902,36 @@ and default to <code>0</code>; see <a href="../STORAGE/#active-system-configurat
 <td>Extra adapter root, default <code>/etc/declarack/adapters</code> when loading configured targets</td>
 </tr>
 <tr>
+<td><code>DECLARACK_ADMIN_USERNAME</code></td>
+<td><code>admin</code>; first-account username when no bootstrap profile is selected</td>
+</tr>
+<tr>
+<td><code>DECLARACK_PASSWORD_FILE</code></td>
+<td>Mounted first-account password file; choose this or <code>DECLARACK_PASSWORD</code></td>
+</tr>
+<tr>
 <td><code>DECLARACK_PASSWORD</code></td>
-<td>Required outside demo unless <code>auth.credential</code> supplies it</td>
+<td>First-account password fallback; bootstrap only, ignored once users exist</td>
+</tr>
+<tr>
+<td><code>DECLARACK_TLS</code></td>
+<td><code>off</code>; native TLS modes <code>files</code> or <code>self-signed</code></td>
+</tr>
+<tr>
+<td><code>DECLARACK_TLS_CERT_FILE</code></td>
+<td>Certificate PEM path, required only with TLS <code>files</code></td>
+</tr>
+<tr>
+<td><code>DECLARACK_TLS_KEY_FILE</code></td>
+<td>Unencrypted private-key PEM path, required only with TLS <code>files</code></td>
+</tr>
+<tr>
+<td><code>DECLARACK_TLS_HOSTS</code></td>
+<td><code>localhost,127.0.0.1</code>; comma-separated self-signed DNS/IP SANs</td>
+</tr>
+<tr>
+<td><code>DECLARACK_TRUSTED_PROXIES</code></td>
+<td>Empty; explicit immediate-proxy IP/CIDR list, honoring one proto/client hop</td>
 </tr>
 <tr>
 <td><code>DECLARACK_MODE</code></td>
@@ -3872,7 +3943,7 @@ and default to <code>0</code>; see <a href="../STORAGE/#active-system-configurat
 </tr>
 <tr>
 <td><code>PORT</code></td>
-<td><code>8080</code></td>
+<td><code>8080</code> for HTTP, <code>8443</code> for native TLS; explicit value overrides</td>
 </tr>
 <tr>
 <td><code>DOCKER_SOCKET</code></td>
@@ -3992,8 +4063,12 @@ are separate. Keep the data volume when you rely on GUI-managed sources.</p>
 <td>Target-scoped database documents; working YAML materialized locally</td>
 </tr>
 <tr>
-<td>Checks, operation records and configuration revisions</td>
+<td>Administrators, hashed sessions, login limits, checks, operation records and configuration revisions</td>
 <td>Framework database tables</td>
+</tr>
+<tr>
+<td>Native TLS identity</td>
+<td>Generated files under <code>&lt;DECLARACK_DATA&gt;/tls</code>, or external certificate/key mounts; outside database transfer</td>
 </tr>
 <tr>
 <td>Mounted-folder source files</td>

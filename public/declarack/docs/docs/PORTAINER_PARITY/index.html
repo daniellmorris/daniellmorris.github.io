@@ -752,6 +752,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../USERS_AND_TLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administrators, sessions and TLS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/troubleshooting/" class="md-nav__link">
         
   
@@ -2414,12 +2441,24 @@ jobs in Swarm. Their deployment requirements and writable capabilities differ.</
 <p>References: <a href="https://docs.portainer.io/admin/registries">registries</a>,
 <a href="https://docs.portainer.io/admin/user/roles">Business RBAC</a>,
 <a href="https://docs.portainer.io/admin/settings/authentication">authentication</a>.</p>
-<p>Declarack has Basic authentication, Docker-secret/file credential references,
+<p>Declarack has database-backed local administrator accounts, cookie sessions with
+CSRF protection, native file/self-signed TLS, Docker-secret/file credential references,
 configuration editing and reload, target/environment separation, custom multi-target
 pages, persisted checks, and now bounded multi-target operation pages. These do not
 provide Portainer's user/team resource ownership, granular RBAC, LDAP/AD/OAuth,
 registry credential lifecycle, Business registry browsing/management, access-policy
-administration, or audit-log governance. No full Portainer Server backup/restore
+administration, or audit-log governance. All administrators have full installation,
+credential and workload access; environment grouping is not authorization. Settings
+supports create/disable/enable/password reset/session revocation, but no account
+deletion, signup or role selection. Recorded operation plans include
+<code>metadata.actor</code>, including through batch fan-out. Bounded account activity records
+creation, password reset, disable/enable, session revocation and host recovery,
+with actor identity and no secrets (1,000 retained; newest 100 available read-only).
+These account events and plan metadata are not a complete generic resource audit
+log; simple direct calls do not all produce recorded plans. HTTP Basic Auth
+is unsupported. TLS has no ACME, automatic renewal or redirect listener. Demo
+bypasses login and explicitly disallows user management. See
+<a href="../USERS_AND_TLS/">administrators and TLS</a>. No full Portainer Server backup/restore
 wizard, licensing system, Edge Agent/tunnel fleet provisioning, offline snapshots,
 or remote agent lifecycle management is claimed.</p>
 <h2 id="recommended-next-work">Recommended next work<a class="headerlink" href="#recommended-next-work" title="Permanent link">&para;</a></h2>

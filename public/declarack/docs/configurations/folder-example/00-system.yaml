@@ -1,5 +1,10 @@
-# Set DECLARACK_PASSWORD in the runtime environment, or configure auth here.
+# Seed the first administrator from DECLARACK_PASSWORD_FILE / DECLARACK_PASSWORD,
+# or use a named basic profile. After creation, manage accounts in Administrators.
 # auth:
-#   provider: basic
-#   username: admin
-#   password_file: /run/secrets/declarack_password
+#   provider: local
+#   bootstrap_credential: initial_administrator
+# credentials:
+#   initial_administrator:
+#     type: basic
+#     username: admin
+#     password: {file: /run/secrets/declarack_password}

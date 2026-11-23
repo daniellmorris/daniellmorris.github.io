@@ -752,6 +752,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../USERS_AND_TLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administrators, sessions and TLS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guides/troubleshooting/" class="md-nav__link">
         
   
@@ -1356,6 +1383,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#authentication-and-tls-backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Authentication and TLS backups
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1949,6 +1987,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#authentication-and-tls-backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Authentication and TLS backups
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2104,6 +2153,26 @@ For Swarm, provision the URL as a Docker secret using the same container path.</
 </thead>
 <tbody>
 <tr>
+<td>Administrators and scrypt password hashes</td>
+<td><code>users</code></td>
+</tr>
+<tr>
+<td>Hashed opaque session tokens and expiry</td>
+<td><code>user_sessions</code></td>
+</tr>
+<tr>
+<td>Serialized account-write coordination</td>
+<td><code>auth_control</code></td>
+</tr>
+<tr>
+<td>Hashed username/client login-throttle buckets</td>
+<td><code>login_limits</code></td>
+</tr>
+<tr>
+<td>Bounded account audit events</td>
+<td>Generic documents in <code>framework.auth.audit</code>; newest 1,000 retained, newest 100 exposed by the activity API</td>
+</tr>
+<tr>
 <td>Check state, pauses and bounded results</td>
 <td><code>checks</code>, <code>check_history</code></td>
 </tr>
@@ -2167,6 +2236,10 @@ that command. Keep the old files until backups and application verification are
 complete. The controller detects legacy files without an import marker and tells
 you to import before using storage; this prevents an accidental empty-state upgrade.</p>
 <p>On ordinary startups, embedded Alembic migrations upgrade the selected schema.
+Migration <code>0002</code> adds <code>users</code>, <code>user_sessions</code>, <code>auth_control</code> and <code>login_limits</code>;
+first-account bootstrap runs only if the users table is empty. Account passwords
+use <code>scrypt:32768:8:3</code>; sessions store token hashes, not raw cookie tokens.
+Accounts are independent of YAML revisions and target credential profiles.
 The operator can also run:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python<span class="w"> </span>-m<span class="w"> </span>backend.storage<span class="w"> </span>upgrade
 </code></pre></div>
@@ -2180,12 +2253,14 @@ and destination URLs in mounted single-line files, then run:</p>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span>--destination-url-file<span class="w"> </span>/run/secrets/destination_database_url
 </code></pre></div>
 <p>The command copies every framework table, including versioned binary documents,
-source records and encryption keys, into an empty destination transaction. It
-preserves check-history sequence IDs and prepares the PostgreSQL sequence for
+source records, encryption keys and all four authentication tables, into an empty
+destination transaction. Account hashes, session expiries, login limits and retained account audit documents
+travel with the transfer; private TLS files do not. The command preserves check-history sequence IDs and prepares the PostgreSQL sequence for
 subsequent inserts. The source remains unchanged. Identical URLs and nonempty
 destinations are refused. Change the controller's database setting only after
-successful transfer, then verify checks, source previews and history. This is an
-offline data transfer, not live database replication or continuous synchronization.</p>
+successful transfer, then verify account login, checks, source previews and
+history. This is an offline data transfer, not live database replication or
+continuous synchronization.</p>
 <h2 id="adapter-storage-contract">Adapter storage contract<a class="headerlink" href="#adapter-storage-contract" title="Permanent link">&para;</a></h2>
 <p>Adapters receive a storage factory in <code>services['storage']</code>. It returns a
 framework-owned <code>Storage</code> with SQLAlchemy Core connection/transaction access and
@@ -2213,7 +2288,11 @@ restart inspection marks abandoned runs interrupted rather than resuming their
 side effects automatically. Terminal sessions, tunnels and in-memory previews
 remain ephemeral.</p>
 <p>With PostgreSQL, <code>/data</code> can be ephemeral for the database-backed records above;
-it still holds local working files and locks. Persist or remount anything
+it still holds local working files, locks and generated TLS identity. Persist
+<code>/data/tls/cert.pem</code> and <code>/data/tls/key.pem</code> in self-signed mode so restart does not
+change client trust. File-mode TLS certificates/keys remain external mounted files.
+TLS identity is not stored in the database or copied by database transfer.
+Persist or remount anything
 operator-managed there, such as custom folder sources. System configuration,
 external secrets and Docker state keep their own persistence requirements.</p>
 <p>Back up SQLite while stopped or with a consistent SQLite backup procedure. Back
@@ -2234,7 +2313,21 @@ that database's framework tables; never use an installation database for them.</
 therefore persist in the database, history, exports, and optional write-back files.
 Mounted-file profiles persist only references. Inline SSH keys/known-hosts are
 materialized privately under temporary directories for OpenSSH and are disposable.
-Bootstrap credentials remain deployment settings. See <a href="../CREDENTIALS/">credential management</a>.</p>
+Environment bootstrap inputs remain deployment settings. A named bootstrap profile
+is configuration and shares its history/export behavior; it is used only to seed
+the first administrator, not to rotate existing account passwords. See
+<a href="../CREDENTIALS/">credential management</a>.</p>
+<h2 id="authentication-and-tls-backups">Authentication and TLS backups<a class="headerlink" href="#authentication-and-tls-backups" title="Permanent link">&para;</a></h2>
+<p>Back up authentication tables with the database; they include administrator
+password hashes, hashed sessions and throttle state. The generic documents table
+also holds bounded <code>framework.auth.audit</code> account events without secrets; these
+are included in database backup/transfer, not YAML exports. Protect restored copies as
+installation-wide credentials. Restore generated self-signed TLS files separately
+from <code>&lt;DECLARACK_DATA&gt;/tls</code> (normally <code>/data/tls</code>); the private key must remain
+<code>0600</code>. File-mode TLS keys/certificates and credential secret mounts also need
+separate backup/rotation. Database-backed configuration exports contain inline
+bootstrap profile values but never the contents of externally referenced files.
+See <a href="../USERS_AND_TLS/">account recovery and TLS lifecycle</a>.</p>
 
 
 

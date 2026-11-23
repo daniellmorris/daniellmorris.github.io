@@ -1,6 +1,6 @@
 auth:
-  provider: basic
-  credential: declarack_login
+  provider: local
+  bootstrap_credential: declarack_login
 targets:
   host:
     label: Host Docker (standalone view)

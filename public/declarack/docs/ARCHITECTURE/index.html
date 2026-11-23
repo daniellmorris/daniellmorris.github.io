@@ -752,6 +752,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../docs/USERS_AND_TLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administrators, sessions and TLS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../guides/troubleshooting/" class="md-nav__link">
         
   
@@ -1588,6 +1615,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#installation-identity-and-transport" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Installation identity and transport
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1927,6 +1965,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#installation-identity-and-transport" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Installation identity and transport
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2046,25 +2095,26 @@ contains adoption goals; the guide distinguishes those from current behavior.</p
 <a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">asset_inventory</span>
 <a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">    </span><span class="nt">credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">token_inventory</span>
 <a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="nt">auth</span><span class="p">:</span>
-<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span>
-<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">  </span><span class="nt">credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">declarack_login</span>
-<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="nt">credentials</span><span class="p">:</span>
-<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">  </span><span class="nt">ssh_backup</span><span class="p">:</span>
-<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh</span>
-<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dashboard</span>
-<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">    </span><span class="nt">private_key</span><span class="p">:</span>
-<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/backup_ssh_key</span>
-<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w">    </span><span class="nt">known_hosts</span><span class="p">:</span>
-<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/declarack/known_hosts</span>
-<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="w">  </span><span class="nt">token_inventory</span><span class="p">:</span>
-<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">token</span>
-<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a><span class="w">    </span><span class="nt">token</span><span class="p">:</span>
-<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/inventory_token</span>
-<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a><span class="w">  </span><span class="nt">declarack_login</span><span class="p">:</span>
-<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span>
-<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
-<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span>
-<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/declarack_admin_password</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">  </span><span class="nt">bootstrap_credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">declarack_login</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">  </span><span class="nt">session_hours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="nt">credentials</span><span class="p">:</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">  </span><span class="nt">ssh_backup</span><span class="p">:</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dashboard</span>
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="w">    </span><span class="nt">private_key</span><span class="p">:</span>
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/backup_ssh_key</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">    </span><span class="nt">known_hosts</span><span class="p">:</span>
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/declarack/known_hosts</span>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="w">  </span><span class="nt">token_inventory</span><span class="p">:</span>
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">token</span>
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a><span class="w">    </span><span class="nt">token</span><span class="p">:</span>
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/inventory_token</span>
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a><span class="w">  </span><span class="nt">declarack_login</span><span class="p">:</span>
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span>
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span>
+<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a><span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/secrets/declarack_admin_password</span>
 </code></pre></div>
 <p>An operation can have more than one binding. Here, <code>volumes.list</code> uses a node-local collector on Swarm and an engine request on standalone Docker.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># operations/volumes.yaml</span>
@@ -2116,7 +2166,7 @@ contains adoption goals; the guide distinguishes those from current behavior.</p
 </tr>
 </tbody>
 </table>
-<p>Validate the expected revision before saving. Credentials stay in mounted secrets. A Swarm config can reference an already mounted secret for authentication. Swarm config storage manages the system configuration, not all application state. GUI-managed sources, legacy encrypted PATs/keys, checks and history use the shared SQLAlchemy persistence service: SQLite by default or PostgreSQL. Adapters use namespaced documents; Compose inline files are reconstructed locally. Persist the selected database. See <a href="../docs/STORAGE/">storage</a> for explicit upgrade/import and execution boundaries. A fully stateless source-management mode remains an architectural goal.</p>
+<p>Validate the expected revision before saving. Prefer mounted secrets for credential values; inline profile values also persist in configuration history and exports. A Swarm config can reference an already mounted secret for first-administrator bootstrap. Swarm config storage manages the system configuration, not all application state. GUI-managed sources, legacy encrypted PATs/keys, checks and history use the shared SQLAlchemy persistence service: SQLite by default or PostgreSQL. Adapters use namespaced documents; Compose inline files are reconstructed locally. Persist the selected database. See <a href="../docs/STORAGE/">storage</a> for explicit upgrade/import and execution boundaries. A fully stateless source-management mode remains an architectural goal.</p>
 <h2 id="adoption">Adoption<a class="headerlink" href="#adoption" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Introduce the adapter registry and extract Networks as the first configured feature. Prove the same network view works on a Swarm manager and a standalone Docker engine.</li>
@@ -2125,8 +2175,11 @@ contains adoption goals; the guide distinguishes those from current behavior.</p
 <li>Add the Settings storage adapters and test config conflicts, reload, rollback, and mounted-secret authentication. Run live smoke tests with a Swarm manager and worker, a standalone engine, and a Linux SSH host. Measure the production image against the 50 MB compressed target.</li>
 </ol>
 <h2 id="current-implementation-boundaries">Current implementation boundaries<a class="headerlink" href="#current-implementation-boundaries" title="Permanent link">&para;</a></h2>
-<p>The HTTP host in <code>backend/server.py</code> contains authentication, settings, operation
-and check endpoints, and static assets. Docker/Swarm services are grouped under <code>backend/adapters/docker/</code> and
+<p>The application composition in <code>backend/server.py</code> installs settings, operation
+and check endpoints, static assets and the <code>backend/auth/http.py</code> cookie/CSRF
+boundary. <code>backend/auth/store.py</code> owns database administrators, bootstrap, password
+hashes, sessions and login limits. <code>backend/serving.py</code> owns the Cheroot listener,
+native TLS and explicit immediate-proxy trust. Docker/Swarm services are grouped under <code>backend/adapters/docker/</code> and
 <code>backend/adapters/swarm/</code>. The runtime module composes those services, and
 <code>legacy_routes.py</code> adapts old URLs to them. Node helper commands
 live in <code>backend/adapters/docker/node_agent.py</code>. Adapters do not call back into the
@@ -2142,6 +2195,31 @@ are explicit configuration rather than resource-name branches in core.</p>
 pre-release configuration changes.</p>
 <p>See <a href="../docs/CODE_ORGANIZATION/">code organization and development checks</a> for
 module responsibilities and the contributor verification commands.</p>
+<h2 id="installation-identity-and-transport">Installation identity and transport<a class="headerlink" href="#installation-identity-and-transport" title="Permanent link">&para;</a></h2>
+<p>Local database administrators are independent of target credential profiles and
+YAML configuration revisions. <code>auth.provider</code> is <code>local</code>; an optional
+<code>bootstrap_credential</code> basic profile seeds only the first account when no users
+exist. Otherwise bootstrap uses <code>DECLARACK_ADMIN_USERNAME</code> and a password file or
+environment value. Existing accounts ignore subsequent bootstrap secret changes.
+<code>session_hours</code> defaults to 8 (1–168). All administrators have full installation,
+credential and workload access; environment grouping is not a permission boundary.
+There are no granular roles, teams or SSO, and HTTP Basic Auth is unsupported.</p>
+<p>Passwords use scrypt hashes; opaque session tokens are stored as hashes in the
+database. The HTTP layer requires cookies and action/CSRF headers for authenticated
+writes. Cookies are HttpOnly/SameSite=Lax and Secure when HTTPS is observed.
+Account writes revalidate the actual session hash under the database account lock
+after password hashing, so revoked sessions cannot finish queued account writes.
+Account mutations record secret-free events in generic documents under
+<code>framework.auth.audit</code> (newest 1,000 retained; activity API returns newest 100).
+Actors identify the administrator or bootstrap/host operator. Operation-plan
+<code>metadata.actor</code> records request identity, preserved through ContextVar propagation
+in batch fan-out. Bounded account events and plan metadata are not a complete
+generic resource audit log; direct calls do not all produce recorded plans. Demo bypasses login and does not expose account management.</p>
+<p>Native TLS accepts mounted PEM files or persisted self-signed identity under
+<code>&lt;DECLARACK_DATA&gt;/tls</code>; it is separate from database transfer. There is one listener,
+startup-only certificate loading, and no ACME, automatic renewal or redirect
+listener. Explicit trusted proxy IPs/CIDRs permit one forwarded proto/client hop,
+never forwarded host/prefix. See <a href="../docs/USERS_AND_TLS/">administrators, recovery and TLS</a>.</p>
 
 
 

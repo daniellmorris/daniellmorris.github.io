@@ -909,6 +909,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../docs/USERS_AND_TLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administrators, sessions and TLS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../guides/troubleshooting/" class="md-nav__link">
         
   
@@ -1994,9 +2021,10 @@ GUI edits do not change import files. Both flags default to off. Use
 <a href="https://github.com/daniellmorris/declarack/blob/main/docs/STORAGE.md#active-system-configuration">the current storage contract</a>
 for source imports, publication, recovery and backup requirements.</p>
 <h2 id="credentials">Credentials<a class="headerlink" href="#credentials" title="Permanent link">&para;</a></h2>
-<p>Use top-level <code>credentials</code> profiles for all runtime credentials, including file
-references. Targets/tunnels select <code>credential</code>; registries map hostnames to basic
-profile IDs; Git uses an allowed ID list. Do not emit removed target fields
+<p>Use top-level <code>credentials</code> profiles for connection credentials and optional
+first-administrator bootstrap, including file references. Login accounts live in
+the database separately from YAML. Targets/tunnels select <code>credential</code>; registries
+map hostnames to basic profile IDs; Git uses an allowed ID list. Do not emit removed target fields
 <code>identity_file</code>, <code>known_hosts_file</code>, <code>user</code>, <code>bearer_token_file</code>, or target-local
 credential objects. See <a href="https://github.com/daniellmorris/declarack/blob/main/docs/CREDENTIALS.md">the schema</a>.</p>
 <h2 id="locate-the-relevant-references">Locate the relevant references<a class="headerlink" href="#locate-the-relevant-references" title="Permanent link">&para;</a></h2>
@@ -2039,6 +2067,10 @@ accessed, request the relevant configuration/schema instead of inventing fields.
 <tr>
 <td>Git stack sources and registry credentials</td>
 <td><a href="https://github.com/daniellmorris/declarack/blob/main/docs/REGISTRIES_AND_GIT_SOURCES.md">docs/REGISTRIES_AND_GIT_SOURCES.md</a></td>
+</tr>
+<tr>
+<td>Local administrators, session/CSRF clients and native/proxy TLS</td>
+<td><a href="https://github.com/daniellmorris/declarack/blob/main/docs/USERS_AND_TLS.md">docs/USERS_AND_TLS.md</a></td>
 </tr>
 <tr>
 <td>Database setup and storage migration</td>
@@ -2163,9 +2195,20 @@ example, and it adds no writes or scheduled work.</p>
 mutations, related resources, bulk actions or dynamic lookup operations. Add
 confirmed actions with appropriate labels/icons only for verified API behavior.</p>
 <h2 id="credentials-scheduling-and-swarm-scope">Credentials, scheduling and Swarm scope<a class="headerlink" href="#credentials-scheduling-and-swarm-scope" title="Permanent link">&para;</a></h2>
-<p>Prefer credential references to mounted files or Docker secrets. Basic auth is
-installation-wide; supported Docker targets have separate <code>registry_credentials</code>
-and <code>git_credentials</code> mappings. Git access and image-registry access are distinct.
+<p>Prefer credential references to mounted files or Docker secrets. Installation
+auth uses <code>auth: {provider: local, bootstrap_credential: PROFILE, session_hours: 8}</code>;
+the basic profile reference is optional and seeds only the first administrator
+when users are empty. Otherwise use <code>DECLARACK_ADMIN_USERNAME</code> (default <code>admin</code>)
+and either <code>DECLARACK_PASSWORD_FILE</code> or <code>DECLARACK_PASSWORD</code>. Existing users ignore
+bootstrap secret changes; use Administrators or host recovery to reset passwords.
+Do not emit removed <code>auth.provider: basic</code> or <code>auth.credential</code>; clients must use
+login cookies and CSRF/action headers. All administrators have full installation
+access. Inline bootstrap values remain in configuration history and exports.
+Native TLS is configured through deployment environment variables, not YAML;
+persist generated <code>/data/tls</code> files even with PostgreSQL and configure explicit
+proxy trust for HTTPS termination. There is no ACME or automatic renewal.
+Supported Docker targets have separate <code>registry_credentials</code> and
+<code>git_credentials</code> mappings. Git access and image-registry access are distinct.
 Registry profiles match image hostnames; Git profiles match host and transport.
 Select a configured Git profile in the Swarm stack editor. Read the source guide
 for persistence and current Git/Compose limitations rather than assuming parity

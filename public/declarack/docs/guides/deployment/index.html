@@ -20,7 +20,7 @@
         <link rel="prev" href="../docker-swarm/">
       
       
-        <link rel="next" href="../troubleshooting/">
+        <link rel="next" href="../../docs/USERS_AND_TLS/">
       
       
         
@@ -847,6 +847,33 @@
   
 </nav>
       
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docs/USERS_AND_TLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administrators, sessions and TLS
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1883,12 +1910,24 @@
 clients. The documentation site is a separate static build; none of its packages
 are installed in the runtime image.</p>
 <h2 id="production-essentials">Production essentials<a class="headerlink" href="#production-essentials" title="Permanent link">&para;</a></h2>
-<p>Use a strong application password, persist <code>/data</code>, mount only the sockets/files
-your targets need, and put remote access behind your normal HTTPS access controls.
-The repository Compose file binds port 8080 to loopback. Basic Auth without HTTPS
-is appropriate only for a trusted local/tunneled connection, not exposed transport.</p>
-<p>There is one installation-wide Basic Auth identity. Environment groups do not
-supply per-user permissions. SSO, teams and granular RBAC are not implemented.</p>
+<p>Use a strong first-administrator bootstrap password, persist the database and
+required local files, and mount only the sockets/files your targets need. The
+repository Compose file binds HTTP port 8080 to loopback. For remote access use
+native TLS or an HTTPS reverse proxy with explicit immediate-proxy trust.
+HTTP remains available for local development.</p>
+<p>Local administrators sign in with cookie sessions; all have full installation,
+credential and workload access. Environment groups do not supply per-user
+permissions. SSO, teams and granular RBAC are not implemented. Bootstrap inputs
+seed an empty user database only; later password changes belong in
+<strong>Settings → Administrators</strong> or host recovery.</p>
+<p>See <a href="../../docs/USERS_AND_TLS/">administrators, sessions and TLS</a> for first-account
+files, recovery, cookie/CSRF clients and the breaking Basic Auth migration. Native
+TLS uses <code>DECLARACK_TLS=files</code> with mounted certificate/key paths, or
+<code>DECLARACK_TLS=self-signed</code> with persisted <code>/data/tls</code> identity. The default TLS
+port is 8443, so adjust container port mappings. Certificates load on restart;
+there is no ACME or automatic renewal. Behind a TLS proxy, configure
+<code>DECLARACK_TRUSTED_PROXIES</code> with explicit IPs/CIDRs to recognize HTTPS and set Secure
+cookies. Only one forwarded proto/client hop is trusted; host/prefix are not.</p>
 <h2 id="match-the-controller-and-node-image">Match the controller and node image<a class="headerlink" href="#match-the-controller-and-node-image" title="Permanent link">&para;</a></h2>
 <p>In Swarm, publish the same image for the controller and node-local jobs. Set
 <code>DECLARACK_AGENT_IMAGE</code> to that reference, preferably an immutable registry digest.
@@ -1907,15 +1946,19 @@ Metrics remain on demand by default. Worker SSH is not part of Swarm collection.
 <tbody>
 <tr>
 <td>System configuration</td>
-<td>Mounted file/folder or chosen deployment-managed source</td>
+<td>Active/saved database revisions; mounted files or other providers are import/publication sources</td>
 </tr>
 <tr>
-<td>Stack/Compose sources, checks, operations and configuration revisions</td>
+<td>Administrators, hashed sessions, login limits, Stack/Compose sources, checks, operations and configuration revisions</td>
 <td>Shared database: SQLite <code>/data/state.sqlite</code> by default, or configured PostgreSQL</td>
 </tr>
 <tr>
-<td>Git/registry and installation credential references</td>
-<td>Mounted files or Docker secrets</td>
+<td>Git/registry and first-account bootstrap credential references</td>
+<td>Mounted files or Docker secrets; existing users do not depend on bootstrap password files</td>
+</tr>
+<tr>
+<td>Native TLS identity</td>
+<td>Persist <code>/data/tls</code> for self-signed mode; remount certificate/key files for <code>files</code> mode, including with PostgreSQL</td>
 </tr>
 <tr>
 <td>Table preferences</td>
@@ -1999,13 +2042,13 @@ Declarack currently records local alarm/recovery state but does not send notific
         
         
           
-          <a href="../troubleshooting/" class="md-footer__link md-footer__link--next" aria-label="Next: Troubleshooting">
+          <a href="../../docs/USERS_AND_TLS/" class="md-footer__link md-footer__link--next" aria-label="Next: Administrators, sessions and TLS">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Troubleshooting
+                Administrators, sessions and TLS
               </div>
             </div>
             <div class="md-footer__button md-icon">

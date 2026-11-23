@@ -1,0 +1,2337 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Build and operate configuration-defined administration interfaces.">
+      
+      
+      
+        <link rel="canonical" href="https://daniellmorris.com/declarack/docs/docs/USERS_AND_TLS/">
+      
+      
+      
+      
+        <link rel="prev" href="../../guides/deployment/">
+      
+      
+        <link rel="next" href="../../guides/troubleshooting/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.svg">
+      <meta name="generator" content="zensical-0.1.3">
+    
+    
+      
+        <title>Administrators, sessions and TLS - Declarack Docs</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.e2cf241e.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.b60ce83d.min.css">
+      
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/site.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
+    <div data-md-component="skip">
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Declarack Docs" class="md-header__button md-logo" aria-label="Declarack Docs" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="Declarack Docs">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+      <span class="md-visually-hidden">Navigation</span>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Declarack Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Administrators, sessions and TLS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m3.55 19.09 1.41 1.41 1.8-1.79-1.42-1.42M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6c0-3.32-2.69-6-6-6m8 7h3v-2h-3m-2.76 7.71 1.8 1.79 1.41-1.41-1.79-1.8M20.45 5l-1.41-1.4-1.8 1.79 1.42 1.42M13 1h-2v3h2M6.76 5.39 4.96 3.6 3.55 5l1.79 1.81zM1 13h3v-2H1m12 9h-2v3h2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+          <span class="md-visually-hidden">Search</span>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/daniellmorris/declarack" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Declarack on GitHub
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../start/quickstart/" class="md-tabs__link">
+          
+  
+  Get started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../guides/configuration-workflow/" class="md-tabs__link">
+          
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/api-interface/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../CONFIGURATION/" class="md-tabs__link">
+          
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../project/documentation/" class="md-tabs__link">
+          
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Declarack Docs" class="md-nav__button md-logo" aria-label="Declarack Docs" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="Declarack Docs">
+
+    </a>
+    Declarack Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/daniellmorris/declarack" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Declarack on GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Home
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Get started
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Get started
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Quickstart
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/configuration-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  How configuration fits together
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Concepts and terminology
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configurations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Choose a starting configuration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Guides
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Guides
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/configuration-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Configuration workflow
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Configuration snippets
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONFIG_SKILL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI configuration skill
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/docker-swarm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Docker and Swarm
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Deployment and persistence
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administrators, sessions and TLS
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administrators, sessions and TLS
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#first-administrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        First administrator
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manage-administrators" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Manage administrators
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recover-access-from-the-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recover access from the host
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessions-and-api-clients" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sessions and API clients
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#account-activity-and-audit-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Account activity and audit scope
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#native-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Native TLS
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https-reverse-proxies" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HTTPS reverse proxies
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-from-basic-auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Upgrade from Basic Auth
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Troubleshooting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CREDENTIALS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Credential management
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BROWSER_DEMO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Browser playground
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TEMPLATES_AND_DYNAMIC_FORMS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Integration setup
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VOLUME_BROWSER_AND_BATCHES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Volume browsing and SSH fleets
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tutorials
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Tutorials
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/api-interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Your first API admin interface
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  A dashboard across targets
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Scheduled checks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/multi-environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Real two-Swarm lab
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Reference
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONFIGURATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  System configuration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONFIG_FOLDERS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Configuration folders
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REGISTRIES_AND_GIT_SOURCES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Registry credentials and Git sources
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../STORAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Database storage and migration
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ENVIRONMENTS_AND_CHECKS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Targets, environments and checks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CUSTOM_PAGES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Custom pages
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TABLES_BULK_AND_CHARTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tables, bulk actions and charts
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GENERIC_CAPABILITIES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Generic resource capabilities
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FRAMEWORK_WORKFLOWS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Workflow building blocks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RESOURCE_CLONING_AND_PLANS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Resource cloning and operation plans
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DOCKER_ACTIONS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Docker action coverage
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HEALTH_CHECKS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Health information
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CODE_ORGANIZATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Code organization and development
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Project
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  Project
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Documentation development and hosting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PORTAINER_PARITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Current coverage and limitations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RENAMING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Upgrade and rename compatibility
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Repository README
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#first-administrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        First administrator
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manage-administrators" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Manage administrators
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recover-access-from-the-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Recover access from the host
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessions-and-api-clients" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Sessions and API clients
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#account-activity-and-audit-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Account activity and audit scope
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#native-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Native TLS
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https-reverse-proxies" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HTTPS reverse proxies
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-from-basic-auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Upgrade from Basic Auth
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                <a id="__skip" tabindex="-1"></a>
+                
+                  
+
+
+<h1 id="administrators-sessions-and-tls">Administrators, sessions and TLS<a class="headerlink" href="#administrators-sessions-and-tls" title="Permanent link">&para;</a></h1>
+<p>Declarack uses local, database-backed administrator accounts and a dedicated login
+page. Every administrator has full access to the installation, credentials and
+workloads. Environments and navigation groups do not restrict that access. There
+are no teams, resource ownership rules, granular roles, signup, SSO or API keys.
+Login accounts are separate from target, Git and registry credential profiles.</p>
+<figure class="docs-screenshot">
+<p><a href="../../assets/screenshots/login.jpg"><img alt="Declarack login page." loading="lazy" src="../../assets/screenshots/login.jpg" /></a></p>
+<figcaption>Sign in with a local administrator account.</figcaption>
+</figure>
+<h2 id="first-administrator">First administrator<a class="headerlink" href="#first-administrator" title="Permanent link">&para;</a></h2>
+<p>The optional system configuration block is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">auth</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">bootstrap_credential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">installation_bootstrap</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">session_hours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">credentials</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">installation_bootstrap</span><span class="p">:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="nv">/run/secrets/declarack_admin_password</span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<p><code>local</code> is the only provider and the default. <code>bootstrap_credential</code> is optional
+and must reference a <code>basic</code> profile. <code>session_hours</code> is an integer from 1 to 168,
+defaulting to 8. The profile's username/password seed the <strong>first administrator
+only when the users table is empty</strong>. This does not enable HTTP Basic Auth.</p>
+<p>Without that reference, first startup uses <code>DECLARACK_ADMIN_USERNAME</code> (default
+<code>admin</code>) and either <code>DECLARACK_PASSWORD_FILE</code> or <code>DECLARACK_PASSWORD</code>. Choose one
+password source; a mounted file is preferable. The file contains a single value;
+a trailing newline is accepted. These variables are bootstrap inputs, not live
+account settings. Startup without any initial password fails when no users exist.</p>
+<p>Once accounts exist, changing bootstrap environment values or profile secrets
+does not change their passwords. The bootstrap password mount may be absent on
+later starts: it is not reread for existing users. Keep a referenced profile's
+configuration valid. Manage existing passwords through Administrators or host
+recovery instead of rotating bootstrap inputs. Accounts are database rows, not
+YAML documents. A profile with inline <code>{value: ...}</code> still leaves that bootstrap
+secret in configuration revisions, history and exports; prefer file references.</p>
+<h2 id="manage-administrators">Manage administrators<a class="headerlink" href="#manage-administrators" title="Permanent link">&para;</a></h2>
+<p>Open <strong>Settings → Administrators</strong> (<code>#/settings/~users</code>) to list accounts, create
+an administrator and select an account's inline editor. Usernames are immutable,
+1–64 ASCII characters: the first must be a letter or number; subsequent characters
+may also be <code>_</code>, <code>.</code>, <code>@</code> or <code>-</code>. Names are canonicalized to lowercase and unique.
+New and reset passwords must contain 12–1024 characters. The login form does not
+apply the new-password minimum to password entry.</p>
+<p>The editor can disable or enable an account, reset its password, or revoke all
+sessions. Consequential changes require confirmation. Disabling an account or
+resetting its password revokes its sessions; explicit revocation also signs out
+all its sessions. Resetting your own password or revoking your own sessions signs
+you out immediately. You cannot disable yourself, and the backend protects the
+last enabled administrator. There is no account deletion or role selector.</p>
+<p>Demo mode returns an authenticated demo session and bypasses login. Administrator
+management is explicitly unavailable in both backend and static demo modes.</p>
+<figure class="docs-screenshot">
+<p><a href="../../assets/screenshots/administrators.jpg"><img alt="Administrators page with account management and recent account activity." loading="lazy" src="../../assets/screenshots/administrators.jpg" /></a></p>
+<figcaption>Manage administrators and review recent account activity.</figcaption>
+</figure>
+<h2 id="recover-access-from-the-host">Recover access from the host<a class="headerlink" href="#recover-access-from-the-host" title="Permanent link">&para;</a></h2>
+<p>Run this from an environment with the same database selection and access as the
+controller, with a file containing the new 12–1024 character password:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-m<span class="w"> </span>backend.auth<span class="w"> </span>reset-password<span class="w"> </span>USER<span class="w"> </span>--password-file<span class="w"> </span>FILE
+</code></pre></div>
+<p>Replace <code>USER</code> with an existing username and <code>FILE</code> with its container/host-visible
+password file. This host-only command resets the password, reenables the account
+and revokes all its sessions. It does not create a missing user and has no HTTP
+recovery endpoint. Keep database access and recovery files restricted to operators.
+Changing <code>DECLARACK_PASSWORD</code> will not recover an existing account.</p>
+<h2 id="sessions-and-api-clients">Sessions and API clients<a class="headerlink" href="#sessions-and-api-clients" title="Permanent link">&para;</a></h2>
+<p>Passwords use <code>scrypt:32768:8:3</code> hashes. Login creates an opaque random session
+cookie; the database stores its SHA-256 hash, not the bearer token. Sessions have
+a fixed expiry (8 hours by default), with at most 20 concurrent sessions per user.
+The header shows the signed-in username and <strong>Sign out</strong> control. Signing out,
+reaching the session expiry timer, or receiving an API 401 unmounts protected UI
+and returns to login, preventing stale sensitive views from remaining visible.
+Login failures are throttled by username and client address: 10 failures block
+further attempts until the five-minute bucket expires.</p>
+<p>The <code>declarack_session</code> cookie is <code>HttpOnly</code>, <code>SameSite=Lax</code>, and scoped to <code>/</code>.
+It is <code>Secure</code> when Declarack observes HTTPS, either natively or through an
+explicitly trusted proxy. Plain HTTP remains allowed for local development; it
+does not set <code>Secure</code>. Use HTTPS for remote access.</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET /api/v1/auth/session</code></td>
+<td>Public session discovery; anonymous response is <code>{"authenticated":false,"demo":false}</code></td>
+</tr>
+<tr>
+<td><code>POST /api/v1/auth/login</code></td>
+<td>JSON <code>username</code> and <code>password</code>; sets cookie and returns authenticated snapshot</td>
+</tr>
+<tr>
+<td><code>POST /api/v1/auth/logout</code></td>
+<td>JSON <code>{}</code>; revokes current session and clears cookie</td>
+</tr>
+<tr>
+<td><code>GET /api/v1/users</code></td>
+<td>Administrator list and <code>current_user_id</code></td>
+</tr>
+<tr>
+<td><code>GET /api/v1/users/activity</code></td>
+<td>Read-only account activity: <code>{"events":[...]}</code>, newest 100 retained events first</td>
+</tr>
+<tr>
+<td><code>POST /api/v1/users</code></td>
+<td>Create with <code>username</code> and <code>password</code></td>
+</tr>
+<tr>
+<td><code>PATCH /api/v1/users/ID</code></td>
+<td>Change <code>password</code> or boolean <code>disabled</code></td>
+</tr>
+<tr>
+<td><code>POST /api/v1/users/ID/revoke-sessions</code></td>
+<td>JSON <code>{}</code>; revoke all sessions for the account</td>
+</tr>
+</tbody>
+</table>
+<p>Authenticated snapshots include <code>authenticated</code>, <code>demo</code>, <code>user</code>, <code>csrf_token</code> and
+numeric Unix <code>expires_at</code>. Anonymous protected API reads return JSON HTTP 401,
+not a Basic Auth challenge. Writes must send <code>X-Declarack-Action: 1</code>; authenticated
+writes, including logout, must also send <code>X-Declarack-CSRF</code> with the snapshot's
+<code>csrf_token</code> and the session cookie. Login needs the action header but has no
+existing-session CSRF token. Cross-site writes are rejected; a supplied <code>Origin</code>
+must match the request origin. Non-browser clients may omit <code>Origin</code> but must
+supply the required action/CSRF headers. Keep the cookie jar and token private.
+A 401 requires a fresh login; refreshing session discovery supplies the current
+snapshot and token.</p>
+<p>Account writes revalidate the caller's actual session hash, expiry and enabled
+account under the database account lock, after any password hashing. A session
+revoked while an account creation or password reset is queued cannot finish that
+write using its earlier request authentication.</p>
+<p>Revocation prevents subsequent API access; it does not cancel work already
+accepted by an adapter or roll back a running operation. Existing terminal idle
+cleanup still bounds abandoned PTYs.</p>
+<h2 id="account-activity-and-audit-scope">Account activity and audit scope<a class="headerlink" href="#account-activity-and-audit-scope" title="Permanent link">&para;</a></h2>
+<p><strong>Settings → Administrators → Recent account activity</strong> is read-only. Account
+events are stored as generic documents in <code>framework.auth.audit</code>; the newest
+1,000 are retained, and <code>GET /api/v1/users/activity</code> returns the newest 100 in
+<code>{"events":[...]}</code>. The endpoint requires an authenticated administrator and is
+unavailable in demo mode, like the rest of account management.</p>
+<p>Recorded actions are <code>user.created</code>, <code>user.password_reset</code>, <code>user.disabled</code>,
+<code>user.enabled</code>, <code>sessions.revoked</code> and <code>user.recovered</code>. Events include the action,
+target <code>user_id</code>, Unix timestamp <code>at</code>, and actor identity (<code>id</code>, <code>username</code> and
+<code>role</code> for an administrator, or a <code>type</code> marker of <code>bootstrap</code> / <code>host-operator</code>).
+They contain no passwords, session tokens or other secrets. Account mutation and
+its audit event share the database transaction; older events are pruned rather
+than retained as an unlimited history.</p>
+<p>Recorded operation plans separately include the actor in <code>metadata.actor</code> (<code>id</code>,
+<code>username</code>, <code>role</code>, or a system marker for non-user work). Batch fan-out propagates
+ContextVars into worker threads so those recorded plans preserve the initiating
+actor. Bounded account activity and plan metadata do not form a complete generic
+resource audit log or audit governance system; simple direct resource calls do
+not all produce recorded plans.</p>
+<h2 id="native-tls">Native TLS<a class="headerlink" href="#native-tls" title="Permanent link">&para;</a></h2>
+<p>The process serves one HTTP or HTTPS listener through Cheroot. TLS is deployment
+configuration, independent of system YAML:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default / purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DECLARACK_TLS</code></td>
+<td><code>off</code>; accepts <code>off</code>, <code>files</code>, <code>self-signed</code></td>
+</tr>
+<tr>
+<td><code>DECLARACK_TLS_CERT_FILE</code></td>
+<td>Certificate PEM path; required in <code>files</code> mode</td>
+</tr>
+<tr>
+<td><code>DECLARACK_TLS_KEY_FILE</code></td>
+<td>Unencrypted private-key PEM path; required in <code>files</code> mode</td>
+</tr>
+<tr>
+<td><code>DECLARACK_TLS_HOSTS</code></td>
+<td><code>localhost,127.0.0.1</code>; comma-separated DNS/IP SANs for <code>self-signed</code></td>
+</tr>
+<tr>
+<td><code>HOST</code></td>
+<td><code>127.0.0.1</code> in Python; Docker image sets <code>0.0.0.0</code></td>
+</tr>
+<tr>
+<td><code>PORT</code></td>
+<td><code>8080</code> with TLS off, <code>8443</code> with TLS enabled; explicit value overrides</td>
+</tr>
+<tr>
+<td><code>DECLARACK_TRUSTED_PROXIES</code></td>
+<td>Empty: trust no forwarded headers; explicit comma-separated IP/CIDR list</td>
+</tr>
+</tbody>
+</table>
+<p>The following commands assume an existing administrator database or the
+<a href="#first-administrator">first-account bootstrap inputs</a>, and valid target
+configuration/mounts. For a certificate issued by your CA, set:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DECLARACK_TLS</span><span class="o">=</span>files
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DECLARACK_TLS_CERT_FILE</span><span class="o">=</span>/run/secrets/declarack_cert.pem
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DECLARACK_TLS_KEY_FILE</span><span class="o">=</span>/run/secrets/declarack_key.pem
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>python<span class="w"> </span>-m<span class="w"> </span>backend.server
+</code></pre></div>
+<p>Mount those paths before startup. TLS requires a valid, currently usable matching
+certificate/key pair and TLS 1.2 or later. Encrypted private keys are unsupported.
+Certificate/key variables are accepted only in <code>files</code> mode. If you use containers,
+update the published port to the selected listener; an existing <code>8080:8080</code>
+mapping does not expose the default TLS listener on 8443.</p>
+<p>For a locally trusted development/lab certificate:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DECLARACK_TLS</span><span class="o">=</span>self-signed
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DECLARACK_TLS_HOSTS</span><span class="o">=</span>localhost,127.0.0.1
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>python<span class="w"> </span>-m<span class="w"> </span>backend.server
+</code></pre></div>
+<p>First startup generates a 365-day certificate and an unencrypted key at
+<code>&lt;DECLARACK_DATA&gt;/tls/cert.pem</code> and <code>key.pem</code> (normally <code>/data/tls</code>). Generated files
+start with mode <code>0600</code>; the private key is enforced as <code>0600</code> on reuse. The pair
+is persisted and reused, not regenerated on every restart. Trust the certificate
+explicitly on clients. Persist it even when the database is external PostgreSQL.</p>
+<p>Certificates load at startup. Replace files and restart to reload; there is no
+ACME integration, automatic renewal, hot reload, or HTTP-to-HTTPS redirect listener.
+An expired pair fails startup. A changed <code>DECLARACK_TLS_HOSTS</code> must be covered by
+the existing SANs; to generate a replacement, stop the controller, back up and
+remove both generated files, then restart with the new hosts. Reestablish client
+trust. An incomplete persisted pair fails startup rather than replacing one half.</p>
+<h2 id="https-reverse-proxies">HTTPS reverse proxies<a class="headerlink" href="#https-reverse-proxies" title="Permanent link">&para;</a></h2>
+<p>You may terminate TLS at a reverse proxy and keep <code>DECLARACK_TLS=off</code> internally.
+Set <code>DECLARACK_TRUSTED_PROXIES</code> to the immediate proxy's actual IP or CIDR. Only
+requests from those peers honor one rightmost <code>X-Forwarded-Proto</code> and
+<code>X-Forwarded-For</code> hop. The proxy must overwrite or append its observed scheme and
+client address. Forwarded host, port and URL prefix are never honored; preserve
+the public <code>Host</code> header and deploy at the origin root. Arbitrary forwarded
+headers from untrusted peers cannot mark an HTTP request secure.</p>
+<p>Without proxy trust, HTTPS termination appears as HTTP to Declarack, affecting
+Secure cookies and Origin verification. Keep the internal listener reachable only
+by intended peers and configure the proxy and explicit trust list together.</p>
+<h2 id="upgrade-from-basic-auth">Upgrade from Basic Auth<a class="headerlink" href="#upgrade-from-basic-auth" title="Permanent link">&para;</a></h2>
+<p>This is a breaking configuration and client change. Replace <code>auth.provider: basic</code>
+with <code>local</code> and rename <code>auth.credential</code> to <code>auth.bootstrap_credential</code>. Older
+<code>auth.username</code> / <code>auth.password_file</code> fields must also move into a referenced
+<code>basic</code> bootstrap profile or the bootstrap environment variables. Import the
+updated configuration under the normal
+<a href="../STORAGE/#active-system-configuration">configuration authority rules</a>. A restart
+alone retains the active database revision. To apply changed authentication
+bootstrap/settings from files, publish/export the intended documents and restart
+once with <code>DECLARACK_CONFIG_FORCE_LOAD=1</code>, then remove that flag.</p>
+<p>No HTTP Basic Auth requests are supported. Browser Basic Auth and scripts using
+<code>curl -u</code> must migrate to login, cookies and CSRF/action headers. On an installation
+with an empty users table, the bootstrap seeds the first account; thereafter
+manage it in the database. See <a href="../CREDENTIALS/">credentials</a> for outbound HTTP
+Basic, Git and registry profiles, which remain separate supported uses of <code>basic</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../guides/deployment/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Deployment and persistence">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Deployment and persistence
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../guides/troubleshooting/" class="md-footer__link md-footer__link--next" aria-label="Next: Troubleshooting">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Troubleshooting
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.tabs","navigation.sections","navigation.top","navigation.footer","search.suggest","search.highlight","content.code.copy","content.code.annotate"],"redirect":null,"search":"../../assets/javascripts/workers/search.719e0d91.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.9e76c64c.min.js"></script>
+      
+      
+    
+  </body>
+</html>

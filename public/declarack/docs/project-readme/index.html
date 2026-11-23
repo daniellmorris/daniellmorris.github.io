@@ -750,6 +750,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../docs/USERS_AND_TLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Administrators, sessions and TLS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../guides/troubleshooting/" class="md-nav__link">
         
   
@@ -2227,15 +2254,20 @@ and the complete five-target Declarack configuration.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DECLARACK_PASSWORD</span><span class="o">=</span><span class="s1">'replace-with-a-strong-password'</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build
 </code></pre></div>
-<p>Open <a href="http://127.0.0.1:8080">Declarack</a> and sign in as <code>admin</code>. The default setup
-detects a local Swarm manager or standalone Docker engine. To choose an explicit
+<p>Open <a href="http://127.0.0.1:8080">Declarack</a> and sign in as <code>admin</code> on the login page.
+The password seeds the first database administrator only; later environment changes
+do not rotate that account. Manage accounts under <strong>Settings → Administrators</strong>.
+The default setup detects a local Swarm manager or standalone Docker engine. To choose an explicit
 configuration, follow the <a href="../configurations/#run-a-selected-configuration">catalog setup</a>.
 No Docker/Swarm experience is required to configure an HTTP API integration, but
 you do need a reachable API and knowledge of its response shape.</p>
 <p>The Compose service publishes to loopback and persists saved sources/credentials
 in its <code>declarack-data</code> volume. For remote access, use an SSH tunnel or a trusted
-HTTPS reverse proxy. Docker socket access gives Declarack administrative control
-of the connected engine. Keep its data volume private and back it up.</p>
+HTTPS reverse proxy, or configure native TLS. See
+<a href="../docs/USERS_AND_TLS/">administrators, password recovery and TLS</a> for bootstrap
+files, session/CSRF clients, certificate persistence and proxy trust. All
+administrators have full installation access. Docker socket access gives Declarack
+administrative control of the connected engine. Keep its data volume private and back it up.</p>
 <p>Set <code>DECLARACK_STACKS_DIR</code> to a host directory for local stack sources; Compose
 mounts it read-only at <code>/stacks</code>. Use <code>DOCKER_SOCKET</code> for an alternate socket when
 running Python directly, and mount/select that socket explicitly in container deployments.</p>
@@ -2300,7 +2332,12 @@ into one system configuration; Settings can show each file and reload validated
 changes without rebuilding the application. Start with the
 <a href="../configurations/folder-example/">folder example</a> and <a href="../docs/CONFIG_FOLDERS/">merge/reload guide</a>.</p>
 <p>The main YAML is Declarack's <strong>system configuration</strong>: it controls connections, capabilities, execution definitions, UI presentation, and authentication. Read the <a href="../docs/CONFIGURATION/">complete configuration guide</a> for schemas, examples, storage modes, edit restrictions, and runtime settings. A <a href="../docs/examples/http-environments.yaml">complete custom API example</a> is included.</p>
-<p>The original single-manager setup works without a config file. To use configured targets, start with <a href="../dashboard.example.yaml">dashboard.example.yaml</a>, mount it as <code>/etc/declarack/dashboard.yaml</code>, and set <code>DECLARACK_CONFIG=/etc/declarack/dashboard.yaml</code>. Mount the sockets and credential files referenced by that config. Use <code>auth.password_file</code> for a mounted password secret or set <code>DECLARACK_PASSWORD</code> for development.</p>
+<p>The original single-manager setup works without a config file. To use configured targets, start with <a href="../dashboard.example.yaml">dashboard.example.yaml</a>, mount it as <code>/etc/declarack/dashboard.yaml</code>, and set <code>DECLARACK_CONFIG=/etc/declarack/dashboard.yaml</code>. Mount the sockets and credential files referenced by that config. Use <code>auth: {provider: local, bootstrap_credential: login, session_hours: 8}</code>
+with a named basic <code>login</code> profile referencing a mounted password file, or use
+<code>DECLARACK_PASSWORD_FILE</code> / <code>DECLARACK_PASSWORD</code> for first-account bootstrap.
+Existing <code>provider: basic</code> / <code>credential</code> configuration must migrate to
+<code>local</code> / <code>bootstrap_credential</code>; HTTP Basic Auth clients must use login cookies
+and CSRF/action headers. Accounts are stored separately from YAML.</p>
 <p>The example enables standalone Docker. Add a Swarm manager, an SSH host, or an upstream HTTP API as another target. Swarm never uses SSH to reach workers. SSH host metrics require <code>python3</code> on the remote Linux host and an OpenSSH-format identity readable by the dashboard. Enable <code>stacks</code>, <code>configs</code>, and <code>secrets</code> in each applicable Swarm target. The same YAML renderer serves configured targets and single-manager installs. Use <code>legacy_workspace: &lt;swarm-target-id&gt;</code> to associate pre-existing saved stacks and bookmark routes with that target. Other targets keep source records in separate logical database scopes. SQLite is the default; PostgreSQL is optional. See <a href="../docs/STORAGE/">storage and migration</a>.</p>
 <p>The app discovers built-in adapters in <code>/app/backend/adapters</code> and additional packages in <code>/etc/declarack/adapters</code> or <code>DECLARACK_ADAPTER_DIR</code>. Mount additional adapters read-only and restart to load them. An adapter can register a connection, operation executor, and optional YAML files with operations and features. See the <a href="../ARCHITECTURE/">architecture writeup</a> for the boundaries and the existing <code>backend/adapters/</code> packages for the actual config schema.</p>
 <h3 id="settings-storage">Settings storage<a class="headerlink" href="#settings-storage" title="Permanent link">&para;</a></h3>
@@ -2310,7 +2347,7 @@ changes without rebuilding the application. Start with the
 <li><strong>Swarm</strong> uses <code>DECLARACK_CONFIG_STORE=swarm</code> and <code>DECLARACK_CONFIG_SERVICE</code> to select the dashboard service. The mount target defaults to <code>DECLARACK_CONFIG</code> and can be overridden with <code>DECLARACK_CONFIG_MOUNT</code>. The service update uses the manager socket, optionally overridden by <code>DECLARACK_CONFIG_SOCKET</code>. Docker service rollback can restore the prior config attachment while its config still exists.</li>
 <li><strong>GitHub</strong> uses <code>DECLARACK_CONFIG_STORE=git</code> with <code>DECLARACK_CONFIG_GIT_REPO</code> in <code>owner/repo</code> format. Set <code>DECLARACK_CONFIG_GIT_BRANCH</code> and <code>DECLARACK_CONFIG_GIT_PATH</code> as needed. <code>DECLARACK_CONFIG_GIT_TOKEN_FILE</code> is a mounted credential. Creating pull requests requires repository Contents and Pull Requests write access. The running dashboard still boots from the mounted file, so arrange for merged revisions to update that mount and restart or redeploy it.</li>
 </ul>
-<p>Authentication, adapter packages, and operation and feature definitions are deployment settings. They cannot be changed from the dashboard's Settings editor.</p>
+<p>Authentication provider/session configuration, adapter packages, and operation and feature definitions are deployment settings. They cannot be changed from the dashboard's Settings editor.</p>
 <p>Run the adapter and storage tests with <code>python -m unittest discover -s backend/tests</code> after installing the Python dependencies.</p>
 <h3 id="remote-docker-over-a-managed-ssh-tunnel">Remote Docker over a managed SSH tunnel<a class="headerlink" href="#remote-docker-over-a-managed-ssh-tunnel" title="Permanent link">&para;</a></h3>
 <p>For a remote manager, replace the target's <code>socket</code> setting with <code>ssh_tunnel</code>. The dashboard container starts OpenSSH as a subprocess when the connection is needed, keeps it alive, and reconnects after a failure. No host-side tunnel service or Docker TCP listener is required.</p>

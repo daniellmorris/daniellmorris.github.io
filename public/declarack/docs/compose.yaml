@@ -4,7 +4,8 @@ services:
     ports:
       - "127.0.0.1:8080:8080"
     environment:
-      DECLARACK_PASSWORD: ${DECLARACK_PASSWORD:?Set DECLARACK_PASSWORD}
+      # Used only when the database has no administrator accounts.
+      DECLARACK_PASSWORD: ${DECLARACK_PASSWORD:-}
       DECLARACK_AGENT_IMAGE: ${DECLARACK_AGENT_IMAGE:-}
       DECLARACK_HOST_DISK_PATH: ${DECLARACK_HOST_DISK_PATH:-/etc}
       DECLARACK_HOST_METRICS: ${DECLARACK_HOST_METRICS:-0}

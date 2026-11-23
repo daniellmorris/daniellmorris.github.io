@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Provision and verify real nested Swarms using Docker, SSH, and Python stdlib."""
 import argparse
-import base64
 import json
 import os
 import secrets
@@ -169,7 +168,7 @@ def configure(mode):
 
     # Host-side variant, for running Python directly instead of the lab GUI container.
     config=read_template()
-    config['credentials'][config['auth']['credential']]['password']={'file':str(RUNTIME/'declarack_password')}
+    config['credentials'][config['auth']['bootstrap_credential']]['password']={'file':str(RUNTIME/'declarack_password')}
     for profile in config['credentials'].values():
         if profile['type']=='ssh':
             profile['private_key']={'file':str(RUNTIME/'client_key')};profile['known_hosts']={'file':str(RUNTIME/'known_hosts')}
@@ -185,14 +184,35 @@ def configure(mode):
     print(f'HTTP target transport: {mode}',flush=True)
 
 
-def http(path, *, auth=False, body=None):
+_AUTH_CLIENTS = {}
+
+
+def http(path, *, auth=False, body=None, _retry=True):
+    from http.cookiejar import CookieJar
+    from urllib.error import HTTPError
+    from urllib.parse import urlsplit
+    from urllib.request import HTTPCookieProcessor, build_opener
     headers={}
-    if auth:
-        password=(RUNTIME/'declarack_password').read_text().strip()
-        headers['Authorization']='Basic '+base64.b64encode(('admin:'+password).encode()).decode()
     if body is not None:headers.update({'Content-Type':'application/json','X-Declarack-Action':'1'})
-    with urlopen(Request(path,headers=headers,data=None if body is None else json.dumps(body).encode()),timeout=20) as response:
-        return json.load(response)
+    client=None
+    if auth:
+        parsed=urlsplit(path);origin=f'{parsed.scheme}://{parsed.netloc}'
+        if origin not in _AUTH_CLIENTS:
+            password=(RUNTIME/'declarack_password').read_text().strip()
+            client=build_opener(HTTPCookieProcessor(CookieJar()))
+            login=Request(origin+'/api/v1/auth/login',headers={'Content-Type':'application/json','X-Declarack-Action':'1'},data=json.dumps({'username':'admin','password':password}).encode())
+            with client.open(login,timeout=20) as response:session=json.load(response)
+            _AUTH_CLIENTS[origin]=(client,session['csrf_token'])
+        client,csrf=_AUTH_CLIENTS[origin]
+        headers['X-Declarack-CSRF']=csrf
+    try:
+        with (client.open if client else urlopen)(Request(path,headers=headers,data=None if body is None else json.dumps(body).encode()),timeout=20) as response:
+            return json.load(response)
+    except HTTPError as error:
+        if auth and _retry and error.code==401:
+            _AUTH_CLIENTS.pop(origin,None)
+            return http(path,auth=auth,body=body,_retry=False)
+        raise
 
 
 def operation(target, name):
