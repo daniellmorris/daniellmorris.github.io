@@ -361,7 +361,7 @@ table {
   text-align: left;
   font-size: 13px;
   line-height: 1.6;
-  min-width: 850px;
+  min-width: 1000px;
 }
 caption {
   position: absolute;
@@ -387,12 +387,12 @@ thead th {
   font-weight: 500;
 }
 tbody th {
-  width: 19%;
+  width: 17%;
   font-size: 16px;
   font-weight: 600;
 }
 td {
-  width: 27%;
+  width: 23%;
   color: #b4c2b7;
 }
 tr:last-child > * {
@@ -586,4 +586,13 @@ footer .brand {
   html {
     scroll-behavior: auto;
   }
+}
+
+.license {
+  width: 14%;
+  font-size: 12px;
+}
+.license a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
