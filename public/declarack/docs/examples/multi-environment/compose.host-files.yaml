@@ -1,0 +1,13 @@
+# Optional native-Linux host filesystem viewer. The default deployment has no root mount.
+# From the repository root: python3 examples/multi-environment/lab.py up --host-files linux
+services:
+  declarack:
+    environment:
+      DECLARACK_COMPOSE_HOST_ROOT: /mnt/host
+    volumes:
+      - type: bind
+        source: /
+        target: /mnt/host
+        read_only: true
+        bind:
+          create_host_path: false

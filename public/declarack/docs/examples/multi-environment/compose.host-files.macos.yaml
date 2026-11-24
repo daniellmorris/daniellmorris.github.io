@@ -1,0 +1,13 @@
+# Docker Desktop: Compose labels commonly refer to macOS /Users paths, not VM paths.
+# From the repository root: python3 examples/multi-environment/lab.py up --host-files macos
+services:
+  declarack:
+    environment:
+      DECLARACK_COMPOSE_HOST_ROOT: /mnt/host
+    volumes:
+      - type: bind
+        source: /Users
+        target: /mnt/host/Users
+        read_only: true
+        bind:
+          create_host_path: false

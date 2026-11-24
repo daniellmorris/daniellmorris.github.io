@@ -1129,6 +1129,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#optional-host-compose-file-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional host Compose file access
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-runs" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -1917,6 +1928,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#optional-host-compose-file-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Optional host Compose file access
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-runs" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -2077,6 +2099,37 @@ Image changes may recreate engine containers and roll the sample services; their
 volumes preserve cluster identity while workloads reconverge.
 It refuses to reset a manager that is unexpectedly joined as a worker elsewhere.
 Do not point these commands at an unrelated remote Docker context.</p>
+<h2 id="optional-host-compose-file-access">Optional host Compose file access<a class="headerlink" href="#optional-host-compose-file-access" title="Permanent link">&para;</a></h2>
+<p>The base deployment does not mount the host filesystem. To let the standalone
+<strong>Host Docker</strong> target view Compose YAML at the paths reported by Docker, select
+an optional read-only mount when starting the lab:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Docker Desktop on macOS: /Users -&gt; /mnt/host/Users (read-only)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>up<span class="w"> </span>--http-mode<span class="w"> </span>ssh<span class="w"> </span>--host-files<span class="w"> </span>macos
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Native Linux: / -&gt; /mnt/host (read-only)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>up<span class="w"> </span>--http-mode<span class="w"> </span>ssh<span class="w"> </span>--host-files<span class="w"> </span>linux
+</code></pre></div>
+<p>Both overrides set <code>DECLARACK_COMPOSE_HOST_ROOT=/mnt/host</code>. The macOS version
+preserves <code>/Users/...</code> paths recorded in Compose labels; it does not mount the
+Docker Desktop VM root. Enable Docker Desktop file sharing for the source path
+if Docker reports a mount denial. Paths outside <code>/Users</code> need a separate explicit
+mapping; missing or inaccessible files remain unavailable in the project view.
+These mounts expose host files read-only to the controller, not remote Swarm or
+SSH filesystems. They are not needed for Docker volume browsing.</p>
+<p>Pass the same <code>--host-files</code> option to later <code>up</code> or <code>configure</code> commands, or set
+<code>LAB_HOST_FILES=macos</code> / <code>LAB_HOST_FILES=linux</code> in your shell. <code>none</code> is the default
+and explicitly disables the override on the next controller recreation.</p>
+<p>To enable the mount on an already running lab <strong>without rebuilding or restarting
+its Swarm nodes and monitoring services</strong>, use the matching Compose override:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>examples/multi-environment/compose.yaml<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>-f<span class="w"> </span>examples/multi-environment/compose.host-files.macos.yaml<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>up<span class="w"> </span>-d<span class="w"> </span>--no-deps<span class="w"> </span>declarack
+</code></pre></div>
+<p>On Linux replace the second file with
+<a href="compose.host-files.yaml">compose.host-files.yaml</a>. The macOS file is
+<a href="compose.host-files.macos.yaml">compose.host-files.macos.yaml</a>. These commands
+operate the lab controller and its configured <code>LAB_DECLARACK_PORT</code> (default
+9080); they do not modify a separately launched preview container.</p>
 <h2 id="what-runs">What runs<a class="headerlink" href="#what-runs" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2118,21 +2171,21 @@ Do not point these commands at an unrelated remote Docker context.</p>
 use separate bridge networks per Swarm for their underlay. Managers also join the
 access network for SSH and monitoring. Worker SSH servers are not started.
 The Docker API listens on Unix sockets, not a published unauthenticated TCP port.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>flowchart LR
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  D[Declarack :9080] --&gt;|host socket| H[Host Docker: standalone view]
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  D --&gt;|SSH / Docker socket| AM
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  D --&gt;|SSH / Docker socket| BM
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  subgraph A[Swarm A]
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    AM[Manager A :2221] --&gt; AW[Worker A: web replicas]
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  end
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  subgraph B[Swarm B]
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    BM[Manager B :2222] --&gt; BW[Worker B: web replicas]
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  end
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  D --&gt;|direct HTTP or SSH TCP forwarding| P[Prometheus :9090]
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  D --&gt;|direct HTTP or SSH TCP forwarding| G[Grafana :9300]
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>  P --&gt;|scrapes| A
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>  P --&gt;|scrapes| B
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>  G --&gt;|queries| P
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>flowchart LR
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  D[Declarack :9080] --&gt;|host socket| H[Host Docker: standalone view]
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  D --&gt;|SSH / Docker socket| AM
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  D --&gt;|SSH / Docker socket| BM
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  subgraph A[Swarm A]
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    AM[Manager A :2221] --&gt; AW[Worker A: web replicas]
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  end
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  subgraph B[Swarm B]
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    BM[Manager B :2222] --&gt; BW[Worker B: web replicas]
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  end
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>  D --&gt;|direct HTTP or SSH TCP forwarding| P[Prometheus :9090]
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>  D --&gt;|direct HTTP or SSH TCP forwarding| G[Grafana :9300]
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>  P --&gt;|scrapes| A
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>  P --&gt;|scrapes| B
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>  G --&gt;|queries| P
 </code></pre></div>
 <h2 id="open-the-applications">Open the applications<a class="headerlink" href="#open-the-applications" title="Permanent link">&para;</a></h2>
 <p>All published ports bind to host loopback:</p>
@@ -2179,7 +2232,7 @@ The Docker API listens on Unix sockets, not a published unauthenticated TCP port
 </tbody>
 </table>
 <p>Declarack username is <code>admin</code>. Retrieve its generated password locally:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cat<span class="w"> </span>examples/multi-environment/runtime/declarack_password
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>cat<span class="w"> </span>examples/multi-environment/runtime/declarack_password
 </code></pre></div>
 <p>Grafana permits anonymous Viewer access for this local lab. To administer it, log
 in as <code>admin</code> with <code>runtime/grafana_password</code>. Prometheus is unauthenticated inside
@@ -2194,17 +2247,17 @@ Defaults are those in the table. Changing published ports on an existing lab nee
 are read from each manager through Docker and recorded in a dedicated known-hosts
 file; host verification stays enabled. Your personal SSH config/keys/known-hosts
 files are not changed.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ssh<span class="w"> </span>-F<span class="w"> </span>/dev/null<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span>-i<span class="w"> </span>examples/multi-environment/runtime/client_key<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>-o<span class="w"> </span><span class="nv">UserKnownHostsFile</span><span class="o">=</span>examples/multi-environment/runtime/known_hosts<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span>-o<span class="w"> </span><span class="nv">StrictHostKeyChecking</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">2221</span><span class="w"> </span>root@127.0.0.1
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ssh<span class="w"> </span>-F<span class="w"> </span>/dev/null<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span>-i<span class="w"> </span>examples/multi-environment/runtime/client_key<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span>-o<span class="w"> </span><span class="nv">UserKnownHostsFile</span><span class="o">=</span>examples/multi-environment/runtime/known_hosts<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span>-o<span class="w"> </span><span class="nv">StrictHostKeyChecking</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">2221</span><span class="w"> </span>root@127.0.0.1
 </code></pre></div>
 <p>Use port <code>2222</code> for manager B. Inside either manager:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>node<span class="w"> </span>ls
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>docker<span class="w"> </span>service<span class="w"> </span>ls
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>docker<span class="w"> </span>service<span class="w"> </span>ps<span class="w"> </span>lab-web
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>docker<span class="w"> </span>info
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span>node<span class="w"> </span>ls
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>docker<span class="w"> </span>service<span class="w"> </span>ls
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>docker<span class="w"> </span>service<span class="w"> </span>ps<span class="w"> </span>lab-web
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>docker<span class="w"> </span>info
 </code></pre></div>
 <p>Only manager SSH ports are published. Declarack reaches workers through the
 manager API and node-pinned Swarm jobs, including volume inventory and terminals.
@@ -2216,28 +2269,28 @@ The default Declarack configuration uses manager A as the SSH hop for Prometheus
 and manager B for Grafana. Docker manager targets always use SSH; the host target
 uses the mounted socket.</p>
 <p>Switch just the monitoring targets to direct container-network HTTP:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>configure<span class="w"> </span>--http-mode<span class="w"> </span>direct
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>verify
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>configure<span class="w"> </span>--http-mode<span class="w"> </span>direct
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>verify
 </code></pre></div>
 <p>Switch back to SSH:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>configure<span class="w"> </span>--http-mode<span class="w"> </span>ssh
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>verify
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>configure<span class="w"> </span>--http-mode<span class="w"> </span>ssh
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>verify
 </code></pre></div>
 <p><code>configure</code> recreates the runtime base config from the checked-in template and
 updates only Declarack. It overwrites local runtime config edits; copy your custom version
 elsewhere before regeneration. The Swarms, workloads, and monitoring keep running.</p>
 <p>An HTTP target's optional tunnel block is:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">grafana</span><span class="p">:</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://grafana:3000</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">ssh_tunnel</span><span class="p">:</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">swarm-b-manager</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="nt">identity_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/lab/client_key</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="nt">known_hosts_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/lab/known_hosts</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="nt">remote_host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grafana</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="nt">remote_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">  </span><span class="nt">features</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">grafana.dashboards</span><span class="p p-Indicator">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">grafana</span><span class="p">:</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://grafana:3000</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">ssh_tunnel</span><span class="p">:</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">swarm-b-manager</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="nt">identity_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/lab/client_key</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="nt">known_hosts_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/lab/known_hosts</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="nt">remote_host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grafana</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="nt">remote_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">  </span><span class="nt">features</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">grafana.dashboards</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 <p>Omit <code>ssh_tunnel</code> for direct access. The remote destination is resolved/reached from
 the SSH manager; the URL host remains the HTTP Host/TLS identity. The backend opens
@@ -2247,11 +2300,11 @@ redirect restrictions, and the existing HTTPS requirement for bearer tokens rema
 SSH encrypts to the manager; HTTPS is needed when the onward hop also needs TLS.</p>
 <p>You can also create browser-facing forwards from your host's terminal. For Grafana
 through manager A:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ssh<span class="w"> </span>-F<span class="w"> </span>/dev/null<span class="w"> </span>-N<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span>-i<span class="w"> </span>examples/multi-environment/runtime/client_key<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span>-o<span class="w"> </span><span class="nv">UserKnownHostsFile</span><span class="o">=</span>examples/multi-environment/runtime/known_hosts<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span>-o<span class="w"> </span><span class="nv">StrictHostKeyChecking</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span>-L<span class="w"> </span><span class="m">127</span>.0.0.1:19300:grafana:3000<span class="w"> </span>-p<span class="w"> </span><span class="m">2221</span><span class="w"> </span>root@127.0.0.1
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ssh<span class="w"> </span>-F<span class="w"> </span>/dev/null<span class="w"> </span>-N<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span>-i<span class="w"> </span>examples/multi-environment/runtime/client_key<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span>-o<span class="w"> </span><span class="nv">UserKnownHostsFile</span><span class="o">=</span>examples/multi-environment/runtime/known_hosts<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span>-o<span class="w"> </span><span class="nv">StrictHostKeyChecking</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span>-L<span class="w"> </span><span class="m">127</span>.0.0.1:19300:grafana:3000<span class="w"> </span>-p<span class="w"> </span><span class="m">2221</span><span class="w"> </span>root@127.0.0.1
 </code></pre></div>
 <p>Then open http://127.0.0.1:19300. For Prometheus, use
 <code>-L 127.0.0.1:19090:prometheus:9090</code> and open http://127.0.0.1:19090.
@@ -2278,9 +2331,9 @@ external edits. Folder GUI writes are not enabled yet. Try the
 <a href="../../docs/CONFIG_FOLDERS/#try-a-new-grafana-feature-in-the-real-lab">optional Grafana extension</a>
 by copying one fragment into this folder and reloading.</p>
 <h2 id="verify-and-stop">Verify and stop<a class="headerlink" href="#verify-and-stop" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>verify
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>status
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>down
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>verify
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>status
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>python3<span class="w"> </span>examples/multi-environment/lab.py<span class="w"> </span>down
 </code></pre></div>
 <p>Verification checks host SSH, distinct Swarm IDs, exactly one ready manager and
 worker per cluster, service replica convergence, each cluster's HTTP workload,
@@ -2303,8 +2356,8 @@ Environment groups collect the two Swarms, local Docker, and monitoring targets.
 The top-level Targets page remains the complete connection inventory. Checks run
 on the server and keep their state/history in the existing Declarack data volume.</p>
 <p>For a check-only target without an environment or interactive features:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>cp<span class="w"> </span>examples/multi-environment/optional/checks.yaml<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">   </span>examples/multi-environment/runtime/config/75-monitoring-checks.yaml
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cp<span class="w"> </span>examples/multi-environment/optional/checks.yaml<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">   </span>examples/multi-environment/runtime/config/75-monitoring-checks.yaml
 </code></pre></div>
 <p>In Settings, reload configuration, then open Checks. The optional check queries
 Grafana's real <code>/api/health</code> endpoint and evaluates <code>database = "ok"</code> with JSONata.

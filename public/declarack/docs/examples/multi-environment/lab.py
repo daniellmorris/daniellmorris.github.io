@@ -27,8 +27,19 @@ def run(args, *, capture=False, input=None):
     return result.stdout.strip() if capture else None
 
 
+def compose_command(*args):
+    command = ['docker', 'compose', '-p', PROJECT, '-f', str(ROOT/'compose.yaml')]
+    mode = os.environ.get('LAB_HOST_FILES', 'none')
+    if mode not in ('none', 'linux', 'macos'):
+        raise RuntimeError('LAB_HOST_FILES must be none, linux or macos.')
+    if mode != 'none':
+        filename = 'compose.host-files.macos.yaml' if mode == 'macos' else 'compose.host-files.yaml'
+        command.extend(['-f', str(ROOT/filename)])
+    return [*command, *args]
+
+
 def compose(*args, capture=False):
-    return run(['docker', 'compose', '-p', PROJECT, '-f', ROOT/'compose.yaml', *args], capture=capture)
+    return run(compose_command(*args), capture=capture)
 
 
 def engine(service, *args, capture=True):
@@ -116,7 +127,7 @@ def load_images(service):
     print(f'Loading workload and job images into {service}...',flush=True)
     save=subprocess.Popen(['docker','image','save','declarack-lab:local','declarack-lab-app:local'],stdout=subprocess.PIPE)
     try:
-        subprocess.run(['docker','compose','-p',PROJECT,'-f',str(ROOT/'compose.yaml'),'exec','-T',service,'docker','image','load'],stdin=save.stdout,stdout=subprocess.DEVNULL,check=True)
+        subprocess.run(compose_command('exec','-T',service,'docker','image','load'),stdin=save.stdout,stdout=subprocess.DEVNULL,check=True)
     finally:
         save.stdout.close()
         code=save.wait()
@@ -268,7 +279,9 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command',choices=['up','verify','configure','down','status'])
     parser.add_argument('--http-mode',choices=['ssh','direct'],default='ssh')
+    parser.add_argument('--host-files', choices=['none','linux','macos'], default=os.environ.get('LAB_HOST_FILES','none'), help='Opt-in read-only host paths for Compose source viewing (default: none).')
     args=parser.parse_args()
+    os.environ['LAB_HOST_FILES'] = args.host_files
     if args.command=='up':up(args.http_mode)
     elif args.command=='verify':verify()
     elif args.command=='configure':
