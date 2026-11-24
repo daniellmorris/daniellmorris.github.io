@@ -2164,7 +2164,9 @@ Live smoke tests use disposable Alpine containers to verify interactive exec,
 resize, and disconnect. Existing workloads are not used for mutation tests.</p>
 <h2 id="on-demand-volume-sizes">On-demand volume sizes<a class="headerlink" href="#on-demand-volume-sizes" title="Permanent link">&para;</a></h2>
 <p>In <strong>Volumes</strong>, choose <strong>Collect volume sizes</strong> to fetch inventory plus disk usage.
-The ordinary Collect/Refresh action remains an inventory-only request. Sizes use
+Inventory loads automatically when the Volumes page opens and when the top-level
+<strong>Refresh</strong> button is pressed. Size measurement remains an explicit action.
+Docker disk usage likewise loads automatically when its page opens. Sizes use
 Docker's <code>/system/df?type=volume</code> response and display decimal MB/GB with the
 collection timestamp. A measured empty volume shows <code>0 MB</code>; missing/unsupported
 usage shows <code>Unavailable</code>, while inventory-only results show <code>Not collected</code>.
