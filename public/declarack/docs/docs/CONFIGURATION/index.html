@@ -1840,6 +1840,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../ROW_ACTION_OUTPUTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Action output placement and viewers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../GENERIC_CAPABILITIES/" class="md-nav__link">
         
   
@@ -3520,6 +3547,10 @@ view instead of its list location. Without <code>row</code> or <code>detail</cod
 <td>Show the serialized whole result in the ordinary action renderer</td>
 </tr>
 <tr>
+<td><code>presentation: {placement: row, viewer: json}</code></td>
+<td>Inline result beneath the originating row; also supports <code>page</code>/<code>dialog</code> and <code>structured</code>/<code>text</code></td>
+</tr>
+<tr>
 <td><code>result: replace</code></td>
 <td>Replace displayed inventory with action result</td>
 </tr>
@@ -3545,6 +3576,8 @@ view instead of its list location. Without <code>row</code> or <code>detail</cod
 </tr>
 </tbody>
 </table>
+<p>See <a href="../ROW_ACTION_OUTPUTS/">action output placement and viewers</a> for stable row
+identity requirements, loading/error behavior, examples and placement restrictions.</p>
 <p>Action icons currently include <code>json</code>, <code>play</code>, <code>stop</code>, <code>pause</code>, <code>restart</code>, <code>trash</code>,
 <code>plus</code>, <code>tag</code>, <code>edit</code>, <code>terminal</code>, <code>logs</code>, <code>activity</code>, <code>network</code>, and <code>settings</code>.
 The <code>terminal</code> configuration object wires a feature to the session renderer;

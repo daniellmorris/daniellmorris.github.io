@@ -1334,6 +1334,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../ROW_ACTION_OUTPUTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Action output placement and viewers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../GENERIC_CAPABILITIES/" class="md-nav__link">
         
   
@@ -2090,6 +2117,11 @@ the header owns the signed-in username and sign-out control. <code>users-page.js
 <code>#/settings/~users</code> account page, consequential-change confirmations and read-only
 Recent account activity. See
 <a href="../USERS_AND_TLS/">administrators and TLS</a> for maintained operator behavior.</p>
+<p>Action output presentation uses <code>backend/view_schema.py</code> for configuration
+validation, <code>frontend/src/lib/action-output.mjs</code> for identity/extraction and result
+state transitions, <code>features/resources/use-resource-actions.js</code> for execution, and
+<code>components/ui/action-output.jsx</code> for shared viewers. <code>ResourceTable</code> anchors each
+result beneath its stable row; adapters do not own output JSX.</p>
 
 
 
