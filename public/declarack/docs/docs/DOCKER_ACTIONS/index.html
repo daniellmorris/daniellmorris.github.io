@@ -1621,6 +1621,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#task-identity-and-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Task identity and relationships
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2047,6 +2058,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#task-identity-and-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Task identity and relationships
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2337,6 +2359,16 @@ Manager-engine lifecycle actions are confirmed and refreshed in place; use servi
 actions for durable Swarm workload changes. Non-confirmation row forms stay beneath
 their resource, while destructive confirmations remain modal. See the
 <a href="../CONFIGURATION/#inventory-scope-and-action-placement">scope and placement contract</a>.</p>
+<h2 id="task-identity-and-relationships">Task identity and relationships<a class="headerlink" href="#task-identity-and-relationships" title="Permanent link">&para;</a></h2>
+<p>Task lists and details resolve service names and node hostnames through batched
+manager lookups. They show the task attempt, slot, image, container identity and
+state; full IDs remain available in details and optional columns. Removed services
+or nodes are labeled explicitly, and unavailable name lookups retain the task
+with a context warning. Declarack helper tasks are excluded from the list.
+<strong>Inspect container</strong> reads from the owning node through a short-lived job; an
+old task can reference a container Docker has already removed. This action may
+report unavailable rather than return container data. Task JSON inspection
+continues to return the original manager task response.</p>
 
 
 
