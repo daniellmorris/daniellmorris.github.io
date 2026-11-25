@@ -1660,6 +1660,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Generic resource capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#container-detail-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Container detail actions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2721,6 +2738,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Generic resource capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#container-detail-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Container detail actions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -3560,7 +3594,7 @@ view instead of its list location. Without <code>row</code> or <code>detail</cod
 </tr>
 <tr>
 <td><code>enabled_when</code></td>
-<td>JSONata against a list row to enable/disable its action</td>
+<td>JSONata against a list row or detail response to enable/disable its action</td>
 </tr>
 <tr>
 <td><code>disabled</code></td>
@@ -4291,6 +4325,17 @@ examples, execution guarantees, and limits.</p>
 <p>See <a href="../TEMPLATES_AND_DYNAMIC_FORMS/">integration templates and dynamic form options</a> for the Add integration workflow, adapter-owned presets, dependent dropdowns and validation.</p>
 <h2 id="generic-resource-capabilities">Generic resource capabilities<a class="headerlink" href="#generic-resource-capabilities" title="Permanent link">&para;</a></h2>
 <p>See <a href="../GENERIC_CAPABILITIES/">resource selectors, terminal sessions, file trees and input constraints</a> for their schemas, adapter responsibilities and pre-release migration notes.</p>
+<h3 id="container-detail-actions">Container detail actions<a class="headerlink" href="#container-detail-actions" title="Permanent link">&para;</a></h3>
+<p>The built-in local-container detail page includes start, stop, restart, remove,
+pause/resume, rename, terminal, metrics, logs and JSON inspection. Lifecycle
+actions retain their confirmation dialogs. Removal returns to inventory and
+retains volumes; stop the container first. “Restart” restarts the same container;
+it does not reset its files or recreate it. In Swarm, these are manager-engine
+local containers, not cluster-wide task management.</p>
+<p>Detail actions use <code>detail: true</code> with the same operation and row-input mapping
+as inventory actions. Their <code>enabled_when</code> expression receives the inspect
+response (for Docker, <code>State.Status</code>), whereas inventory actions receive the list
+row (<code>State</code>). Unavailable or invalid conditions disable the button.</p>
 
 
 
