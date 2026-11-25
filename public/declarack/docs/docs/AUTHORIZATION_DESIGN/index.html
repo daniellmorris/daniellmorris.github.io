@@ -2087,15 +2087,27 @@ identities. They must not silently acquire all installation-admin privileges, or
 retain a user's old access forever after role changes. Define delegation and
 revocation before enabling non-admin schedule creation.</p>
 <h2 id="storage-and-rollout">Storage and rollout<a class="headerlink" href="#storage-and-rollout" title="Permanent link">&para;</a></h2>
-<p>Store role definitions and user assignments in the shared database, alongside
-accounts, using existing SQLite/PostgreSQL infrastructure. This avoids a second
-live file-based policy authority. A future export/bootstrap mechanism can be
-separate from normal GUI administration. Record role changes and assignments in
-the audit log without recording credential values.</p>
-<p>Migrate existing administrators explicitly to the administrator role. Preserve
-host recovery and transactional protection against disabling or removing the last
-enabled administrator. Editing roles must not let an operator elevate their own
-access beyond delegated authority.</p>
+<p>Role definitions and permission grants belong in system configuration. User
+accounts and assigned role IDs belong in the account database. The backend derives
+effective access from those assignments and the <strong>active</strong> configuration.</p>
+<p>The database already owns saved and active system configuration. Role definitions
+therefore reuse the existing file import, GUI editing, review, save, history and
+activation workflow rather than introducing a second policy store. Files remain
+import/write-back sources under the existing FORCE_LOAD/WRITE_BACK rules.</p>
+<p>Saving role changes does not change access until activation. Requests, reviewed
+writes, terminal sessions and background execution must observe the active policy
+revision. Role assignments take effect when their account change commits; both
+kinds of change invalidate stale effective-access metadata. Record changes in the
+audit log without recording credential values.</p>
+<p>Keep a protected built-in Administrator role outside editable role definitions,
+so configuration cannot accidentally remove installation recovery. Migrate
+existing administrators explicitly to that role. Validate references when saving
+assignments and when activating configuration. Referenced role removal should
+require reassignment; a force-loaded configuration with unresolved assignments
+must fail closed for those grants while preserving built-in administrator access.
+Activation and account edits must protect the last enabled administrator, with
+consistent transactional/concurrency checks. Editing configuration or assignments
+must not let an operator elevate their own access beyond delegated authority.</p>
 <p>Recommended implementation order:</p>
 <ol>
 <li>Inventory every externally reachable operation/API, classify its effect and
