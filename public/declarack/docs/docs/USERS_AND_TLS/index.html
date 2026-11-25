@@ -20,7 +20,7 @@
         <link rel="prev" href="../../guides/deployment/">
       
       
-        <link rel="next" href="../../guides/troubleshooting/">
+        <link rel="next" href="../AUTHORIZATION_DESIGN/">
       
       
         
@@ -31,7 +31,7 @@
     
     
       
-        <title>Administrators, sessions and TLS - Declarack Docs</title>
+        <title>Users, sessions and TLS - Declarack Docs</title>
       
     
     
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Administrators, sessions and TLS
+              Users, sessions and TLS
             
           </span>
         </div>
@@ -773,7 +773,7 @@
   <span class="md-ellipsis">
     
   
-  Administrators, sessions and TLS
+  Users, sessions and TLS
 
     
   </span>
@@ -790,7 +790,7 @@
   <span class="md-ellipsis">
     
   
-  Administrators, sessions and TLS
+  Users, sessions and TLS
 
     
   </span>
@@ -827,10 +827,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#manage-administrators" class="md-nav__link">
+  <a href="#manage-users" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Manage administrators
+        Manage users
       </span>
     </span>
   </a>
@@ -907,6 +907,33 @@
   
 </nav>
       
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AUTHORIZATION_DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Authorization design proposal
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1905,10 +1932,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#manage-administrators" class="md-nav__link">
+  <a href="#manage-users" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Manage administrators
+        Manage users
       </span>
     </span>
   </a>
@@ -1998,7 +2025,7 @@
                   
 
 
-<h1 id="administrators-sessions-and-tls">Administrators, sessions and TLS<a class="headerlink" href="#administrators-sessions-and-tls" title="Permanent link">&para;</a></h1>
+<h1 id="users-sessions-and-tls">Users, sessions and TLS<a class="headerlink" href="#users-sessions-and-tls" title="Permanent link">&para;</a></h1>
 <p>Declarack uses local, database-backed administrator accounts and a dedicated login
 page. Every administrator has full access to the installation, credentials and
 workloads. Environments and navigation groups do not restrict that access. There
@@ -2036,25 +2063,36 @@ configuration valid. Manage existing passwords through Administrators or host
 recovery instead of rotating bootstrap inputs. Accounts are database rows, not
 YAML documents. A profile with inline <code>{value: ...}</code> still leaves that bootstrap
 secret in configuration revisions, history and exports; prefer file references.</p>
-<h2 id="manage-administrators">Manage administrators<a class="headerlink" href="#manage-administrators" title="Permanent link">&para;</a></h2>
-<p>Open <strong>Settings → Administrators</strong> (<code>#/settings/~users</code>) to list accounts, create
-an administrator and select an account's inline editor. Usernames are immutable,
-1–64 ASCII characters: the first must be a letter or number; subsequent characters
-may also be <code>_</code>, <code>.</code>, <code>@</code> or <code>-</code>. Names are canonicalized to lowercase and unique.
-New and reset passwords must contain 12–1024 characters. The login form does not
-apply the new-password minimum to password entry.</p>
-<p>The editor can disable or enable an account, reset its password, or revoke all
-sessions. Consequential changes require confirmation. Disabling an account or
-resetting its password revokes its sessions; explicit revocation also signs out
-all its sessions. Resetting your own password or revoking your own sessions signs
-you out immediately. You cannot disable yourself, and the backend protects the
-last enabled administrator. There is no account deletion or role selector.</p>
+<h2 id="manage-users">Manage users<a class="headerlink" href="#manage-users" title="Permanent link">&para;</a></h2>
+<p>Open <strong>Settings → Users</strong> (<code>#/settings/~users</code>) for the account list. Click a
+username or <strong>Manage</strong> to open that user's dedicated detail page. The <strong>You</strong>
+badge identifies your own account. The top-level <strong>Refresh</strong> reloads the list,
+account summary and activity; there are no separate card refresh buttons.</p>
+<p>Choose <strong>Create user</strong> to open <code>#/settings/~users/~new</code>. Enter a username and
+password, then submit. Success opens the new account's detail page; Cancel returns
+to the list without saving. Usernames are immutable, 1–64 ASCII characters: the
+first must be a letter or number; subsequent characters may also be <code>_</code>, <code>.</code>, <code>@</code>
+or <code>-</code>. Names are canonicalized to lowercase and unique. New and reset passwords
+must contain 12–1024 characters. The login form does not apply the new-password
+minimum to password entry. Every created account currently has full administrator
+access; role-based restrictions are <strong>not implemented</strong>.</p>
+<p>Details use <code>#/settings/~users/USER_ID</code> and separate Account summary, Password,
+Access, Sessions and Activity. Password fields appear only after <strong>Reset password</strong>.
+Disabling, enabling, resetting a password or signing out sessions requires a
+confirmation. Disabling an account or resetting its password revokes its sessions;
+<strong>Sign out all sessions</strong> also signs out all its sessions. Resetting your own
+password or signing out your own sessions signs you out immediately. You cannot
+disable yourself, and the backend protects the last enabled administrator. There
+is no account deletion or role selector. Navigating away clears password fields.</p>
+<p>Global activity is collapsed on the list. User details filter the latest 100
+installation events to the selected account; this is not an exhaustive per-user
+history. Account events are retained up to the existing 1,000-event bound and
+exclude passwords/session tokens. Accounts remain database rows, separate from
+YAML configuration.</p>
+<p>The <a href="../AUTHORIZATION_DESIGN/">authorization design proposal</a> describes possible
+roles and operation-scoped permissions; it does not describe current enforcement.</p>
 <p>Demo mode returns an authenticated demo session and bypasses login. Administrator
 management is explicitly unavailable in both backend and static demo modes.</p>
-<figure class="docs-screenshot">
-<p><a href="../../assets/screenshots/administrators.jpg"><img alt="Administrators page with account management and recent account activity." loading="lazy" src="../../assets/screenshots/administrators.jpg" /></a></p>
-<figcaption>Manage administrators and review recent account activity.</figcaption>
-</figure>
 <h2 id="recover-access-from-the-host">Recover access from the host<a class="headerlink" href="#recover-access-from-the-host" title="Permanent link">&para;</a></h2>
 <p>Run this from an environment with the same database selection and access as the
 controller, with a file containing the new 12–1024 character password:</p>
@@ -2306,13 +2344,13 @@ Basic, Git and registry profiles, which remain separate supported uses of <code>
         
         
           
-          <a href="../../guides/troubleshooting/" class="md-footer__link md-footer__link--next" aria-label="Next: Troubleshooting">
+          <a href="../AUTHORIZATION_DESIGN/" class="md-footer__link md-footer__link--next" aria-label="Next: Authorization design proposal">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Troubleshooting
+                Authorization design proposal
               </div>
             </div>
             <div class="md-footer__button md-icon">

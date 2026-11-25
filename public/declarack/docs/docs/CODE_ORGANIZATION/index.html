@@ -759,7 +759,34 @@
   <span class="md-ellipsis">
     
   
-  Administrators, sessions and TLS
+  Users, sessions and TLS
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AUTHORIZATION_DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Authorization design proposal
 
     
   </span>
@@ -2114,9 +2141,10 @@ audit log; direct calls do not all produce recorded plans.</p>
 explicit immediate-proxy IPs/CIDRs. The frontend <code>features/auth/session-gate.jsx</code>
 unmounts protected children after logout, the session expiry timer or an API 401;
 the header owns the signed-in username and sign-out control. <code>users-page.jsx</code> owns the dedicated
-<code>#/settings/~users</code> account page, consequential-change confirmations and read-only
-Recent account activity. See
-<a href="../USERS_AND_TLS/">administrators and TLS</a> for maintained operator behavior.</p>
+<code>#/settings/~users</code> list, <code>~new</code> creation and user-ID detail routes,
+consequential-change confirmations and account-filtered activity. The shell owns
+the shared refresh button; users/activity data subscribe to its revision. See
+<a href="../USERS_AND_TLS/">users and TLS</a> for maintained operator behavior.</p>
 <p>Action output presentation uses <code>backend/view_schema.py</code> for configuration
 validation, <code>frontend/src/lib/action-output.mjs</code> for identity/extraction and result
 state transitions, <code>features/resources/use-resource-actions.js</code> for execution, and
