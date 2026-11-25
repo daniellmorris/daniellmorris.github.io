@@ -1305,6 +1305,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Reviewed edits and recovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comparing-historical-revisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comparing historical revisions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1957,6 +1974,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Reviewed edits and recovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comparing-historical-revisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Comparing historical revisions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2169,6 +2203,14 @@ content is validated against the other files as they exist now. This is not an
 atomic rollback of an entire folder, and it does not remove newly added files.
 Git and Swarm-config providers retain their own publication/history workflows.
 Drafts remain in the open page; they are not persisted automatically.</p>
+<h3 id="comparing-historical-revisions">Comparing historical revisions<a class="headerlink" href="#comparing-historical-revisions" title="Permanent link">&para;</a></h3>
+<p>In Settings → History, choose a source file and saved revision to see its changes
+against the <strong>current saved configuration</strong>. Removed lines (<code>−</code>) belong to the
+current file; added lines (<code>+</code>) belong to the selected historical revision. The
+baseline excludes unsaved editor drafts and may differ from the active runtime
+configuration when saved changes have not been activated. Large diffs are bounded
+and explicitly marked as truncated. Comparing never saves or activates changes;
+<strong>Restore to draft</strong> still requires review, save and activation.</p>
 
 
 
