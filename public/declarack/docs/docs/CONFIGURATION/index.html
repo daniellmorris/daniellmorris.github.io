@@ -1674,6 +1674,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#inventory-scope-and-action-placement" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Inventory scope and action placement
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2752,6 +2763,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#inventory-scope-and-action-placement" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Inventory scope and action placement
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2998,11 +3020,11 @@ bindings; enabling Swarm configs/secrets on standalone Docker fails validation.<
 </tr>
 <tr>
 <td><code>containers</code></td>
-<td>Standalone engine or the connected Swarm manager's local engine</td>
+<td>Standalone engine or selected/all Swarm node inventories; manager-engine lifecycle actions, worker inspection and task terminals</td>
 </tr>
 <tr>
 <td><code>networks</code></td>
-<td>Connected standalone/Swarm engine, with Swarm references where available</td>
+<td>Standalone engine or selected/all Swarm node network instances; mutations use the manager</td>
 </tr>
 <tr>
 <td><code>volumes</code></td>
@@ -3518,10 +3540,11 @@ work already in progress. Built-in summaries do not start host metrics/volume jo
 </tr>
 </tbody>
 </table>
-<p>Standalone summaries are supplied by enabled Compose, container, and image features.
-Swarm's <code>overview</code> feature supplies service/node/stack/replica summaries. If local <code>containers</code> is enabled on a Swarm target, it also contributes engine-local
-container counts; those are not cluster-wide container counts. The same custom
-feature can summarize multiple HTTP or SSH environments without JSX changes.</p>
+<p>Standalone summaries are supplied by enabled Compose and image features.
+Swarm's <code>overview</code> feature supplies service/node/stack/replica summaries. Container
+inventory has no automatic environment summary because Swarm collection requires
+a node selection and may launch jobs. The same custom feature can summarize
+multiple HTTP or SSH environments without JSX changes.</p>
 <h2 id="custom-cross-target-pages">Custom cross-target pages<a class="headerlink" href="#custom-cross-target-pages" title="Permanent link">&para;</a></h2>
 <p>Top-level <code>pages</code> definitions combine named operation sources across targets, with
 JSONata cards and tables using their shared results. They reuse existing target
@@ -3591,6 +3614,10 @@ view instead of its list location. Without <code>row</code> or <code>detail</cod
 <tr>
 <td><code>back</code></td>
 <td>Return to the list after a detail action</td>
+</tr>
+<tr>
+<td><code>visible_when</code></td>
+<td>JSONata against a list row; hide an irrelevant action</td>
 </tr>
 <tr>
 <td><code>enabled_when</code></td>
@@ -4336,6 +4363,52 @@ local containers, not cluster-wide task management.</p>
 as inventory actions. Their <code>enabled_when</code> expression receives the inspect
 response (for Docker, <code>State.Status</code>), whereas inventory actions receive the list
 row (<code>State</code>). Unavailable or invalid conditions disable the button.</p>
+<h3 id="inventory-scope-and-action-placement">Inventory scope and action placement<a class="headerlink" href="#inventory-scope-and-action-placement" title="Permanent link">&para;</a></h3>
+<p>Container and network tables show the connected engine in standalone mode. In
+Swarm, they collect <strong>node-local inventories across all nodes by default</strong>, with a
+node selector, a Node column and partial-failure reporting. Collection uses
+short-lived jobs from <code>agent_image</code>; every selected node must be able to run that
+image and mount its Docker socket. Offline, drained, unsupported or inaccessible
+nodes report errors; missing nodes are not represented as empty inventories.
+Declarack helper containers are excluded. Results are collected snapshots, not
+an atomic cluster-wide view; large responses retain the helper's explicit output
+limit and fail visibly rather than silently dropping rows.</p>
+<p>Containers and local networks have node-qualified selection identities. Overlay
+networks can appear once per reporting node: those are sightings of the same
+Swarm-scoped network, not separate overlay definitions. Network inspection is
+pinned to the row's node, so endpoint information is local to that node. Network
+creation and mutation still use the connected manager. Removing a Swarm-scoped
+overlay affects the whole Swarm, not just one node. Manager-local detail links
+and lifecycle actions are shown only for manager-engine rows. Worker containers
+have inline inspection; running service task containers also have the existing
+Swarm-relay terminal action. Worker-local standalone containers currently have
+inspection only. Changing a Swarm service's task container directly is transient;
+Swarm may reconcile it. Use service actions for the desired workload state.</p>
+<p>Services, tasks, nodes, configs and secrets use the manager's Swarm API. Volumes
+are inventoried and addressed per node, including the same volume name on
+different nodes; volume size collection remains an explicit additional action.
+Images and disk usage remain standalone-engine views. Image sizes are local,
+uncompressed sizes and use MB/GB. <strong>Pull image</strong> is the page-level creation action;
+<strong>Tag image</strong> edits an existing row. Image and network detail pages now expose
+the applicable management actions as well as inspection.</p>
+<p>Non-destructive row forms without a confirmation (for example image tagging)
+open beneath that row using the same stable identity as inline inspection.
+Sorting and paging preserve that association; returning to the row reveals its
+open form. Confirmation-based writes keep their modal dialogs. Page actions stay
+in the toolbar and keep text labels; row actions use accessible icon buttons and
+hover descriptions. <code>visible_when</code> is a generic JSONata expression evaluated
+against each list row; it hides irrelevant actions. <code>enabled_when</code> keeps an action
+visible but disabled when it is inappropriate for the current state. These are UI
+affordances, not authorization checks; adapters still own execution scope and
+validation. Service replica counts display running/desired (for example <code>1/2</code>),
+with under-replicated counts highlighted and unavailable counts shown as <code>—</code>.</p>
+<p>Automatic environment summary cards no longer query the container inventory:
+all-node collection has node inputs and can launch helpers. Use the Swarm overview
+or an explicit custom page source with <code>node_id: all</code> when the collection is wanted.
+Existing custom pages calling <code>containers.list</code> or <code>networks.list</code> on a Swarm must
+supply <code>node_id</code> (a node ID or <code>all</code>) and map <code>nodes.result.items</code>; standalone calls
+still return the normal Docker array. Existing overrides of these built-in
+features must adopt the new node-qualified selection and inspection mappings.</p>
 
 
 

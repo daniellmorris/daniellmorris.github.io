@@ -2088,7 +2088,7 @@ The table distinguishes implemented actions from candidates for broader Docker C
 </tr>
 <tr>
 <td>Networks</td>
-<td>List/inspect; standalone create local bridge, connect/disconnect by container ID, non-force removal</td>
+<td>Per-node Swarm inventory/inspection, manager-routed mutations; list/inspect; standalone create local bridge, connect/disconnect by container ID, non-force removal</td>
 <td>IPAM/subnet/gateway configuration, overlay creation, labels, driver options, endpoint aliases</td>
 </tr>
 <tr>
@@ -2158,7 +2158,7 @@ removed by overriding its feature definition in deployment configuration; hiding
 a button alone is not authorization. Internal terminal transport operations are
 explicitly listed as hidden feature actions so they remain part of that allowlist.</p>
 <h2 id="interactive-container-terminals">Interactive container terminals<a class="headerlink" href="#interactive-container-terminals" title="Permanent link">&para;</a></h2>
-<p>Open <strong>Local containers → Open terminal</strong>. Select <code>/bin/sh</code>, <code>/bin/bash</code>, or
+<p>Open <strong>Containers → Open terminal</strong>. Select <code>/bin/sh</code>, <code>/bin/bash</code>, or
 <code>/bin/ash</code> (it must exist in the image) and optionally an exec user. Connect runs
 <code>docker exec -it</code> against the selected target's Unix socket or managed tunnel.
 The default user is the container's configured user, with no privileged exec flag.
@@ -2183,7 +2183,7 @@ Image pull uses target-scoped registry credential files and has a 120-second
 timeout. Configure registry profiles through Settings; see
 <a href="../REGISTRIES_AND_GIT_SOURCES/">registry credentials and Git sources</a>. Without
 profiles, the CLI uses <code>/etc/declarack/docker</code>.
-Network creation currently creates a local bridge; it does not create an overlay.
+Network creation defaults to a local bridge for standalone Docker and an overlay for Swarm; it is sent to the connected engine or manager.
 Removal never forces deletion and container removal never deletes its volumes.</p>
 <p>Unit tests exercise non-force requests, terminal command arguments, limits,
 socket isolation, binary output, input size bounds, and versioned service restart.
@@ -2329,6 +2329,14 @@ independent Docker-in-Docker Swarms with one manager and worker each. It exercis
 manager SSH tunnels, actual worker-scheduled services, host standalone inventory,
 Prometheus/Grafana direct and SSH access, node-local volume jobs on all four nodes,
 and an interactive terminal into a worker task through Swarm relays.</p>
+<p>Container and network inventories now aggregate selected/all Swarm nodes through
+same-image jobs. Node-qualified row identity keeps duplicate names separate.
+Worker rows offer node-pinned inspection and, for running task containers, the
+Swarm terminal relay. Direct worker lifecycle mutations remain unavailable.
+Manager-engine lifecycle actions are confirmed and refreshed in place; use service
+actions for durable Swarm workload changes. Non-confirmation row forms stay beneath
+their resource, while destructive confirmations remain modal. See the
+<a href="../CONFIGURATION/#inventory-scope-and-action-placement">scope and placement contract</a>.</p>
 
 
 

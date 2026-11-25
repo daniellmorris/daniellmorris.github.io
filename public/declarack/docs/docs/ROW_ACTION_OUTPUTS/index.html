@@ -1436,6 +1436,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#row-forms-and-conditional-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Row forms and conditional actions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1893,6 +1904,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#row-forms-and-conditional-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Row forms and conditional actions
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2027,6 +2049,22 @@ containers, images, networks, volumes, Swarm services, nodes, tasks, configs and
 secrets use inline JSON output. Detail-page inspection stays in the page. Volume
 keys retain node ownership, and Swarm child-container expansion is independent
 of action output.</p>
+<h2 id="row-forms-and-conditional-actions">Row forms and conditional actions<a class="headerlink" href="#row-forms-and-conditional-actions" title="Permanent link">&para;</a></h2>
+<p>A row action without <code>confirmation</code> opens its input form directly below its row
+when the feature declares a stable identity. Forms retain the target and resource
+label from the configured table or detail fields. They use the same row slot as inline
+results, so editing a tag and inspecting JSON do not move the user to an unrelated
+page-top panel. The open form and its in-memory field values remain associated
+with that identity through sorting, filtering and paging; they are discarded when
+the form is cancelled or successfully submitted. Features without stable row
+identity retain the page form. Confirmation-based actions keep modal dialogs.</p>
+<p>Use <code>visible_when</code> for a JSONata row condition that hides an irrelevant action,
+and <code>enabled_when</code> to disable a visible action for the current state. Neither
+replaces backend authorization or adapter scope checks. Main resource tables also
+honor column <code>tone</code> and <code>link_when</code>, matching the shared row mapping used elsewhere.
+A feature may offer multiple terminal transports with different row identities;
+the session renderer selects the transport matching the encoded identity, rather
+than assuming the first terminal action applies to every row.</p>
 
 
 

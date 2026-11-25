@@ -1794,6 +1794,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#inventory-scope-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Inventory scope update
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1999,6 +2010,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         Registry/Git follow-up (2026-11-21)
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventory-scope-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Inventory scope update
       </span>
     </span>
   </a>
@@ -2532,6 +2554,14 @@ supersedes the missing-registry and tag-only rows above for these scopes.
 Registry browsing/push, standalone Git Compose sources, automatic GitOps,
 webhooks and repository bind-mount provisioning remain gaps. See
 <a href="../REGISTRIES_AND_GIT_SOURCES/">setup and persistence</a>.</p>
+<h2 id="inventory-scope-update">Inventory scope update<a class="headerlink" href="#inventory-scope-update" title="Permanent link">&para;</a></h2>
+<p>Containers and networks now use node-local Swarm jobs for selected/all-node
+inventory, with node-qualified identities and partial failure reporting. Worker
+inspection and running task terminals are available directly from container rows.
+Direct worker lifecycle/network mutation is still not covered: those actions use
+the connected manager engine, with service actions governing desired task state.
+This expands inventory coverage without implying that every Docker action is
+cluster-wide. See <a href="../CONFIGURATION/#inventory-scope-and-action-placement">the scope contract</a>.</p>
 
 
 

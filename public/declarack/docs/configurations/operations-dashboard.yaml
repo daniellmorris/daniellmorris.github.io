@@ -154,10 +154,10 @@ pages:
       columns:
       - label: Service
         value: Spec.Name
-      - label: Running
-        value: ServiceStatus.RunningTasks
-      - label: Desired
-        value: ServiceStatus.DesiredTasks
+      - label: Running / desired
+        value: '$exists(ServiceStatus.RunningTasks) and $exists(ServiceStatus.DesiredTasks) ? $string(ServiceStatus.RunningTasks) & "/" & $string(ServiceStatus.DesiredTasks) : "—"'
+        sort_value: ServiceStatus.RunningTasks
+        tone: 'ServiceStatus.RunningTasks < ServiceStatus.DesiredTasks ? "destructive" : "active"'
     - title: Local containers
       sources:
       - local_containers
