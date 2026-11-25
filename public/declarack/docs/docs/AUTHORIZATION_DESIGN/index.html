@@ -17,7 +17,7 @@
       
       
       
-        <link rel="prev" href="../USERS_AND_TLS/">
+        <link rel="prev" href="../AUTHORIZATION/">
       
       
         <link rel="next" href="../../guides/troubleshooting/">
@@ -31,7 +31,7 @@
     
     
       
-        <title>Authorization design proposal - Declarack Docs</title>
+        <title>Authorization design and roadmap - Declarack Docs</title>
       
     
     
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Authorization design proposal
+              Authorization design and roadmap
             
           </span>
         </div>
@@ -781,6 +781,33 @@
                   
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../AUTHORIZATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roles and operation permissions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
     
   
   
@@ -800,7 +827,7 @@
   <span class="md-ellipsis">
     
   
-  Authorization design proposal
+  Authorization design and roadmap
 
     
   </span>
@@ -817,7 +844,7 @@
   <span class="md-ellipsis">
     
   
-  Authorization design proposal
+  Authorization design and roadmap
 
     
   </span>
@@ -1959,10 +1986,12 @@
                   
 
 
-<h1 id="authorization-design-proposal">Authorization design proposal<a class="headerlink" href="#authorization-design-proposal" title="Permanent link">&para;</a></h1>
-<p><strong>Status: proposal, not implemented.</strong> All current Declarack login accounts are
-installation administrators. The Users UI explicitly preserves that behavior.
-This document separates a recommended first version from later extensions.</p>
+<h1 id="authorization-design-and-roadmap">Authorization design and roadmap<a class="headerlink" href="#authorization-design-and-roadmap" title="Permanent link">&para;</a></h1>
+<p>The initial configuration-backed role model is implemented. See
+<a href="../AUTHORIZATION/">the authorization guide</a> for current schema, API behavior,
+verification and limits. This document preserves the broader design: per-resource
+constraints, granular installation APIs, partial dashboard redaction and scoped
+background delegation remain roadmap items rather than shipped guarantees.</p>
 <h2 id="recommended-model">Recommended model<a class="headerlink" href="#recommended-model" title="Permanent link">&para;</a></h2>
 <p>Use roles that grant named permissions within explicit scopes. Adapter operation
 IDs are the natural permissions for target work; installation APIs need reserved
@@ -2162,7 +2191,7 @@ let adapters supply the resource context it evaluates.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../USERS_AND_TLS/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Users, sessions and TLS">
+          <a href="../AUTHORIZATION/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Roles and operation permissions">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
@@ -2172,7 +2201,7 @@ let adapters supply the resource context it evaluates.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Users, sessions and TLS
+                Roles and operation permissions
               </div>
             </div>
           </a>

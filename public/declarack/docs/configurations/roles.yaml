@@ -1,0 +1,29 @@
+# Complete example. Assign these roles to accounts in Settings -> Users after activation.
+targets:
+  engine:
+    label: Local Docker
+    connection: docker_socket
+    socket: /var/run/docker.sock
+    features: [containers, images, networks, volumes]
+roles:
+  observer:
+    label: Observer
+    grants:
+      - targets: [engine]
+        operations: [containers.list, images.list, networks.list, volumes.list]
+  operator:
+    label: Container operator
+    grants:
+      - targets: [engine]
+        operations:
+          - containers.list
+          - containers.start
+          - containers.stop
+          - containers.restart
+          - containers.pause
+          - containers.unpause
+          - containers.stats
+  user_directory_reader:
+    label: User directory reader
+    grants:
+      - operations: [system.users.read]

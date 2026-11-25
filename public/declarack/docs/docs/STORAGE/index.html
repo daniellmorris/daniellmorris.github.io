@@ -779,6 +779,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../AUTHORIZATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roles and operation permissions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../AUTHORIZATION_DESIGN/" class="md-nav__link">
         
   
@@ -786,7 +813,7 @@
   <span class="md-ellipsis">
     
   
-  Authorization design proposal
+  Authorization design and roadmap
 
     
   </span>
@@ -1419,6 +1446,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Authentication and TLS backups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authorization-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Authorization records
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2050,6 +2094,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Authentication and TLS backups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authorization-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Authorization records
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2382,6 +2443,13 @@ from <code>&lt;DECLARACK_DATA&gt;/tls</code> (normally <code>/data/tls</code>); 
 separate backup/rotation. Database-backed configuration exports contain inline
 bootstrap profile values but never the contents of externally referenced files.
 See <a href="../USERS_AND_TLS/">account recovery and TLS lifecycle</a>.</p>
+<h3 id="authorization-records">Authorization records<a class="headerlink" href="#authorization-records" title="Permanent link">&para;</a></h3>
+<p>Active role definitions are part of active system configuration. Account role IDs
+and the one-time legacy-administrator migration marker use <code>framework.auth.roles</code>
+versioned documents in the account database. Hashed, expiring terminal ownership
+leases use <code>framework.auth.leases</code>. These use existing shared storage and transfer
+contracts; there is no additional database or file-based authority. See
+<a href="../AUTHORIZATION/">authorization</a> for revocation, retention and replica limits.</p>
 
 
 

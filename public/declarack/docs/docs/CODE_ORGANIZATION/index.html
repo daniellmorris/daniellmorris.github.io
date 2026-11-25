@@ -779,6 +779,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../AUTHORIZATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roles and operation permissions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../AUTHORIZATION_DESIGN/" class="md-nav__link">
         
   
@@ -786,7 +813,7 @@
   <span class="md-ellipsis">
     
   
-  Authorization design proposal
+  Authorization design and roadmap
 
     
   </span>
@@ -1957,7 +1984,7 @@ service locator.</p>
 </tr>
 <tr>
 <td><code>auth/store.py</code>, <code>auth/http.py</code>, <code>auth/__main__.py</code></td>
-<td>Database administrators, password hashes, bootstrap, sessions/throttling, cookie/CSRF HTTP boundary and host password recovery</td>
+<td>Database accounts and assignments, password hashes, bootstrap, sessions/throttling, cookie/CSRF HTTP boundary and host password recovery</td>
 </tr>
 <tr>
 <td><code>identity.py</code></td>
@@ -2050,7 +2077,7 @@ adapters still use the same manifest and registration interface.</p>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                          # terminal/file views and action state
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    dashboards/           # Configured multi-target pages and charts
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    environments/         # Environment groups and target summaries
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    auth/                 # Session gate, login and installation administrators
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    auth/                 # Session gate, login, accounts and role assignment
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    settings/             # Source editing and integration setup
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    checks/               # Check state and history
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    operations/           # Run history and multi-target batches
@@ -2124,7 +2151,10 @@ database pointers. <code>configuration/writeback.py</code> handles journal recov
 file publication. Storage write transactions reserve the SQLite writer before
 reading state; PostgreSQL uses normal transactional locking.</p>
 <h2 id="account-and-transport-boundaries">Account and transport boundaries<a class="headerlink" href="#account-and-transport-boundaries" title="Permanent link">&para;</a></h2>
-<p><code>auth/store.py</code> owns account validation, scrypt password hashing, first-user-only
+<p><code>auth/policy.py</code> validates configured roles and filters presentation metadata.
+<code>auth/authorization.py</code> enforces operation grants and terminal ownership;
+<code>storage/locks.py</code> coordinates policy activation and account writes across processes.
+<code>auth/store.py</code> owns account validation, scrypt password hashing, first-user-only
 bootstrap, hashed opaque sessions, shared login throttling and bounded account
 audit documents in <code>framework.auth.audit</code> (1,000 retained; activity reads return
 100). Account writes revalidate the actual session hash under the account lock

@@ -20,7 +20,7 @@
         <link rel="prev" href="../../guides/deployment/">
       
       
-        <link rel="next" href="../AUTHORIZATION_DESIGN/">
+        <link rel="next" href="../AUTHORIZATION/">
       
       
         
@@ -919,6 +919,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../AUTHORIZATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roles and operation permissions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../AUTHORIZATION_DESIGN/" class="md-nav__link">
         
   
@@ -926,7 +953,7 @@
   <span class="md-ellipsis">
     
   
-  Authorization design proposal
+  Authorization design and roadmap
 
     
   </span>
@@ -2027,9 +2054,10 @@
 
 <h1 id="users-sessions-and-tls">Users, sessions and TLS<a class="headerlink" href="#users-sessions-and-tls" title="Permanent link">&para;</a></h1>
 <p>Declarack uses local, database-backed administrator accounts and a dedicated login
-page. Every administrator has full access to the installation, credentials and
-workloads. Environments and navigation groups do not restrict that access. There
-are no teams, resource ownership rules, granular roles, signup, SSO or API keys.
+page. The protected Administrator role has full access to the installation, credentials
+and workloads. Configured roles restrict operations to targets; environments and
+navigation groups are not security boundaries. There are no teams, resource-label
+policies, signup, SSO or API keys. See <a href="../AUTHORIZATION/">role permissions</a>.
 Login accounts are separate from target, Git and registry credential profiles.</p>
 <figure class="docs-screenshot">
 <p><a href="../../assets/screenshots/login.jpg"><img alt="Declarack login page." loading="lazy" src="../../assets/screenshots/login.jpg" /></a></p>
@@ -2074,8 +2102,8 @@ to the list without saving. Usernames are immutable, 1–64 ASCII characters: th
 first must be a letter or number; subsequent characters may also be <code>_</code>, <code>.</code>, <code>@</code>
 or <code>-</code>. Names are canonicalized to lowercase and unique. New and reset passwords
 must contain 12–1024 characters. The login form does not apply the new-password
-minimum to password entry. Every created account currently has full administrator
-access; role-based restrictions are <strong>not implemented</strong>.</p>
+minimum to password entry. Choose one or more active roles when creating an account. The protected
+Administrator role grants full access; other roles use configured grants.</p>
 <p>Details use <code>#/settings/~users/USER_ID</code> and separate Account summary, Password,
 Access, Sessions and Activity. Password fields appear only after <strong>Reset password</strong>.
 Disabling, enabling, resetting a password or signing out sessions requires a
@@ -2083,14 +2111,15 @@ confirmation. Disabling an account or resetting its password revokes its session
 <strong>Sign out all sessions</strong> also signs out all its sessions. Resetting your own
 password or signing out your own sessions signs you out immediately. You cannot
 disable yourself, and the backend protects the last enabled administrator. There
-is no account deletion or role selector. Navigating away clears password fields.</p>
+is no account deletion. Role assignments have their own confirmation and revoke
+existing sessions. Navigating away clears password fields.</p>
 <p>Global activity is collapsed on the list. User details filter the latest 100
 installation events to the selected account; this is not an exhaustive per-user
 history. Account events are retained up to the existing 1,000-event bound and
 exclude passwords/session tokens. Accounts remain database rows, separate from
 YAML configuration.</p>
-<p>The <a href="../AUTHORIZATION_DESIGN/">authorization design proposal</a> describes possible
-roles and operation-scoped permissions; it does not describe current enforcement.</p>
+<p><a href="../AUTHORIZATION/">Role permissions</a> documents implemented enforcement and
+limits. The <a href="../AUTHORIZATION_DESIGN/">design roadmap</a> describes later extensions.</p>
 <p>Demo mode returns an authenticated demo session and bypasses login. Administrator
 management is explicitly unavailable in both backend and static demo modes.</p>
 <h2 id="recover-access-from-the-host">Recover access from the host<a class="headerlink" href="#recover-access-from-the-host" title="Permanent link">&para;</a></h2>
@@ -2344,13 +2373,13 @@ Basic, Git and registry profiles, which remain separate supported uses of <code>
         
         
           
-          <a href="../AUTHORIZATION_DESIGN/" class="md-footer__link md-footer__link--next" aria-label="Next: Authorization design proposal">
+          <a href="../AUTHORIZATION/" class="md-footer__link md-footer__link--next" aria-label="Next: Roles and operation permissions">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Authorization design proposal
+                Roles and operation permissions
               </div>
             </div>
             <div class="md-footer__button md-icon">

@@ -936,6 +936,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../docs/AUTHORIZATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roles and operation permissions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../docs/AUTHORIZATION_DESIGN/" class="md-nav__link">
         
   
@@ -943,7 +970,7 @@
   <span class="md-ellipsis">
     
   
-  Authorization design proposal
+  Authorization design and roadmap
 
     
   </span>
@@ -2123,8 +2150,12 @@ accessed, request the relevant configuration/schema instead of inventing fields.
 <td><a href="https://github.com/daniellmorris/declarack/blob/main/docs/REGISTRIES_AND_GIT_SOURCES.md">docs/REGISTRIES_AND_GIT_SOURCES.md</a></td>
 </tr>
 <tr>
-<td>Local administrators, session/CSRF clients and native/proxy TLS</td>
+<td>Local users, session/CSRF clients and native/proxy TLS</td>
 <td><a href="https://github.com/daniellmorris/declarack/blob/main/docs/USERS_AND_TLS.md">docs/USERS_AND_TLS.md</a></td>
+</tr>
+<tr>
+<td>Configured roles and operation grants</td>
+<td><a href="https://github.com/daniellmorris/declarack/blob/main/docs/AUTHORIZATION.md">docs/AUTHORIZATION.md</a></td>
 </tr>
 <tr>
 <td>Database setup and storage migration</td>
@@ -2159,7 +2190,7 @@ real deployment destinations. Stay within the user's requested setup scope.</p>
 <li><strong>Deployment/bootstrap:</strong> container mounts, Docker socket, environment variables,
   Docker secrets, selected config path and data-volume persistence.</li>
 <li><strong>System YAML:</strong> <code>targets</code>, <code>operations</code>, <code>features</code>, <code>environments</code>, <code>pages</code>,
-  <code>checks</code>, <code>batches</code>, <code>integration_templates</code> and optional installation <code>auth</code>.
+  <code>checks</code>, <code>batches</code>, <code>integration_templates</code>, <code>roles</code> and optional installation <code>auth</code>.
   At least one target is required.</li>
 <li><strong>Application source:</strong> a managed application's Compose YAML and its saved
   stack/project source. This is different from Declarack's own system config.</li>
@@ -2256,8 +2287,11 @@ when users are empty. Otherwise use <code>DECLARACK_ADMIN_USERNAME</code> (defau
 and either <code>DECLARACK_PASSWORD_FILE</code> or <code>DECLARACK_PASSWORD</code>. Existing users ignore
 bootstrap secret changes; use Administrators or host recovery to reset passwords.
 Do not emit removed <code>auth.provider: basic</code> or <code>auth.credential</code>; clients must use
-login cookies and CSRF/action headers. All administrators have full installation
-access. Inline bootstrap values remain in configuration history and exports.
+login cookies and CSRF/action headers. The protected <code>administrator</code> role has full installation access. Configure other
+roles with explicit operation IDs and target IDs, activate configuration, then
+assign those role IDs through Settings → Users. Assignments live in the account
+database; role changes revoke sessions. Installation APIs outside the documented
+user permissions and background/bulk execution remain Administrator-only. Inline bootstrap values remain in configuration history and exports.
 Native TLS is configured through deployment environment variables, not YAML;
 persist generated <code>/data/tls</code> files even with PostgreSQL and configure explicit
 proxy trust for HTTPS termination. There is no ACME or automatic renewal.

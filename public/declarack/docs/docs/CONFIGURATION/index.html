@@ -779,6 +779,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../AUTHORIZATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Roles and operation permissions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../AUTHORIZATION_DESIGN/" class="md-nav__link">
         
   
@@ -786,7 +813,7 @@
   <span class="md-ellipsis">
     
   
-  Authorization design proposal
+  Authorization design and roadmap
 
     
   </span>
@@ -1714,6 +1741,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-and-operation-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Roles and operation permissions
+      </span>
+    </span>
+  </a>
   
 </li>
       
@@ -2803,6 +2841,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-and-operation-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Roles and operation permissions
+      </span>
+    </span>
+  </a>
   
 </li>
       
@@ -4286,8 +4335,12 @@ application code. There is no browser plugin installer or automatic dependency i
 <td>Not implemented by these settings</td>
 </tr>
 <tr>
-<td>Add roles, SSO, or per-user target permissions</td>
-<td>Not implemented by these settings</td>
+<td>Configure roles and target operation grants</td>
+<td>Yes, see <a href="../AUTHORIZATION/">authorization</a></td>
+</tr>
+<tr>
+<td>Add SSO or per-resource argument constraints</td>
+<td>Not implemented</td>
 </tr>
 </tbody>
 </table>
@@ -4436,6 +4489,13 @@ Existing custom pages calling <code>containers.list</code> or <code>networks.lis
 supply <code>node_id</code> (a node ID or <code>all</code>) and map <code>nodes.result.items</code>; standalone calls
 still return the normal Docker array. Existing overrides of these built-in
 features must adopt the new node-qualified selection and inspection mappings.</p>
+<h2 id="roles-and-operation-permissions">Roles and operation permissions<a class="headerlink" href="#roles-and-operation-permissions" title="Permanent link">&para;</a></h2>
+<p>Top-level <code>roles</code> define explicit operation grants per target. Account role IDs
+are stored with users, independently of configuration. Saved role edits apply on
+activation; account assignment edits apply immediately and revoke sessions.
+The protected <code>administrator</code> role cannot be redefined. See the
+<a href="../AUTHORIZATION/">authorization guide</a> for the schema, UI derivation, installation
+permissions, defaults and deferred capabilities.</p>
 
 
 
